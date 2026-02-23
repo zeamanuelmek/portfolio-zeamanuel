@@ -2,7 +2,6 @@
 
 import { type CSSProperties } from 'react';
 import { designTokens } from '@/themes/tokens';
-import { RotatingText } from '@/components/atoms';
 import { Button as MantineButton } from '@mantine/core';
 
 export interface HeroSectionProps {
@@ -71,13 +70,6 @@ function AnimatedSection({
     </div>
   );
 }
-
-const rotatingPhrases = [
-  'working prototypes',
-  'functional products',
-  'AI-augmented solutions',
-  'complete experiences',
-];
 
 export function HeroSection({
   profileImageSrc = '/images/profile.jpg',
@@ -172,41 +164,55 @@ export function HeroSection({
             </h1>
           </AnimatedSection>
 
-          {/* ── Line 2: I'm a UX Systems Designer who ships ── */}
-          <AnimatedSection delay={350} style={{ marginTop: 'clamp(8px, 1.5vh, 16px)' }}>
+          {/* ── Line 2: Role ── */}
+          <AnimatedSection delay={350} style={{ marginTop: 'clamp(10px, 1.5vh, 18px)' }}>
             <p
               style={{
                 fontFamily: typography.fontFamily.heading,
-                fontSize: 'clamp(2.25rem, 4.5vw + 0.5rem, 4.25rem)',
-                lineHeight: 1.15,
+                fontSize: 'clamp(1.5rem, 2.8vw + 0.4rem, 2.5rem)',
+                lineHeight: 1.2,
                 margin: 0,
-                letterSpacing: '-0.02em',
+                letterSpacing: '-0.015em',
               }}
             >
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
+              <span style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 400 }}>
                 I&apos;m a{' '}
               </span>
               <span style={{ ...goldGradientText, fontWeight: 700 }}>
                 UX Systems Designer
               </span>
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
-                {' '}who ships
-              </span>
             </p>
           </AnimatedSection>
 
-          {/* ── Line 3: [rotating text] ── */}
-          <AnimatedSection delay={500} style={{ marginTop: 'clamp(8px, 1.5vh, 16px)' }}>
+          {/* ── Line 3: What I do ── */}
+          <AnimatedSection delay={500} style={{ marginTop: 'clamp(14px, 2vh, 24px)' }}>
             <p
               style={{
-                fontFamily: typography.fontFamily.heading,
-                fontSize: 'clamp(2.25rem, 4.5vw + 0.5rem, 4.25rem)',
-                lineHeight: 1.15,
+                fontFamily: typography.fontFamily.body,
+                fontSize: 'clamp(0.875rem, 0.5vw + 0.7rem, 1.0625rem)',
+                lineHeight: 1.65,
                 margin: 0,
-                letterSpacing: '-0.02em',
+                maxWidth: '38rem',
+                color: 'rgba(255,255,255,0.4)',
               }}
             >
-              <RotatingText phrases={rotatingPhrases} interval={3000} />
+              I turn ideas into{' '}
+              <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
+                working prototypes
+              </span>
+              {' '}and{' '}
+              <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
+                functional products
+              </span>
+              {' '}&mdash; crafting{' '}
+              <span style={{ ...goldGradientText, fontWeight: 600, fontStyle: 'italic' }}>
+                AI-augmented solutions
+              </span>
+              {' '}that deliver{' '}
+              <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
+                complete experiences
+              </span>
+              , not just pixels.
             </p>
           </AnimatedSection>
 
