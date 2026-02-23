@@ -106,54 +106,18 @@ export function HeroSection({
             margin: '0 auto',
           }}
         >
-          {/* ── Top: Section number + Availability ── */}
+          {/* ── Top: Section number ── */}
           <AnimatedSection delay={0}>
-            <div
+            <span
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '12px',
+                fontFamily: typography.fontFamily.mono,
+                fontSize: '0.6875rem',
+                color: 'rgba(255,255,255,0.15)',
+                letterSpacing: '0.08em',
               }}
             >
-              {/* Section counter */}
-              <span
-                style={{
-                  fontFamily: typography.fontFamily.mono,
-                  fontSize: '0.6875rem',
-                  color: 'rgba(255,255,255,0.15)',
-                  letterSpacing: '0.08em',
-                }}
-              >
-                01
-              </span>
-
-              {/* Availability */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: '50%',
-                    backgroundColor: colors.brand.forest,
-                    display: 'inline-block',
-                    animation: 'heroPulse 2.5s ease-in-out infinite',
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: typography.fontFamily.body,
-                    fontSize: '0.75rem',
-                    fontWeight: 500,
-                    color: 'rgba(212,175,55,0.6)',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  Available for Projects
-                </span>
-              </div>
-            </div>
+              01
+            </span>
           </AnimatedSection>
 
           {/* ── Gold accent line ── */}
@@ -168,7 +132,7 @@ export function HeroSection({
             }}
           />
 
-          {/* ── Hero: Name with inline image ── */}
+          {/* ── Line 1: Hello, I'm [image] Zeamanuel! ── */}
           <AnimatedSection delay={200}>
             <h1
               style={{
@@ -208,48 +172,101 @@ export function HeroSection({
             </h1>
           </AnimatedSection>
 
-          {/* ── Subtitle: Role + Rotating text ── */}
-          <AnimatedSection delay={400} style={{ marginTop: 'clamp(16px, 2.5vh, 28px)' }}>
+          {/* ── Line 2: I'm a UX Systems Designer ── */}
+          <AnimatedSection delay={350} style={{ marginTop: 'clamp(8px, 1.5vh, 16px)' }}>
             <p
               style={{
-                fontFamily: typography.fontFamily.body,
-                fontSize: 'clamp(1rem, 1.2vw + 0.4rem, 1.25rem)',
+                fontFamily: typography.fontFamily.heading,
+                fontSize: 'clamp(2.25rem, 4.5vw + 0.5rem, 4.25rem)',
+                lineHeight: 1.15,
                 margin: 0,
-                lineHeight: 1.6,
-                maxWidth: '40rem',
+                letterSpacing: '-0.02em',
               }}
             >
-              <span style={{ color: 'rgba(255,255,255,0.4)' }}>I&apos;m a </span>
-              <span style={{ ...goldGradientText, fontWeight: 600 }}>
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
+                I&apos;m a{' '}
+              </span>
+              <span style={{ ...goldGradientText, fontWeight: 700 }}>
                 UX Systems Designer
               </span>
-              <span style={{ color: 'rgba(255,255,255,0.4)' }}> who ships </span>
+            </p>
+          </AnimatedSection>
+
+          {/* ── Line 3: who ships [rotating text] ── */}
+          <AnimatedSection delay={500} style={{ marginTop: 'clamp(8px, 1.5vh, 16px)' }}>
+            <p
+              style={{
+                fontFamily: typography.fontFamily.heading,
+                fontSize: 'clamp(2.25rem, 4.5vw + 0.5rem, 4.25rem)',
+                lineHeight: 1.15,
+                margin: 0,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
+                who ships{' '}
+              </span>
               <RotatingText phrases={rotatingPhrases} interval={3000} />
             </p>
           </AnimatedSection>
 
-          {/* ── Bottom group ── */}
-          <div style={{ marginTop: 'clamp(40px, 6vh, 64px)' }}>
-            {/* Location */}
-            <AnimatedSection delay={550}>
-              <p
+          {/* ── Line 4: Badge + Location ── */}
+          <AnimatedSection
+            delay={650}
+            style={{
+              marginTop: 'clamp(20px, 3vh, 36px)',
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '14px',
+            }}
+          >
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                border: '1px solid rgba(212,175,55,0.25)',
+                backgroundColor: 'rgba(212,175,55,0.06)',
+                borderRadius: '9999px',
+                padding: '5px 14px',
+                fontSize: '0.75rem',
+                fontWeight: 500,
+                fontFamily: typography.fontFamily.body,
+                color: colors.brand.gold,
+              }}
+            >
+              <span
                 style={{
-                  fontFamily: typography.fontFamily.body,
-                  fontSize: '0.8125rem',
-                  color: 'rgba(255,255,255,0.25)',
-                  margin: 0,
-                  letterSpacing: '0.03em',
+                  width: 7,
+                  height: 7,
+                  borderRadius: '50%',
+                  backgroundColor: colors.brand.forest,
+                  display: 'inline-block',
+                  animation: 'heroPulse 2.5s ease-in-out infinite',
                 }}
-              >
-                Based in Addis Ababa, Ethiopia
-              </p>
-            </AnimatedSection>
+              />
+              Available for Projects
+            </div>
+            <p
+              style={{
+                fontFamily: typography.fontFamily.body,
+                fontSize: '0.8125rem',
+                color: 'rgba(255,255,255,0.25)',
+                margin: 0,
+                letterSpacing: '0.03em',
+              }}
+            >
+              Based in Addis Ababa, Ethiopia
+            </p>
+          </AnimatedSection>
 
+          {/* ── Bottom group ── */}
+          <div style={{ marginTop: 'clamp(32px, 5vh, 52px)' }}>
             {/* CTA row */}
             <AnimatedSection
-              delay={650}
+              delay={750}
               style={{
-                marginTop: '20px',
                 display: 'flex',
                 alignItems: 'center',
                 flexWrap: 'wrap',
