@@ -415,6 +415,7 @@ All atom stories follow a consistent autodocs pattern:
 - Project images go in `public/images/projects/` — cards gracefully fall back to gradient placeholders on missing images
 - **V1 tagged as `v1`** — dark theme checkpoint
 - **V2 tagged as `v2`** — light/cream theme with inline illustration
+- **V3 tagged as `v3`** — hero text restructured into 4 lines, availability badge moved inline
 
 ## Future Features (from global CLAUDE.md)
 
@@ -426,4 +427,4 @@ Planned features for Ethiopian SaaS context:
 ---
 
 **Last Updated:** 2026-02-23
-**Template Version:** 2.0.0 (V2 — Light Theme with Inline Illustration)
+**Template Version:** 3.0.0 (V3 — Hero Text Restructured into 4 Lines)
