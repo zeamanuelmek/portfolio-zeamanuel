@@ -415,7 +415,7 @@ All atom stories follow a consistent autodocs pattern:
 - Project images go in `public/images/projects/` — cards gracefully fall back to gradient placeholders on missing images
 - **V1 tagged as `v1`** — dark theme checkpoint
 - **V2 tagged as `v2`** — light/cream theme with inline illustration
-- **V3 tagged as `v3`** — hero text restructured into 4 lines, availability badge moved inline
+- **V3 tagged as `v3`** — hero with clear type hierarchy: name (largest) > role (medium heading) > static creative copy (body) > badge+location. Rotating text removed, all phrases woven into flowing description. RotatingText import removed from HeroSection.
 
 ## Future Features (from global CLAUDE.md)
 
