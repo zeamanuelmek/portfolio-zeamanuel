@@ -1,36 +1,187 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SemEnaWerk Design System
 
-## Getting Started
+A production-ready, Ethiopian-inspired design system built on **Next.js 16**, **Mantine UI 7**, and **Storybook 10**. White-label SaaS template with multi-tenant theming.
 
-First, run the development server:
+## Brand Identity
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| Primary Gold | `#D4AF37` | Main accent, CTAs, highlights |
+| Gold Light | `#E8C84A` | Hover states, gradients |
+| Rust | `#C44536` | AI/innovation accent |
+| Forest | `#2C5530` | Success, availability |
+| Earth | `#8B4513` | Warm accent |
+| Page BG | `#FAF8F3` | Cream background |
+| Dark | `#1A1A1A` | Hero sections |
+
+**Typography:** Space Grotesk (headings) | Inter (body) | JetBrains Mono (code)
+
+## Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Development server (http://localhost:3000)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Storybook (http://localhost:6006)
+npm run storybook
+
+# Theme demo page
+# Visit http://localhost:3000/demo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Next.js dev server (port 3000) |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | ESLint |
+| `npm run storybook` | Storybook dev (port 6006) |
+| `npm run build-storybook` | Build static Storybook |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+semenawerk-master-template/
+├── app/
+│   ├── layout.tsx              # Root layout (MantineProvider, fonts, cream bg)
+│   ├── page.tsx                # Home page
+│   └── demo/page.tsx           # Theme demo with live switcher
+├── components/
+│   └── atoms/                  # 23 atomic components
+│       ├── index.ts            # Barrel export
+│       ├── Button.tsx          # Form atoms...
+│       ├── Badge.tsx           # Display atoms...
+│       ├── Container.tsx       # Layout atoms...
+│       ├── Heading.tsx         # Typography atoms...
+│       └── Alert.tsx           # Feedback atoms...
+├── themes/
+│   ├── tokens.ts               # Design tokens (colors, typography, spacing, shadows)
+│   ├── createClientTheme.ts    # Theme factory (generates Mantine theme from overrides)
+│   └── clients/                # Client-specific theme configs
+│       ├── default.ts          # Gold (default)
+│       ├── green.ts            # Forest Green
+│       └── rust.ts             # Rust Red
+├── stories/
+│   ├── design-system/          # Visual docs (colors, typography, spacing, shadows, effects)
+│   └── atoms/                  # Component stories (all variants + use cases)
+└── .storybook/
+    ├── main.ts                 # Storybook config
+    └── preview.tsx             # MantineProvider decorator
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Component Library (23 Atoms)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Form Atoms
+`Button` `Input` `TextArea` `Select` `Checkbox` `Radio` `Switch` `Slider`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Display Atoms
+`Badge` `Card` `Avatar` `Image` `Divider` `Icon`
 
-## Deploy on Vercel
+### Layout Atoms
+`Container` `Stack` `Group` `Grid`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Typography Atoms
+`Heading` `Text` `Link`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Feedback Atoms
+`Alert` `Loader`
+
+All components are in `components/atoms/` with a barrel export:
+
+```typescript
+import { Button, Card, Heading, Alert } from '@/components/atoms';
+```
+
+## Theme Customization
+
+Create a new client theme by passing overrides to `createClientTheme()`:
+
+```typescript
+import { createClientTheme } from '@/themes/createClientTheme';
+
+// Default Ethiopian Gold theme
+const theme = createClientTheme();
+
+// Custom client theme
+const clientTheme = createClientTheme({
+  brandColor: '#2C5530',  // Forest Green as primary
+  fontFamily: 'Poppins',  // Optional font override
+});
+```
+
+Wrap your app with the theme:
+
+```tsx
+<MantineProvider theme={clientTheme}>
+  <App />
+</MantineProvider>
+```
+
+The theme factory generates:
+- 10-shade color scale from any hex color (proper tint/shade, not opacity)
+- 5 named palettes: `brand`, `gold`, `rust`, `forest`, `earth`
+- Typography with Space Grotesk headings (h1=48px to h6=18px)
+- Spacing scale (4px base unit)
+- Border radius (default lg=12px for inputs, xl=24px for cards)
+- Gold glow shadows in `theme.other`
+
+## Special Component Features
+
+### Gold Gradient Text
+```tsx
+<Heading goldGradient>Shimmering Headline</Heading>
+<Text goldGradient fw={600}>Gradient body text</Text>
+```
+
+### Card with Gold Glow
+```tsx
+<Card goldGlow>Hover for gold glow effect</Card>
+```
+
+### Ethiopian Dividers
+```tsx
+<Divider goldGradient />    {/* Fade-in/out gold line */}
+<Divider habesha />          {/* Ethiopian flag triple line (green/gold/red) */}
+<Divider diamond />          {/* Habesha textile diamond pattern */}
+```
+
+### Semantic Alerts
+```tsx
+<Alert semantic="success">Forest green with check icon</Alert>
+<Alert semantic="error">Rust red with X icon</Alert>
+<Alert semantic="warning">Gold with warning icon</Alert>
+<Alert semantic="info">Gold with info icon</Alert>
+```
+
+## Design Tokens
+
+All tokens live in `themes/tokens.ts`. Components should never hardcode colors or spacing — always reference tokens through the Mantine theme.
+
+```typescript
+import { designTokens } from '@/themes/tokens';
+
+designTokens.colors.brand.gold       // '#D4AF37'
+designTokens.colors.background.cream  // '#FAF8F3'
+designTokens.typography.fontFamily.heading  // "'Space Grotesk', 'Inter', sans-serif"
+designTokens.shadows.goldGlow         // '0 4px 20px rgba(212,175,55,0.3)'
+```
+
+## Stack
+
+- **Next.js 16.1.6** (App Router, Turbopack)
+- **React 19.2.3**
+- **TypeScript 5**
+- **Mantine UI 7.17.8**
+- **Tailwind CSS 4** (layout utilities only)
+- **Storybook 10.2.10**
+- **Vitest 4 + Playwright** (testing)
+- **Tabler Icons** (icon library)
+
+---
+
+Built by **Zeamanuel** | Ethiopian-inspired design for the digital future

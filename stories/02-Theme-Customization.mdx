@@ -1,0 +1,220 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Theme Customization" />
+
+<div style={{ maxWidth: '800px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
+
+# Theme Customization
+
+SemEnaWerk's theming system lets you rebrand the entire UI by changing **a single function call**.
+No digging through CSS files. No find-and-replace hex codes. Just configure and deploy.
+
+---
+
+## How It Works
+
+The theme flows through three layers:
+
+```
+tokens.ts → createClientTheme() → MantineProvider → All Components
+```
+
+1. **`themes/tokens.ts`** — raw design tokens (colors, fonts, spacing)
+2. **`themes/createClientTheme.ts`** — generates a complete Mantine theme with tint/shade color scales
+3. **`MantineProvider`** — applies the theme to every component in the tree
+
+---
+
+## Quick Start: 5-Minute Theme Swap
+
+### Step 1 — Create a Client Theme
+
+```typescript
+// themes/clients/startup-x.ts
+import { createClientTheme } from '../createClientTheme';
+
+export const startupXTheme = createClientTheme({
+  brandColor: '#FF6B35',    // Client's primary brand color
+  fontFamily: 'Poppins',    // Optional: override heading + body font
+});
+```
+
+That's it. `createClientTheme` automatically generates:
+- A **10-shade color scale** from your brand color (light → dark)
+- Matching **component defaults** (button colors, focus rings, active states)
+- Proper **contrast ratios** for text on colored backgrounds
+
+### Step 2 — Apply in Layout
+
+```typescript
+// app/layout.tsx
+import { MantineProvider } from '@mantine/core';
+import { startupXTheme } from '@/themes/clients/startup-x';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <MantineProvider theme={startupXTheme}>
+          {children}
+        </MantineProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### Step 3 — Deploy
+
+Every component automatically picks up the new theme. Buttons turn orange, focus rings
+match, cards glow in the new brand color. **Zero component changes needed.**
+
+---
+
+## The `createClientTheme` API
+
+```typescript
+createClientTheme({
+  brandColor: string,     // Required — primary brand color (hex)
+  fontFamily?: string,    // Optional — overrides both heading and body fonts
+})
+```
+
+### What It Generates
+
+| Theme Key | Generated From | Example |
+|-----------|---------------|---------|
+| `colors.brand` | 10-shade scale from `brandColor` | `brand.0` (lightest) → `brand.9` (darkest) |
+| `colors.gold` | Ethiopian gold scale | Always available as accent |
+| `colors.rust` | Ethiopian rust scale | For warnings/destructive |
+| `colors.forest` | Ethiopian forest scale | For success states |
+| `colors.earth` | Ethiopian earth scale | For neutral warmth |
+| `primaryColor` | Set to `'brand'` | Components default to brand color |
+| `fontFamily` | `fontFamily` param or Inter | Body text font |
+| `headings.fontFamily` | `fontFamily` param or Space Grotesk | Heading font |
+| `defaultRadius` | `'lg'` | Rounded, friendly aesthetic |
+| `other.goldGradient` | Fixed | `linear-gradient(135deg, #D4AF37, #E8C84A)` |
+| `other.creamBg` | Fixed | `#FAF8F3` |
+| `other.goldGlow` | Fixed | Gold box-shadow string |
+
+### Color Scale Generation
+
+`createClientTheme` generates real tint/shade scales — not opacity hacks:
+
+```
+brand.0  →  lightest tint (backgrounds, hover states)
+brand.1  →  light tint
+brand.2  →  ...
+brand.5  →  base color (your brandColor lands here)
+brand.6  →  primary shade (default for filled components)
+brand.7  →  darker shade
+brand.9  →  darkest shade (text on light backgrounds)
+```
+
+---
+
+## Pre-Built Client Themes
+
+Three example themes ship in `themes/clients/`:
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', margin: '24px 0' }}>
+  <div style={{ border: '2px solid #D4AF37', borderRadius: '12px', padding: '16px', textAlign: 'center' }}>
+    <div style={{ width: '48px', height: '48px', background: '#D4AF37', borderRadius: '50%', margin: '0 auto 8px' }} />
+    <strong>Default (Gold)</strong>
+    <div style={{ fontSize: '13px', color: '#666' }}>#D4AF37</div>
+    <div style={{ fontSize: '12px', color: '#999', marginTop: '4px' }}>Ethiopian heritage</div>
+  </div>
+  <div style={{ border: '2px solid #2C5530', borderRadius: '12px', padding: '16px', textAlign: 'center' }}>
+    <div style={{ width: '48px', height: '48px', background: '#2C5530', borderRadius: '50%', margin: '0 auto 8px' }} />
+    <strong>Forest (Green)</strong>
+    <div style={{ fontSize: '13px', color: '#666' }}>#2C5530</div>
+    <div style={{ fontSize: '12px', color: '#999', marginTop: '4px' }}>Nature & growth</div>
+  </div>
+  <div style={{ border: '2px solid #C44536', borderRadius: '12px', padding: '16px', textAlign: 'center' }}>
+    <div style={{ width: '48px', height: '48px', background: '#C44536', borderRadius: '50%', margin: '0 auto 8px' }} />
+    <strong>Rust (Red)</strong>
+    <div style={{ fontSize: '13px', color: '#666' }}>#C44536</div>
+    <div style={{ fontSize: '12px', color: '#999', marginTop: '4px' }}>Warm & bold</div>
+  </div>
+</div>
+
+Use these as references when creating new client themes.
+
+---
+
+## Live Preview
+
+Visit **[/demo](http://localhost:3000/demo)** to see theme switching in action.
+The demo page includes a `SegmentedControl` that swaps between Gold, Forest, Rust, and Earth
+themes — all 23 atoms recolor instantly.
+
+---
+
+## Advanced: Multi-Tenant Runtime Theming
+
+For SaaS platforms serving multiple tenants, themes can be swapped at runtime:
+
+```typescript
+// Dynamic theme based on tenant
+const tenantThemes = {
+  'startup-a': createClientTheme({ brandColor: '#FF6B35' }),
+  'startup-b': createClientTheme({ brandColor: '#6366F1' }),
+  'startup-c': createClientTheme({ brandColor: '#059669' }),
+};
+
+function App({ tenantId }: { tenantId: string }) {
+  const theme = tenantThemes[tenantId] ?? createClientTheme();
+
+  return (
+    <MantineProvider theme={theme}>
+      <YourApp />
+    </MantineProvider>
+  );
+}
+```
+
+No rebuild required. No CSS overrides. Just swap the theme object.
+
+---
+
+## Workflow Comparison
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '24px 0' }}>
+  <div style={{ background: '#fee2e2', borderRadius: '12px', padding: '20px' }}>
+    <strong style={{ color: '#991b1b' }}>Without SemEnaWerk</strong>
+    <ul style={{ fontSize: '14px', color: '#555', paddingLeft: '20px', marginBottom: 0 }}>
+      <li>Design from scratch — 1 week</li>
+      <li>Build components — 1 week</li>
+      <li>Integrate & test — 1 week</li>
+      <li>Total: <strong>3+ weeks</strong></li>
+    </ul>
+  </div>
+  <div style={{ background: '#dcfce7', borderRadius: '12px', padding: '20px' }}>
+    <strong style={{ color: '#166534' }}>With SemEnaWerk</strong>
+    <ul style={{ fontSize: '14px', color: '#555', paddingLeft: '20px', marginBottom: 0 }}>
+      <li>Clone template — 1 minute</li>
+      <li>Create client theme — 5 minutes</li>
+      <li>Customize content — 2-3 hours</li>
+      <li>Total: <strong>half a day</strong></li>
+    </ul>
+  </div>
+</div>
+
+---
+
+## Checklist for New Client Sites
+
+- [ ] Clone `semenawerk-master-template`
+- [ ] Create `themes/clients/[client-name].ts` with their brand color
+- [ ] Update `app/layout.tsx` to use the new theme
+- [ ] Replace content (copy, images, logo)
+- [ ] Test on mobile (Ethiopian market priority)
+- [ ] Deploy
+
+---
+
+<div style={{ textAlign: 'center', padding: '24px 0', color: '#666', fontSize: '14px' }}>
+  One template. Infinite brands. Ship fast.
+</div>
+
+</div>

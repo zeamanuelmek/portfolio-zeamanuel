@@ -1,0 +1,201 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design Principles" />
+
+<div style={{ maxWidth: '800px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
+
+# Design Principles
+
+The SemEnaWerk design system draws from Ethiopian cultural heritage to create interfaces that feel both
+familiar and modern. Every design decision serves a purpose — rooted in culture, optimized for usability.
+
+---
+
+## Ethiopian Cultural Elements
+
+### Gold (#D4AF37) — Heritage & Craftsmanship
+
+<div style={{ borderLeft: '4px solid #D4AF37', paddingLeft: '16px', margin: '16px 0' }}>
+Ethiopian gold represents centuries of craftsmanship and quality. In our system, gold is the **primary
+action color** — it signals "this is important, this is valuable." Used for primary buttons, active
+states, and premium features.
+</div>
+
+Gold appears as:
+- **Solid fills** — primary buttons, active badges
+- **Gradients** — headings with `goldGradient` prop, decorative elements
+- **Glow effects** — hover states on cards via `goldGlow` prop
+- **Borders** — focus rings, selected states
+
+### Habesha Patterns — Textile Heritage
+
+The traditional woven patterns of Ethiopian textiles (habesha kemis) inspire our decorative elements:
+
+- **Habesha Divider** — triple-line divider in green, gold, and red (Ethiopian flag colors)
+- **Diamond Divider** — geometric motif inspired by textile weaving patterns
+- **Pattern backgrounds** — subtle geometric fills for section backgrounds
+
+These elements are available through the `Divider` component's `habesha` and `diamond` props.
+
+### Warm Earth Tones — The Ethiopian Landscape
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', margin: '16px 0' }}>
+  <div style={{ background: '#FAF8F3', border: '1px solid #E8D5B7', borderRadius: '8px', padding: '16px' }}>
+    <strong>Cream (#FAF8F3)</strong>
+    <p style={{ margin: '4px 0 0', fontSize: '14px', color: '#666' }}>Page backgrounds — warm, inviting, never harsh white</p>
+  </div>
+  <div style={{ background: '#E8D5B7', borderRadius: '8px', padding: '16px' }}>
+    <strong>Sand (#E8D5B7)</strong>
+    <p style={{ margin: '4px 0 0', fontSize: '14px', color: '#555' }}>Secondary surfaces — cards, sidebars, subtle containers</p>
+  </div>
+  <div style={{ background: '#2C5530', borderRadius: '8px', padding: '16px', color: 'white' }}>
+    <strong>Forest (#2C5530)</strong>
+    <p style={{ margin: '4px 0 0', fontSize: '14px', color: '#ccc' }}>Success states, growth indicators, nature connection</p>
+  </div>
+  <div style={{ background: '#C44536', borderRadius: '8px', padding: '16px', color: 'white' }}>
+    <strong>Rust (#C44536)</strong>
+    <p style={{ margin: '4px 0 0', fontSize: '14px', color: '#ccc' }}>Warnings, destructive actions, warmth and urgency</p>
+  </div>
+</div>
+
+Our backgrounds use **cream (#FAF8F3)** instead of pure white. This warmth reduces eye strain and
+creates an inviting atmosphere — reflecting the hospitality central to Ethiopian culture.
+
+---
+
+## Interaction Patterns
+
+### Gold Glow on Hover
+
+Primary interactive elements receive a **gold box-shadow lift** on hover:
+
+```css
+box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+transform: translateY(-2px);
+```
+
+This creates a "floating" effect that draws attention to interactive elements. Applied via the `goldGlow`
+prop on the Card component — activates on hover automatically.
+
+**Why gold glow?** It creates a premium, tactile feel. Users perceive gold-glowing elements as more
+valuable and interactive, increasing engagement with primary actions.
+
+### Glass Morphism
+
+Navigation and overlay elements use subtle transparency:
+
+```css
+background: rgba(255, 255, 255, 0.8);
+backdrop-filter: blur(10px);
+```
+
+This creates depth without heaviness — modern interfaces that feel light and spacious.
+
+### Generous Border Radius
+
+Components default to `radius="lg"` (buttons, inputs) and `radius="xl"` (cards). This creates a
+friendly, approachable aesthetic that contrasts with sharp corporate designs.
+
+---
+
+## Typography Philosophy
+
+### Three-Font System
+
+| Font | Role | Character |
+|------|------|-----------|
+| **Space Grotesk** | Headings | Geometric, modern, distinctive |
+| **Inter** | Body text | Highly readable, neutral, professional |
+| **JetBrains Mono** | Code/data | Technical, precise, monospaced |
+
+Space Grotesk was chosen for headings because its geometric forms echo the angular patterns in
+Ethiopian art and architecture, while remaining thoroughly modern.
+
+### Scale & Hierarchy
+
+Headings use a deliberate size scale that creates clear visual hierarchy:
+- `h1: 2.5rem` — page titles, hero text
+- `h2: 2rem` — section headers
+- `h3: 1.5rem` — subsection headers
+- `h4: 1.25rem` — card titles, feature names
+
+---
+
+## Component Philosophy
+
+### Mantine Base + Ethiopian Brand Layer
+
+Every component starts with a Mantine primitive and adds an Ethiopian design layer:
+
+```
+Mantine Button → gold color default + lg radius → SemEnaWerk Button
+Mantine Card   → goldGlow hover + xl radius    → SemEnaWerk Card
+Mantine Alert  → semantic color mapping         → SemEnaWerk Alert
+```
+
+**Why Mantine?** It provides accessible, tested, production-ready components. We add brand identity
+on top — not reinventing the wheel, but painting it gold.
+
+### Single Responsibility
+
+Each atom does **one thing well**:
+- `Button` handles clicks — never layout
+- `Card` contains content — never navigation
+- `Container` constrains width — never decorates
+
+This makes components predictable, composable, and easy to test.
+
+### Theme-Driven, Not Hardcoded
+
+Every color, spacing value, and shadow comes from the theme system:
+
+```typescript
+// Good — uses theme tokens
+<Button color="gold">Pay with TeleBirr</Button>
+<Card style={{ boxShadow: theme.other.goldGlow }}>
+
+// Bad — hardcoded values
+<Button style={{ background: '#D4AF37' }}>
+<Card style={{ boxShadow: '0 4px 20px rgba(212,175,55,0.3)' }}>
+```
+
+This enables **5-minute theme swaps** — change one file, entire site recolors.
+
+---
+
+## Accessibility
+
+### Commitments
+
+- **Color contrast** — all text meets WCAG 2.1 AA (4.5:1 for body, 3:1 for large text)
+- **Focus indicators** — visible gold focus rings on all interactive elements
+- **Screen readers** — semantic HTML, ARIA labels on icon-only buttons
+- **Keyboard navigation** — all components are fully keyboard accessible via Mantine
+- **Motion** — respects `prefers-reduced-motion` for animations
+
+### Ethiopian Context
+
+- **Mobile-first** — the Ethiopian market is mobile-dominant; every component is designed for touch
+- **Low bandwidth** — minimal JavaScript, optimized assets, no heavy animations
+- **Multilingual-ready** — components handle Amharic text (right-to-left not needed, but long characters supported)
+
+---
+
+## Design Decision Log
+
+| Decision | Rationale |
+|----------|-----------|
+| Cream background over white | Warmer, less clinical, reflects Ethiopian hospitality |
+| Gold as primary color | Cultural significance + premium perception |
+| `radius="lg"` default | Friendly, modern, approachable |
+| Space Grotesk headings | Geometric forms echo Ethiopian patterns |
+| Habesha divider patterns | Cultural identity in micro-interactions |
+| Mobile-first approach | Ethiopian market reality |
+
+---
+
+<div style={{ textAlign: 'center', padding: '24px 0', color: '#666', fontSize: '14px' }}>
+  Every design choice tells a story. Ours is Ethiopian.
+</div>
+
+</div>
