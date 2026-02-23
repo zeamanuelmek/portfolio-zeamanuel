@@ -327,33 +327,37 @@ npm run build-storybook  # Build Storybook
   - Note: CTA buttons use `MantineButton` directly (not the custom `Button` atom) because the atom's `ButtonProps` doesn't expose the polymorphic `component` prop needed for `component="a"`
   - Responsive heading uses `clamp(2.125rem, 5vw + 1rem, 5rem)` for fluid sizing
   - Image sizes: 64px desktop → 56px tablet → 40px mobile via `clamp(40px, 5vw + 8px, 64px)`
-- [x] **Phase 12: Portfolio Page Redesign** — DONE (Hero v2 + Project Showcase)
-  - **HeroSection v2** — Complete redesign with editorial layout:
-    - Left-aligned content, centered container (`maxWidth: 64rem`, `margin: 0 auto`)
-    - Dark background (#1A1A1A) with subtle gold radial gradient glows (no solid gradient — transparent over `<main>` bg)
-    - Section counter "01" in JetBrains Mono + availability badge (pulsing green dot) in top header row
-    - Gold accent line (`linear-gradient` growing from left) separating header from content
-    - Name heading: `clamp(2.25rem → 4.25rem)`, "Hello, I'm" dimmed (0.5 opacity), "Zeamanuel!" gold gradient, inline profile image (72px, gold border, hover glow via CSS class)
-    - Subtitle: single flowing paragraph — "I'm a **UX Systems Designer** who ships [rotating text]"
-    - Bottom group: location (dimmed) + CTA pill button (gold, `size="sm"`) + description text
-    - Staggered entry animations: 0/200/400/550/650ms delays, spring easing (`cubic-bezier(0.16, 1, 0.3, 1)`)
-    - `minHeight: clamp(600px, 85vh, 100vh)` — slightly less than full viewport for tighter section flow
-  - **ProjectShowcase** — New block component (`components/blocks/ProjectShowcase.tsx`):
-    - Dark background (transparent over `<main>` bg) — seamless with hero, no visible seam
-    - Section counter "02" + "Selected Work" label + gold accent line mirroring hero's rhythm
-    - "Project **Showcase**" heading with gold gradient accent + right-aligned tagline with italic gold "*sharper.*"
-    - 2-column responsive grid (CSS class `showcase-grid`: 1 col on mobile, 2 on `≥640px`)
-    - Project cards: 16:10 thumbnail (24px radius, border, dark shadow), hover effects (lift 6px, gold border glow, title turns gold, image zooms 3%)
-    - Editorial project numbers ("01"–"06") in gold-tinted mono font beside titles
-    - Gold-tinted tag pills (`rgba(212,175,55,*)` for text/border/bg)
-    - Image error fallback: gradient placeholder when image missing
-    - "Load More" outline button (gold, pill shape) — shows 4 initially, loads 2 more per click
-    - ScrollReveal animation on all elements (IntersectionObserver, staggered left/right cards)
-    - 6 default projects with placeholder image paths in `public/images/projects/`
+- [x] **Phase 12: Portfolio Page Redesign (V1)** — DONE (Hero v2 + Project Showcase, dark theme)
+  - Tagged as `v1` — dark theme with `#1A1A1A` background, gold radial glows
+  - HeroSection v2: editorial left-aligned layout, section counters, staggered animations
+  - ProjectShowcase: 2-column grid, ScrollReveal, hover effects, Load More button
+  - See `git show v1` for full dark theme state
+- [x] **Phase 13: Light Theme Redesign (V2)** — DONE
+  - **Theme switch:** Dark (#1A1A1A) → Light/Cream (#FAF8F3) across entire site
+  - **HeroSection v3** — Two-column layout with inline illustration:
+    - Cream background (#FAF8F3), all text colors adapted for light bg
+    - "Hello, I'm" in dimmed gray (#ACACAC), "Zeamanuel!" gold gradient, bold text in dark (#2C2C2C)
+    - Subtitle dimmed parts (#ACACAC), "UX Systems Designer" gold gradient, RotatingText gold
+    - Two-column flexbox: text content left (~60%), coffee ceremony illustration right (~40%)
+    - Illustration: inline content element (not absolute positioned), rounded corners (`clamp(16px, 2vw, 28px)`), earth-tone shadow
+    - Responsive: stacks vertically at ≤860px, illustration centers below text
+    - "Open to collaboration" badge with gold border + forest green dot
+    - Location text, CTA button, description in bottom group
+    - Profile image: 72px with gold border, hover glow effect
+    - CSS media queries in `<style>` tag for `.hero-layout` and `.hero-illustration-col` responsive behavior
+  - **ProjectShowcase v2** — Light theme adaptation:
+    - Transparent bg (sits on cream `<main>`)
+    - Text: primary #2C2C2C for titles, secondary from tokens for descriptions/tags
+    - Thumbnail: cream placeholder (#F0EDE6), light border (`rgba(0,0,0,0.06)`), subtle shadow
+    - Hover: earth-tone shadow (`rgba(139,69,19,0.1)`), gold border glow, title turns gold (#B8941F)
+    - Tags: light bg (`rgba(0,0,0,0.03)`), subtle border, secondary text color
+    - Section header: dimmed labels (`rgba(0,0,0,0.2)`), gold accent line at 25% opacity
+    - Load More button: gold outline variant
+    - Image error fallback: cream-to-gold gradient instead of dark gradient
   - **Page composition** (`app/page.tsx`):
-    - `<main style={{ backgroundColor: '#1A1A1A' }}>` — single dark base, both sections transparent on top
+    - `<main style={{ backgroundColor: '#FAF8F3', overflowX: 'hidden' }}>` — cream base
     - Navigation → HeroSection → ProjectShowcase
-  - **Barrel export** updated: `components/blocks/index.ts` exports both `HeroSection` and `ProjectShowcase`
+  - **Illustration:** `public/images/coffee-ceremony.jpg` — Ethiopian coffee ceremony (two hands passing sini cup), warm golden/brown tones
 
 ### Component Inventory (24 atoms + 1 molecule + 2 blocks)
 
@@ -404,11 +408,13 @@ All atom stories follow a consistent autodocs pattern:
 - Navigation uses `window.innerWidth` + resize listener for mobile detection (no Mantine `useMediaQuery` — keeps it dependency-light)
 - HeroSection uses `'use client'` directive for animations and RotatingText state
 - For polymorphic Mantine components (e.g., Button as `<a>`), use `MantineButton` directly instead of the custom atom wrapper
-- **Portfolio page background strategy:** `<main>` has `backgroundColor: '#1A1A1A'`, sections are transparent with only radial gold glows — prevents visible seams between sections
+- **Portfolio page background strategy:** `<main>` has `backgroundColor: '#FAF8F3'` (cream), sections are transparent on top
+- **HeroSection illustration:** Coffee ceremony image is an inline flexbox column (not absolute positioned), responsive via CSS media queries in `<style>` tag
 - **ProjectShowcase** uses CSS class `.showcase-grid` for responsive 1→2 column layout (media query at 640px) since inline styles can't do `@media`
 - **ScrollReveal** helper in ProjectShowcase uses IntersectionObserver (`threshold: 0.1`) for scroll-triggered fade-in animations
 - Project images go in `public/images/projects/` — cards gracefully fall back to gradient placeholders on missing images
-- **V1 tagged as `v1`** — safe checkpoint before further UI experiments
+- **V1 tagged as `v1`** — dark theme checkpoint
+- **V2 tagged as `v2`** — light/cream theme with inline illustration
 
 ## Future Features (from global CLAUDE.md)
 
@@ -420,4 +426,4 @@ Planned features for Ethiopian SaaS context:
 ---
 
 **Last Updated:** 2026-02-23
-**Template Version:** 1.0.0 (V1 — Portfolio Page with Hero + Project Showcase)
+**Template Version:** 2.0.0 (V2 — Light Theme with Inline Illustration)
