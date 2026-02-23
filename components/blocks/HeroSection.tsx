@@ -172,7 +172,7 @@ export function HeroSection({
             </h1>
           </AnimatedSection>
 
-          {/* ── Line 2: I'm a UX Systems Designer ── */}
+          {/* ── Line 2: I'm a UX Systems Designer who ships ── */}
           <AnimatedSection delay={350} style={{ marginTop: 'clamp(8px, 1.5vh, 16px)' }}>
             <p
               style={{
@@ -189,10 +189,13 @@ export function HeroSection({
               <span style={{ ...goldGradientText, fontWeight: 700 }}>
                 UX Systems Designer
               </span>
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
+                {' '}who ships
+              </span>
             </p>
           </AnimatedSection>
 
-          {/* ── Line 3: who ships [rotating text] ── */}
+          {/* ── Line 3: [rotating text] ── */}
           <AnimatedSection delay={500} style={{ marginTop: 'clamp(8px, 1.5vh, 16px)' }}>
             <p
               style={{
@@ -203,9 +206,6 @@ export function HeroSection({
                 letterSpacing: '-0.02em',
               }}
             >
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
-                who ships{' '}
-              </span>
               <RotatingText phrases={rotatingPhrases} interval={3000} />
             </p>
           </AnimatedSection>
