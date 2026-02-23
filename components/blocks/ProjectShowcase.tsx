@@ -14,11 +14,17 @@ export interface Project {
 }
 
 export interface ProjectShowcaseProps {
+  /** Section heading — the accented word */
   heading?: string;
+  /** Section heading — the plain prefix */
   headingPrefix?: string;
+  /** Tagline displayed opposite the heading */
   tagline?: string;
+  /** The accented word within the tagline (rendered in gold) */
   taglineAccent?: string;
+  /** Projects to display */
   projects?: Project[];
+  /** How many projects to show initially before "Load More" */
   initialCount?: number;
 }
 
@@ -99,14 +105,14 @@ const showcaseStyles = `
   transition: box-shadow 400ms ease, border-color 400ms ease;
 }
 .showcase-card:hover .showcase-card-thumb {
-  box-shadow: 0 16px 48px rgba(139,69,19,0.1), 0 4px 12px rgba(0,0,0,0.06);
-  border-color: rgba(212,175,55,0.3);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.15);
+  border-color: rgba(212,175,55,0.2);
 }
 .showcase-card:hover .showcase-card-img {
   transform: scale(1.03);
 }
 .showcase-card:hover .showcase-card-title {
-  color: #B8941F !important;
+  color: rgba(212,175,55,0.9) !important;
 }
 `;
 
@@ -185,9 +191,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             aspectRatio: '16 / 10',
             borderRadius: radius['2xl'],
             overflow: 'hidden',
-            backgroundColor: '#F0EDE6',
-            border: '1px solid rgba(0,0,0,0.06)',
-            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+            backgroundColor: colors.background.darkMid,
+            border: '1px solid rgba(255,255,255,0.06)',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.3)',
             position: 'relative',
           }}
         >
@@ -207,7 +213,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               const target = e.currentTarget;
               target.style.display = 'none';
               if (target.parentElement) {
-                target.parentElement.style.background = `linear-gradient(135deg, #F0EDE6 0%, #E8E2D8 50%, rgba(212,175,55,0.06) 100%)`;
+                target.parentElement.style.background = `linear-gradient(135deg, #222 0%, ${colors.background.darkMid} 50%, rgba(212,175,55,0.08) 100%)`;
               }
             }}
           />
@@ -226,7 +232,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             style={{
               fontFamily: typography.fontFamily.mono,
               fontSize: '0.6875rem',
-              color: 'rgba(212,175,55,0.45)',
+              color: 'rgba(212,175,55,0.35)',
               flexShrink: 0,
             }}
           >
@@ -238,7 +244,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               fontFamily: typography.fontFamily.heading,
               fontSize: 'clamp(1.05rem, 0.8vw + 0.7rem, 1.25rem)',
               fontWeight: 600,
-              color: colors.text.primary,
+              color: 'rgba(255,255,255,0.88)',
               margin: 0,
               lineHeight: 1.3,
               transition: 'color 300ms ease',
@@ -264,12 +270,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 fontFamily: typography.fontFamily.body,
                 fontSize: '0.6875rem',
                 fontWeight: 500,
-                color: colors.text.secondary,
-                backgroundColor: 'rgba(0,0,0,0.03)',
+                color: 'rgba(212,175,55,0.5)',
+                backgroundColor: 'rgba(212,175,55,0.04)',
                 borderRadius: radius.full,
                 padding: '3px 10px',
                 whiteSpace: 'nowrap',
-                border: '1px solid rgba(0,0,0,0.06)',
+                border: '1px solid rgba(212,175,55,0.1)',
               }}
             >
               {tag}
@@ -283,7 +289,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             fontFamily: typography.fontFamily.body,
             fontSize: '0.8125rem',
             lineHeight: 1.6,
-            color: colors.text.secondary,
+            color: 'rgba(255,255,255,0.3)',
             margin: '10px 0 0',
           }}
         >
@@ -314,6 +320,8 @@ export function ProjectShowcase({
         id="work"
         style={{
           width: '100%',
+          background:
+            'radial-gradient(ellipse 60% 50% at 80% 30%, rgba(212,175,55,0.04) 0%, transparent 100%)',
           padding: 'clamp(2rem, 6vh, 4rem) clamp(1.5rem, 6vw, 6rem)',
         }}
       >
@@ -324,7 +332,7 @@ export function ProjectShowcase({
             margin: '0 auto',
           }}
         >
-          {/* ── Section header ── */}
+          {/* ── Section header with counter + line (mirroring hero) ── */}
           <ScrollReveal>
             <div
               style={{
@@ -338,7 +346,7 @@ export function ProjectShowcase({
                 style={{
                   fontFamily: typography.fontFamily.mono,
                   fontSize: '0.6875rem',
-                  color: 'rgba(0,0,0,0.2)',
+                  color: 'rgba(255,255,255,0.15)',
                   letterSpacing: '0.08em',
                 }}
               >
@@ -348,7 +356,7 @@ export function ProjectShowcase({
                 style={{
                   fontFamily: typography.fontFamily.body,
                   fontSize: '0.6875rem',
-                  color: 'rgba(0,0,0,0.2)',
+                  color: 'rgba(255,255,255,0.15)',
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
                 }}
@@ -361,8 +369,8 @@ export function ProjectShowcase({
             <div
               style={{
                 height: 1,
-                background: `linear-gradient(90deg, ${colors.brand.gold}, transparent 50%)`,
-                opacity: 0.25,
+                background: `linear-gradient(90deg, ${colors.brand.gold}, transparent 60%)`,
+                opacity: 0.15,
                 marginBottom: 'clamp(2rem, 4vh, 3rem)',
               }}
             />
@@ -377,6 +385,7 @@ export function ProjectShowcase({
                 marginBottom: 'clamp(2.5rem, 5vh, 4rem)',
               }}
             >
+              {/* Heading */}
               <h2
                 style={{
                   fontFamily: typography.fontFamily.heading,
@@ -386,17 +395,18 @@ export function ProjectShowcase({
                   lineHeight: 1.1,
                 }}
               >
-                <span style={{ color: colors.text.primary }}>
+                <span style={{ color: 'rgba(255,255,255,0.9)' }}>
                   {headingPrefix}{' '}
                 </span>
                 <span style={goldGradientText}>{heading}</span>
               </h2>
 
+              {/* Tagline */}
               <p
                 style={{
                   fontFamily: typography.fontFamily.body,
                   fontSize: 'clamp(0.8125rem, 0.5vw + 0.65rem, 0.875rem)',
-                  color: colors.text.secondary,
+                  color: 'rgba(255,255,255,0.35)',
                   margin: 0,
                   maxWidth: '22rem',
                   lineHeight: 1.55,
@@ -449,8 +459,13 @@ export function ProjectShowcase({
                     fontWeight: 500,
                     fontSize: '0.8125rem',
                     height: 'auto',
-                    borderColor: 'rgba(212,175,55,0.35)',
+                    borderColor: 'rgba(212,175,55,0.3)',
                     color: colors.brand.gold,
+                    transition: 'all 300ms ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(212,175,55,0.08)',
+                      borderColor: 'rgba(212,175,55,0.5)',
+                    },
                   },
                 }}
                 onClick={() =>
