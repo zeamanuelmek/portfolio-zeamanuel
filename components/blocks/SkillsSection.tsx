@@ -20,7 +20,7 @@ import {
 /* === Types === */
 
 interface Skill {
-  icon: React.ComponentType<{ size?: number; weight?: string; color?: string }>;
+  icon: React.ComponentType<{ size?: number; weight?: 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone'; color?: string }>;
   title: string;
   description: string;
   featured: boolean;
