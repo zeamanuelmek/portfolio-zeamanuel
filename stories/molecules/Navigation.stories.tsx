@@ -56,7 +56,7 @@ export const WithCustomLinks: Story = {
       { label: 'Projects', href: '#projects' },
       { label: 'Services', href: '#services' },
       { label: 'Blog', href: '#blog' },
-      { label: 'GitHub', href: '#github', dimmed: true },
+      { label: 'GitHub', href: '#github' },
     ],
   },
   parameters: {

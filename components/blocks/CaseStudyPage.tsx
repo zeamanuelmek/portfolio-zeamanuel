@@ -962,7 +962,305 @@ export function CaseStudyPage({
   );
 }
 
-/* ═══ Fallback for projects without storytelling case study ═══ */
+/* ═══ Coming Soon — creative fallback for projects without case study ═══ */
+
+const comingSoonStyles = `
+/* ── floating particles ── */
+@keyframes csFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+  50%      { transform: translateY(-30px) rotate(180deg); opacity: 0.35; }
+}
+@keyframes csFloatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50%      { transform: translateY(-18px) rotate(90deg) scale(1.1); }
+}
+@keyframes csPulse {
+  0%, 100% { opacity: 0.12; transform: scale(1); }
+  50%      { opacity: 0.25; transform: scale(1.05); }
+}
+
+/* ── drawing stroke animation ── */
+@keyframes csDraw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes csDrawReverse {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 800; }
+}
+
+/* ── fade-in entrance ── */
+@keyframes csFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes csFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── pulsing gold dot ── */
+@keyframes csDotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+  50%      { box-shadow: 0 0 0 8px rgba(212,175,55,0); }
+}
+
+/* ── typewriter cursor ── */
+@keyframes csBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* ── rotating cross ── */
+@keyframes csRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── blueprint grid ── */
+.cs-coming-soon-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--theme-accent-line, rgba(212,175,55,0.08)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--theme-accent-line, rgba(212,175,55,0.08)) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
+}
+
+/* ── CTA hover ── */
+.cs-coming-cta {
+  transition: transform 200ms ease, box-shadow 200ms ease !important;
+}
+.cs-coming-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(212,175,55,0.25) !important;
+}
+
+/* ── next project link hover ── */
+.cs-coming-next:hover {
+  color: var(--theme-gold, #D4AF37) !important;
+}
+
+/* ── responsive ── */
+@media (max-width: 640px) {
+  .cs-coming-meta-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .cs-coming-tags {
+    justify-content: center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-coming-soon-grid,
+  .cs-particle,
+  .cs-illustration svg * {
+    animation: none !important;
+  }
+}
+`;
+
+function BlueprintIllustration() {
+  return (
+    <div
+      className="cs-illustration"
+      style={{
+        width: 'clamp(200px, 40vw, 320px)',
+        height: 'clamp(200px, 40vw, 320px)',
+        position: 'relative',
+        margin: '0 auto',
+        animation: 'csFadeIn 1.2s ease 0.3s both',
+      }}
+    >
+      <svg
+        viewBox="0 0 320 320"
+        fill="none"
+        style={{ width: '100%', height: '100%' }}
+      >
+        {/* Outer rotating ring */}
+        <circle
+          cx="160"
+          cy="160"
+          r="140"
+          stroke="var(--theme-gold, #D4AF37)"
+          strokeWidth="0.5"
+          strokeDasharray="4 8"
+          opacity="0.3"
+          style={{ animation: 'csRotate 60s linear infinite' , transformOrigin: '160px 160px'}}
+        />
+
+        {/* Inner pulsing circle */}
+        <circle
+          cx="160"
+          cy="160"
+          r="100"
+          stroke="var(--theme-gold, #D4AF37)"
+          strokeWidth="0.5"
+          opacity="0.15"
+          style={{ animation: 'csPulse 4s ease-in-out infinite' , transformOrigin: '160px 160px'}}
+        />
+
+        {/* Ethiopian cross — drawn with stroke animation */}
+        <g style={{ transformOrigin: '160px 160px' }}>
+          {/* Vertical bar */}
+          <rect
+            x="152"
+            y="100"
+            width="16"
+            height="120"
+            rx="3"
+            stroke="var(--theme-gold, #D4AF37)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeDasharray="400"
+            strokeDashoffset="400"
+            style={{ animation: 'csDraw 2s ease 0.6s forwards' }}
+          />
+          {/* Horizontal bar */}
+          <rect
+            x="100"
+            y="145"
+            width="120"
+            height="16"
+            rx="3"
+            stroke="var(--theme-gold, #D4AF37)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeDasharray="400"
+            strokeDashoffset="400"
+            style={{ animation: 'csDraw 2s ease 0.9s forwards' }}
+          />
+          {/* Top ornament */}
+          <path
+            d="M148 100 L160 80 L172 100"
+            stroke="var(--theme-gold, #D4AF37)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray="60"
+            strokeDashoffset="60"
+            style={{ animation: 'csDraw 1s ease 1.8s forwards' }}
+          />
+          {/* Bottom ornament */}
+          <path
+            d="M148 220 L160 240 L172 220"
+            stroke="var(--theme-gold, #D4AF37)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray="60"
+            strokeDashoffset="60"
+            style={{ animation: 'csDraw 1s ease 2s forwards' }}
+          />
+          {/* Left ornament */}
+          <path
+            d="M100 140 L80 153 L100 166"
+            stroke="var(--theme-gold, #D4AF37)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray="60"
+            strokeDashoffset="60"
+            style={{ animation: 'csDraw 1s ease 2.2s forwards' }}
+          />
+          {/* Right ornament */}
+          <path
+            d="M220 140 L240 153 L220 166"
+            stroke="var(--theme-gold, #D4AF37)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray="60"
+            strokeDashoffset="60"
+            style={{ animation: 'csDraw 1s ease 2.4s forwards' }}
+          />
+        </g>
+
+        {/* Corner accents */}
+        <path d="M40 40 L40 70 M40 40 L70 40" stroke="var(--theme-gold, #D4AF37)" strokeWidth="1" opacity="0.25" />
+        <path d="M280 40 L280 70 M280 40 L250 40" stroke="var(--theme-gold, #D4AF37)" strokeWidth="1" opacity="0.25" />
+        <path d="M40 280 L40 250 M40 280 L70 280" stroke="var(--theme-gold, #D4AF37)" strokeWidth="1" opacity="0.25" />
+        <path d="M280 280 L280 250 M280 280 L250 280" stroke="var(--theme-gold, #D4AF37)" strokeWidth="1" opacity="0.25" />
+
+        {/* Dimension lines */}
+        <line x1="60" y1="30" x2="260" y2="30" stroke="var(--theme-gold, #D4AF37)" strokeWidth="0.5" opacity="0.15" strokeDasharray="2 4" />
+        <line x1="30" y1="60" x2="30" y2="260" stroke="var(--theme-gold, #D4AF37)" strokeWidth="0.5" opacity="0.15" strokeDasharray="2 4" />
+
+        {/* Small diamonds — habesha textile motif */}
+        {[
+          { cx: 90, cy: 90 },
+          { cx: 230, cy: 90 },
+          { cx: 90, cy: 230 },
+          { cx: 230, cy: 230 },
+        ].map((pos, i) => (
+          <g key={i} style={{ animation: `csFloatSlow ${3 + i * 0.5}s ease-in-out ${i * 0.3}s infinite`, transformOrigin: `${pos.cx}px ${pos.cy}px` }}>
+            <path
+              d={`M${pos.cx} ${pos.cy - 8} L${pos.cx + 8} ${pos.cy} L${pos.cx} ${pos.cy + 8} L${pos.cx - 8} ${pos.cy} Z`}
+              stroke="var(--theme-gold, #D4AF37)"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.3"
+            />
+          </g>
+        ))}
+      </svg>
+
+      {/* Center pulsing dot */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: 8,
+          height: 8,
+          borderRadius: '50%',
+          background: 'var(--theme-gold, #D4AF37)',
+          transform: 'translate(-50%, -50%)',
+          animation: 'csDotPulse 2s ease-in-out infinite',
+        }}
+      />
+    </div>
+  );
+}
+
+function FloatingParticles() {
+  const particles = [
+    { top: '12%', left: '8%', size: 4, delay: 0, dur: 6 },
+    { top: '22%', right: '12%', size: 3, delay: 1.5, dur: 7 },
+    { top: '65%', left: '5%', size: 5, delay: 0.8, dur: 8 },
+    { top: '72%', right: '8%', size: 3, delay: 2.2, dur: 5 },
+    { top: '45%', left: '15%', size: 2, delay: 3, dur: 9 },
+    { top: '35%', right: '18%', size: 4, delay: 1, dur: 6.5 },
+    { top: '85%', left: '20%', size: 3, delay: 0.5, dur: 7.5 },
+    { top: '55%', right: '22%', size: 2, delay: 2.8, dur: 8.5 },
+  ];
+
+  return (
+    <>
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className="cs-particle"
+          style={{
+            position: 'absolute',
+            top: p.top,
+            left: 'left' in p ? p.left : undefined,
+            right: 'right' in p ? p.right : undefined,
+            width: p.size,
+            height: p.size,
+            borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '1px' : '0',
+            transform: i % 3 === 2 ? 'rotate(45deg)' : undefined,
+            background: 'var(--theme-gold, #D4AF37)',
+            animation: `csFloat ${p.dur}s ease-in-out ${p.delay}s infinite`,
+            pointerEvents: 'none' as const,
+          }}
+        />
+      ))}
+    </>
+  );
+}
 
 function FallbackCaseStudy({
   project,
@@ -973,159 +1271,263 @@ function FallbackCaseStudy({
 }) {
   return (
     <>
-      {/* Hero */}
+      <style>{comingSoonStyles}</style>
+
+      {/* ═══ MAIN COMING SOON SECTION ═══ */}
       <section
         style={{
           backgroundColor: 'var(--theme-bg-page, #FAF8F3)',
-          paddingTop: 'clamp(120px, 14vw, 180px)',
-          paddingBottom: 'clamp(48px, 6vh, 72px)',
-          paddingLeft: 'clamp(1.5rem, 6vw, 6rem)',
-          paddingRight: 'clamp(1.5rem, 6vw, 6rem)',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: 'clamp(120px, 14vw, 180px) 24px clamp(64px, 8vh, 96px)',
           transition: 'background-color 400ms ease',
         }}
       >
-        <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
-          <a
-            href="/work"
-            style={{
-              fontFamily: typography.fontFamily.body,
-              fontSize: typography.fontSize.sm,
-              fontWeight: typography.fontWeight.medium,
-              color: 'var(--theme-gold)',
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              marginBottom: 'clamp(32px, 5vh, 48px)',
-            }}
-          >
-            &larr; Back to Work
-          </a>
+        {/* Blueprint grid background */}
+        <div className="cs-coming-soon-grid" />
 
-          <Badge
-            variant="outline"
-            color="gold"
-            size="xs"
-            styles={{
-              root: {
-                borderColor: 'var(--theme-badge-border)',
-                backgroundColor: 'var(--theme-badge-bg)',
+        {/* Floating particles */}
+        <FloatingParticles />
+
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 640, textAlign: 'center' }}>
+
+          {/* Back link */}
+          <div style={{ animation: 'csFadeUp 0.6s ease both', marginBottom: 'clamp(40px, 6vh, 64px)' }}>
+            <a
+              href="/work"
+              className="cs-back-link"
+              style={{
+                fontFamily: typography.fontFamily.body,
+                fontSize: typography.fontSize.sm,
+                fontWeight: typography.fontWeight.medium,
                 color: 'var(--theme-gold)',
-                marginBottom: 20,
-                display: 'block',
-                width: 'fit-content',
-                transition: 'background-color 400ms ease, border-color 400ms ease, color 400ms ease',
-              },
-            }}
-          >
-            {project.category.replace('-', ' ')}
-          </Badge>
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+              }}
+            >
+              <span aria-hidden="true">&larr;</span> Back to Work
+            </a>
+          </div>
 
-          <Heading
-            order={1}
-            style={{
-              fontSize: 'clamp(2rem, 4vw + 0.5rem, 3.5rem)',
-              color: 'var(--theme-text, #2C2C2C)',
-              marginBottom: 8,
-              lineHeight: 1.1,
-              transition: 'color 400ms ease',
-            }}
-          >
-            {project.title}
-          </Heading>
+          {/* Blueprint illustration */}
+          <BlueprintIllustration />
 
-          <Heading
-            order={3}
-            goldGradient
-            style={{
-              fontSize: 'clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem)',
-              fontWeight: typography.fontWeight.medium,
-              marginBottom: 'clamp(2rem, 4vh, 3rem)',
-              lineHeight: 1.3,
-            }}
-          >
-            {project.subtitle}
-          </Heading>
+          {/* Project title */}
+          <div style={{ animation: 'csFadeUp 0.7s ease 0.4s both', marginTop: 'clamp(32px, 5vh, 48px)' }}>
+            <Heading
+              order={1}
+              style={{
+                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                color: 'var(--theme-text, #2C2C2C)',
+                lineHeight: 1.05,
+                marginBottom: 8,
+                transition: 'color 400ms ease',
+              }}
+            >
+              {project.title}
+            </Heading>
+            <Heading
+              order={3}
+              goldGradient
+              style={{
+                fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
+                fontWeight: typography.fontWeight.medium,
+                lineHeight: 1.3,
+                marginBottom: 'clamp(24px, 4vh, 40px)',
+              }}
+            >
+              {project.subtitle}
+            </Heading>
+          </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-              gap: 'clamp(1.5rem, 3vw, 2.5rem)',
-              paddingTop: 'clamp(1.5rem, 3vh, 2rem)',
-              borderTop: '1px solid var(--theme-accent-line, rgba(212,175,55,0.15))',
-            }}
-          >
-            {project.team && (
-              <div>
-                <Text size="xs" style={{ ...monoLabel, marginBottom: 6 }}>Team</Text>
-                <Text size="sm" fw={600} style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>{project.team}</Text>
-              </div>
-            )}
-            <div>
-              <Text size="xs" style={{ ...monoLabel, marginBottom: 6 }}>Year</Text>
-              <Text size="sm" fw={600} style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>{project.year}</Text>
+          {/* "Case study in progress" label with typewriter cursor */}
+          <div style={{ animation: 'csFadeUp 0.7s ease 0.7s both', marginBottom: 'clamp(24px, 4vh, 36px)' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+                padding: '8px 20px',
+                borderRadius: radius.full,
+                border: '1px solid var(--theme-accent-line, rgba(212,175,55,0.25))',
+                background: 'var(--theme-badge-bg, rgba(212,175,55,0.06))',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: typography.fontFamily.mono,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: 'var(--theme-gold, #D4AF37)',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Case study in progress
+              </span>
+              <span
+                style={{
+                  width: 2,
+                  height: 14,
+                  background: 'var(--theme-gold, #D4AF37)',
+                  animation: 'csBlink 1s step-end infinite',
+                  marginLeft: 2,
+                }}
+              />
             </div>
+          </div>
+
+          {/* Description */}
+          <div style={{ animation: 'csFadeUp 0.7s ease 0.9s both' }}>
+            <Text
+              style={{
+                fontSize: 'clamp(0.9375rem, 0.5vw + 0.75rem, 1.0625rem)',
+                lineHeight: 1.7,
+                color: 'var(--theme-text-secondary, #6B6B6B)',
+                marginBottom: 'clamp(20px, 3vh, 32px)',
+                maxWidth: 520,
+                margin: '0 auto',
+                transition: 'color 400ms ease',
+              }}
+            >
+              {project.description}
+            </Text>
+          </div>
+
+          {/* Tags */}
+          <div
+            className="cs-coming-tags"
+            style={{
+              animation: 'csFadeUp 0.7s ease 1.1s both',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 8,
+              justifyContent: 'center',
+              margin: 'clamp(20px, 3vh, 32px) auto',
+              maxWidth: 480,
+            }}
+          >
+            {project.tags.map((tag) => (
+              <Badge
+                key={tag}
+                variant="outline"
+                color="gold"
+                size="sm"
+                radius="xl"
+                styles={{
+                  root: {
+                    fontFamily: typography.fontFamily.body,
+                    fontWeight: 500,
+                    textTransform: 'none',
+                    borderColor: 'var(--theme-badge-border)',
+                    backgroundColor: 'var(--theme-badge-bg)',
+                    color: 'var(--theme-gold)',
+                    transition: 'all 400ms ease',
+                  },
+                }}
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+
+          {/* Meta grid */}
+          <div
+            className="cs-coming-meta-grid"
+            style={{
+              animation: 'csFadeUp 0.7s ease 1.3s both',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+              gap: 24,
+              padding: '28px 0',
+              margin: 'clamp(20px, 3vh, 32px) 0',
+              borderTop: '1px solid var(--theme-accent-line, rgba(212,175,55,0.15))',
+              borderBottom: '1px solid var(--theme-accent-line, rgba(212,175,55,0.15))',
+              textAlign: 'center',
+            }}
+          >
             <div>
-              <Text size="xs" style={{ ...monoLabel, marginBottom: 6 }}>Role</Text>
+              <Text size="xs" style={{ ...monoLabel, display: 'block', marginBottom: 4 }}>Role</Text>
               <Text size="sm" fw={600} style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>{project.role}</Text>
             </div>
             <div>
-              <Text size="xs" style={{ ...monoLabel, marginBottom: 6 }}>Duration</Text>
+              <Text size="xs" style={{ ...monoLabel, display: 'block', marginBottom: 4 }}>Year</Text>
+              <Text size="sm" fw={600} style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>{project.year}</Text>
+            </div>
+            <div>
+              <Text size="xs" style={{ ...monoLabel, display: 'block', marginBottom: 4 }}>Duration</Text>
               <Text size="sm" fw={600} style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>{project.duration}</Text>
             </div>
+            {project.team && (
+              <div>
+                <Text size="xs" style={{ ...monoLabel, display: 'block', marginBottom: 4 }}>Team</Text>
+                <Text size="sm" fw={600} style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>{project.team}</Text>
+              </div>
+            )}
+          </div>
+
+          {/* CTAs */}
+          <div style={{ animation: 'csFadeUp 0.7s ease 1.5s both', display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="/work/omoc"
+              className="cs-coming-cta"
+              style={{
+                fontFamily: typography.fontFamily.heading,
+                fontSize: typography.fontSize.sm,
+                fontWeight: typography.fontWeight.semibold,
+                color: '#FFFFFF',
+                textDecoration: 'none',
+                padding: '12px 28px',
+                borderRadius: radius.full,
+                background: 'linear-gradient(135deg, var(--theme-gold-from, #D4AF37), var(--theme-gold-to, #E8C84A))',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              View OMOC Case Study <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a
+              href="/work"
+              className="cs-coming-cta"
+              style={{
+                fontFamily: typography.fontFamily.heading,
+                fontSize: typography.fontSize.sm,
+                fontWeight: typography.fontWeight.semibold,
+                color: 'var(--theme-gold, #D4AF37)',
+                textDecoration: 'none',
+                padding: '12px 28px',
+                borderRadius: radius.full,
+                border: '1px solid var(--theme-accent-line, rgba(212,175,55,0.35))',
+                background: 'transparent',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+              }}
+            >
+              All Projects
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Content */}
+      {/* ═══ NEXT PROJECT ═══ */}
       <section
         style={{
-          backgroundColor: 'var(--theme-bg, #FFFFFF)',
-          padding: 'clamp(3rem, 6vh, 5rem) clamp(1.5rem, 6vw, 6rem)',
+          background: 'var(--theme-bg, #FFFFFF)',
+          padding: 'clamp(48px, 8vh, 72px) 24px',
           transition: 'background-color 400ms ease',
         }}
       >
-        <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
-          <Text
-            style={{
-              fontSize: 'clamp(0.9375rem, 0.5vw + 0.75rem, 1.0625rem)',
-              lineHeight: 1.7,
-              color: 'var(--theme-text-secondary)',
-              marginBottom: 20,
-              transition: 'color 400ms ease',
-            }}
-          >
-            {project.description}
-          </Text>
-          <Group gap={8} style={{ flexWrap: 'wrap', marginBottom: 24 }}>
-            {project.tags.map((tag) => (
-              <Badge key={tag} variant="light" color="gold" size="sm">
-                {tag}
-              </Badge>
-            ))}
-          </Group>
-          {project.status === 'in-development' && (
-            <Text
-              size="sm"
-              c="dimmed"
-              fs="italic"
-            >
-              This project is currently in development. Full case study coming soon.
-            </Text>
-          )}
-        </div>
-      </section>
-
-      {/* Next project */}
-      <section
-        style={{
-          background: 'var(--theme-bg-page, #FAF8F3)',
-          padding: 'clamp(48px, 8vh, 72px) clamp(1.5rem, 6vw, 6rem)',
-          transition: 'background-color 400ms ease',
-        }}
-      >
-        <div style={{ maxWidth: '48rem', margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
           <Text
             size="xs"
             c="dimmed"
@@ -1136,6 +1538,7 @@ function FallbackCaseStudy({
           </Text>
           <a
             href={`/work/${nextProject.id}`}
+            className="cs-coming-next"
             style={{
               fontFamily: typography.fontFamily.heading,
               fontSize: 'clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem)',
@@ -1145,7 +1548,7 @@ function FallbackCaseStudy({
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              transition: 'color 400ms ease',
+              transition: 'color 300ms ease',
             }}
           >
             {nextProject.title}
