@@ -6,23 +6,20 @@ const meta: Meta<typeof HeroSection> = {
   component: HeroSection,
   parameters: {
     layout: 'fullscreen',
-    backgrounds: { default: 'dark' },
     docs: {
       description: {
         component: `
-**When to use:**
-Full-viewport portfolio hero section with Zeamanuel's personal branding. Features an inline profile image between text, animated rotating taglines, availability badge, and dual CTA buttons.
+**What it does:** Left-aligned editorial portfolio hero with inline profile image, gold gradient name typography, and section label transition bar.
 
-**Ethiopian Design Context:**
-Dark background (#1A1A1A) with gold gradient name text, sand-colored greeting, and the Ethiopian-inspired color palette throughout. The "Available for Projects" badge uses forest green dot and gold outline. Entry animations are staggered for a polished reveal.
+**Composition:** Heading, Text, Button, Badge, Group, Container atoms + ScrollReveal and MagneticElement animation wrappers.
 
-**Common Patterns:**
-- Portfolio landing page hero
-- Personal branding above-the-fold section
-- Dark-themed hero with high-contrast gold accents
+**Ethiopian Design Context:** Gold gradient name typography, forest green availability badge, gold-accented section divider. Clean white background lets the gold accents breathe. All colors sourced from \`designTokens\`.
 
-**Accessibility:**
-Single \`<h1>\` wraps the entire name line (including inline image) for proper heading structure. Profile image has descriptive alt text. CTA buttons are anchor elements with clear labels. Scroll indicator uses a bouncing arrow animation.
+**Layout:** Auto-height (content-driven, not 100vh). Compact and confident — no wasted white space. Section label bar (01 / SELECTED WORK) creates a designed transition into the projects section.
+
+**Responsive:** Name fits one line on desktop (~68px), wraps gracefully on mobile (~36px). Section label bar spans full width at all breakpoints.
+
+**Accessibility:** Single h1 for name, semantic section element, profile image has descriptive alt text. Animations respect \`prefers-reduced-motion\`.
         `,
       },
     },
@@ -30,7 +27,7 @@ Single \`<h1>\` wraps the entire name line (including inline image) for proper h
   tags: ['autodocs'],
   argTypes: {
     profileImageSrc: {
-      description: 'Path to the profile image displayed inline with the name',
+      description: 'Path to the profile photo displayed inline with the name',
       control: 'text',
     },
   },
@@ -46,7 +43,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Full hero section with profile image, rotating text, badge, and CTAs.',
+        story: 'Full hero section as it appears on the portfolio homepage — compact height with section transition bar.',
       },
     },
   },

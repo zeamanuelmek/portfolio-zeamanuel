@@ -1,1 +1,0 @@
-import{j as e}from"./iframe-DSgyGHZ6.js";import{S as o}from"./Stack-Ca_rH8Tr.js";function r({...t}){return e.jsx(o,{...t})}r.__docgenInfo={description:"",methods:[],displayName:"Stack",props:{children:{required:!0,tsType:{name:"ReactNode"},description:"Stack content"}},composes:["MantineStackProps"]};export{r as S};

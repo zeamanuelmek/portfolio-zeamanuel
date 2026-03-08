@@ -114,6 +114,55 @@ export const designTokens = {
   },
 } as const;
 
+// ═══ THEME COLOR MAPS (light / dark) ═══
+
+export const themeColors = {
+  light: {
+    bg: '#FFFFFF',
+    bgPage: '#FAF8F3',
+    text: '#2C2C2C',
+    textSecondary: '#6B6B6B',
+    textDimmed: '#6B6B6B',
+    gold: '#8B6914',
+    goldGradientFrom: '#8B6914',
+    goldGradientTo: '#B8941F',
+    cardBg: '#FFFFFF',
+    cardBorder: 'rgba(0,0,0,0.06)',
+    cardShadow: '0 2px 12px rgba(0,0,0,0.06)',
+    cardHoverShadow: '0 16px 40px rgba(139,69,19,0.1)',
+    tagBg: 'rgba(0,0,0,0.04)',
+    tagBorder: 'rgba(0,0,0,0.08)',
+    badgeBorder: 'rgba(212,175,55,0.35)',
+    badgeBg: 'rgba(212,175,55,0.06)',
+    navBg: 'rgba(30, 30, 30, 0.7)',
+    navBorder: 'rgba(255,255,255,0.08)',
+    accentLine: 'rgba(212,175,55,0.25)',
+  },
+  dark: {
+    bg: '#1A1A1A',
+    bgPage: '#1A1A1A',
+    text: 'rgba(255,255,255,0.88)',
+    textSecondary: 'rgba(255,255,255,0.5)',
+    textDimmed: 'rgba(255,255,255,0.4)',
+    gold: '#D4AF37',
+    goldGradientFrom: '#D4AF37',
+    goldGradientTo: '#E8C84A',
+    cardBg: '#242424',
+    cardBorder: 'rgba(255,255,255,0.06)',
+    cardShadow: '0 2px 12px rgba(0,0,0,0.3)',
+    cardHoverShadow: '0 16px 40px rgba(0,0,0,0.5)',
+    tagBg: 'rgba(212,175,55,0.04)',
+    tagBorder: 'rgba(212,175,55,0.1)',
+    badgeBorder: 'rgba(212,175,55,0.25)',
+    badgeBg: 'rgba(212,175,55,0.06)',
+    navBg: 'rgba(30, 30, 30, 0.7)',
+    navBorder: 'rgba(255,255,255,0.08)',
+    accentLine: 'rgba(212,175,55,0.15)',
+  },
+} as const;
+
+export type ThemeMode = 'light' | 'dark';
+
 export type ClientThemeOverrides = {
   brandColor?: string;
   fontFamily?: string;

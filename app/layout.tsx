@@ -2,6 +2,7 @@ import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import { createClientTheme } from '@/themes/createClientTheme';
+import { ThemeProvider } from '@/components/ThemeContext';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -35,13 +36,30 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
       data-mantine-color-scheme="light"
+      suppressHydrationWarning
     >
       <head>
         <ColorSchemeScript defaultColorScheme="light" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var mode = localStorage.getItem('semenawerk-theme');
+                  if (mode === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
       </head>
-      <body style={{ backgroundColor: '#FAF8F3', margin: 0 }}>
+      <body suppressHydrationWarning style={{ margin: 0, backgroundColor: 'var(--theme-bg-page, #FAF8F3)', overflowX: 'hidden', transition: 'background-color 400ms ease' }}>
         <MantineProvider theme={theme} defaultColorScheme="light">
-          {children}
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
         </MantineProvider>
       </body>
     </html>

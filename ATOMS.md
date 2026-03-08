@@ -156,12 +156,12 @@ Dropdown selection with search and grouping support.
 
 ### Card
 **File:** `components/atoms/Card.tsx` | **Base:** Mantine `Card`
-**Props:** `goldGlow?: boolean` | **Storybook:** `Atoms/Card`
+**Storybook:** `Atoms/Card`
 
-Supports `Card.Section` for header areas and `goldGlow` for hover effect.
+**Default:** 1px gold border, hover lifts 4px with neutral shadow. No special props needed — all Cards behave this way.
 
 ```tsx
-<Card goldGlow>
+<Card>
   <Card.Section style={{ background: 'linear-gradient(135deg, #D4AF37, #E8C84A)', padding: 24 }}>
     <Text c="white" fw={700}>Featured Project</Text>
   </Card.Section>
@@ -170,7 +170,6 @@ Supports `Card.Section` for header areas and `goldGlow` for hover effect.
 ```
 
 **When to use:** Content containers — project cards, invoice summaries, feature highlights.
-**Gold glow:** Use for featured/premium content that needs visual emphasis.
 
 ---
 

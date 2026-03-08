@@ -1,0 +1,1 @@
+import{j as r}from"./iframe-B9BJqu6d.js";import{G as e}from"./Group-BevGUIxM.js";function p({...o}){return r.jsx(e,{...o})}p.__docgenInfo={description:"",methods:[],displayName:"Group",props:{children:{required:!0,tsType:{name:"ReactNode"},description:"Group content"}},composes:["MantineGroupProps"]};export{p as G};

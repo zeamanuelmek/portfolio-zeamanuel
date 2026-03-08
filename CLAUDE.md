@@ -274,15 +274,15 @@ npm run build-storybook  # Build Storybook
   - `stories/design-system/Effects.stories.tsx` — GoldTextGradient, GlassMorphism, HabeshaDivider, BrandPatterns
 - [x] **Phase 1: Token System** — DONE
   - `themes/tokens.ts` — Ethiopian brand colors (gold/rust/forest/earth), text/bg/semantic colors, Space Grotesk + Inter + JetBrains Mono fonts, gold glow shadows
-  - `themes/createClientTheme.ts` — Real tint/shade color scale generation, 5 Mantine color palettes (brand/gold/rust/forest/earth), heading sizes with Space Grotesk, component defaults (Button/Input radius=lg, Card radius=xl), `theme.other` with goldGradient/creamBg/goldGlow
+  - `themes/createClientTheme.ts` — Real tint/shade color scale generation, 5 Mantine color palettes (brand/gold/rust/forest/earth), heading sizes with Space Grotesk, component defaults (Button/Input radius=lg, Card radius=xl), `theme.other` with goldGradient/creamBg/goldGlow (shadow tokens kept in theme, Card no longer uses goldGlow prop)
   - `app/layout.tsx` — Google Fonts (Space Grotesk, Inter, JetBrains Mono) as CSS variables, cream background (#FAF8F3), Ethiopian gold theme
 - [x] **Phase 2: Form Atoms** — DONE (8 components, 27 stories)
   - Components: `Button`, `Input`, `TextArea`, `Select`, `Checkbox`, `Radio` (+ Radio.Group), `Switch`, `Slider`
   - All default to `color="gold"` where applicable
   - Stories show all variants, sizes, states, brand colors, Ethiopian SaaS use cases (TeleBirr/Chapa payments, ETB currency, Ethiopian cities)
 - [x] **Phase 3: Display Atoms** — DONE (6 components, 21 stories)
-  - Components: `Badge`, `Card` (+ goldGlow prop + Card.Section), `Avatar` (+ Avatar.Group), `Image`, `Divider` (+ goldGradient/habesha/diamond props), `Icon`
-  - Card `goldGlow` — hover adds gold box-shadow + lift
+  - Components: `Badge`, `Card` (+ gold border + hover lift + Card.Section), `Avatar` (+ Avatar.Group), `Image`, `Divider` (+ goldGradient/habesha/diamond props), `Icon`
+  - Card — 1px gold border, hover lifts 4px with neutral shadow (all cards, no prop needed)
   - Divider `habesha` — Ethiopian flag triple line (green/gold/red)
   - Divider `diamond` — Habesha textile-inspired motif
 - [x] **Phase 4: Layout Atoms** — DONE (4 components, 14 stories)
@@ -307,7 +307,7 @@ npm run build-storybook  # Build Storybook
   - Component-level descriptions: When to use, Ethiopian Design Context, Common Patterns, Accessibility
   - `argTypes` with descriptions and controls for key props on every component
   - Story-level descriptions explaining what each story demonstrates
-  - Custom props documented: `goldGlow` (Card), `goldGradient` (Heading/Text/Divider), `habesha`/`diamond` (Divider), `semantic` (Alert)
+  - Custom props documented: `goldGradient` (Heading/Text/Divider), `habesha`/`diamond` (Divider), `semantic` (Alert)
   - Storybook build verified — all stories compile and render correctly
 - [x] **Phase 10: Storybook Portfolio Pages** — DONE (3 MDX documentation pages)
   - `stories/00-Introduction.mdx` — Welcome/landing page with brand overview, quick navigation, color swatches, "Built For" section
@@ -359,7 +359,164 @@ npm run build-storybook  # Build Storybook
     - Navigation → HeroSection → ProjectShowcase
   - **Illustration:** `public/images/coffee-ceremony.jpg` — Ethiopian coffee ceremony (two hands passing sini cup), warm golden/brown tones
 
-### Component Inventory (24 atoms + 1 molecule + 2 blocks)
+- [x] **Phase 14: Animation & Interaction Library (Phase 1)** — DONE (5 components, hooks + MDX remaining)
+  - **Dependencies added:** `framer-motion`, `gsap`, `lenis`
+  - **New directory:** `components/animations/` with barrel export via `components/animations/index.ts`
+  - **New directory:** `stories/animations/`
+  - Components built (5/5):
+    - `ScrollReveal` — Framer Motion `useInView` + `motion.div`, fades/slides children into view on scroll. Props: direction (up/down/left/right/none), duration, delay, distance, once, threshold, easing. 4 stories.
+    - `StaggerGroup` — Framer Motion `variants` + `staggerChildren`, reveals children sequentially. Uses `Children.toArray` to wrap each child in `motion.div`. Props: staggerDelay, direction, duration, distance, once, threshold. 5 stories.
+    - `ParallaxLayer` — GSAP + ScrollTrigger (dynamically imported via `await import()`), scroll-speed offset. Uses `gsap.context()` for cleanup. Disabled on mobile (<768px). Props: speed, direction. 3 stories.
+    - `AnimatedCounter` — Framer Motion `useMotionValue` + `animate`, counts from start to target on viewport entry. Formats with `Intl`-style separators. Props: target, start, duration, delay, prefix, suffix, decimals, separator, once. 4 stories.
+    - `MagneticElement` — Framer Motion `useMotionValue` + `useSpring`, cursor-following hover effect. Disabled on touch devices via `(hover: hover)` media query. Props: strength, radius, springConfig. 4 stories.
+  - Remaining: `hooks/useSmoothScroll.ts`, `hooks/useScrollProgress.ts`, `stories/animations/00-Animation-Overview.mdx`, `stories/animations/SmoothScroll.stories.tsx`
+  - All animation components are `'use client'` and respect `prefers-reduced-motion`
+  - GSAP and Lenis must be dynamically imported (browser-only); Framer Motion can be imported normally
+  - Animation stories follow same autodocs pattern: What it does / When to use / Animation Library / Performance / Accessibility
+- [x] **Phase 15: Dark/Light Theme Toggle** — DONE
+  - **Approach:** CSS custom properties + React context — no Mantine dark mode, no component duplication
+  - **New files created:**
+    - `components/ThemeContext.tsx` — `ThemeProvider` component + `useTheme()` hook. Stores mode in `localStorage` (`semenawerk-theme` key), applies 20 CSS custom properties (`--theme-*`) to `document.documentElement` via `useEffect`, sets `data-theme` attribute on `<html>`
+    - `components/molecules/ThemeToggle.tsx` — Pill-shaped toggle switch (60x30px), sun icon left / moon icon right, gold translucent sliding indicator (350ms spring), `role="switch"` + `aria-checked`, inactive icon dimmed to 35% opacity, uses `@tabler/icons-react` `IconSun`/`IconMoon`
+  - **`themes/tokens.ts`** — Added `themeColors` map with `light` and `dark` color sets (20 tokens each: bg, bgPage, text, textSecondary, textDimmed, gold, goldGradientFrom/To, cardBg/Border/Shadow/HoverShadow, tagBg/Border, badgeBorder/Bg, navBg/Border, accentLine). Added `ThemeMode` type export.
+  - **`components/blocks/HeroSection.tsx`** — All hardcoded colors replaced with `var(--theme-*)` CSS custom properties. Background changed from `var(--theme-bg)` (white) to `var(--theme-bg-page)` (cream/dark) for unified look with ProjectShowcase. Gold gradient text uses `var(--theme-gold-from)` / `var(--theme-gold-to)`. Padding increased: top `clamp(148px, 14vw, 200px)`, bottom `clamp(64px, 8vh, 100px)`. All color transitions 400ms ease.
+  - **`components/blocks/ProjectShowcase.tsx`** — Same CSS var treatment: card backgrounds (`var(--theme-card-bg)`), text colors, tag styles, borders, shadows, hover effects all theme-aware. Gold gradient text uses vars. Image error fallback uses vars.
+  - **`components/molecules/Navigation.tsx`** — Added `<ThemeToggle />` after links on desktop, next to hamburger on mobile. Removed unused `keyframes` const.
+  - **`app/layout.tsx`** — Wrapped children in `<ThemeProvider>`. Added anti-FOUC inline `<script>` that reads `localStorage` before first paint. Body uses `var(--theme-bg-page, #FAF8F3)` with 400ms transition fallback. Kept `data-mantine-color-scheme="light"` (Mantine stays light-styled).
+  - **`app/page.tsx`** — Replaced `designTokens.colors.background.cream` with `var(--theme-bg-page, #FAF8F3)`. Removed `designTokens` import.
+  - **`components/molecules/index.ts`** — Added `ThemeToggle` export
+  - **CSS Custom Properties set by ThemeProvider:** `--theme-bg`, `--theme-bg-page`, `--theme-text`, `--theme-text-secondary`, `--theme-text-dimmed`, `--theme-gold`, `--theme-gold-from`, `--theme-gold-to`, `--theme-card-bg`, `--theme-card-border`, `--theme-card-shadow`, `--theme-card-hover-shadow`, `--theme-tag-bg`, `--theme-tag-border`, `--theme-badge-border`, `--theme-badge-bg`, `--theme-nav-bg`, `--theme-nav-border`, `--theme-accent-line`
+  - **Light mode gold:** `#8B6914` (a11y-safe ~4.9:1 contrast on white) for text, `#8B6914→#B8941F` gradient
+  - **Dark mode gold:** `#D4AF37` (original gold pops on dark), `#D4AF37→#E8C84A` gradient
+  - **Transition strategy:** All themed elements have `transition: [property] 400ms ease` for smooth toggling. Body and sections have `transition: background-color 400ms ease`.
+- [x] **Phase 16: Skills Section** — DONE (1 new block, 2 stories)
+  - `components/blocks/SkillsSection.tsx` — Editorial-style capabilities grid with 6 skill cards
+  - Section header matches ProjectShowcase pattern: heading with prefix + gold accent word ("What I" + "Bring"), right-aligned tagline with gold accent word
+  - 3×2 card grid on desktop (`md: 4` span), 2-column on tablet (`sm: 6`), single column on mobile
+  - Each card: Icon atom (gold, light variant) + h3 title + description, using Card atom (gold border + hover lift)
+  - All cards uniform style — no featured/dark card variant
+  - Uses `var(--theme-*)` CSS custom properties throughout for dark/light theme support
+  - ScrollReveal on header + staggered delays on each card (0.08s increments)
+  - Same spacing/layout tokens as ProjectShowcase: `clamp` padding, `64rem` max-width, `clamp(2.5rem, 5vh, 4rem)` header gap
+  - Icons: `IconStack2` (Design Systems), `IconRobot` (AI-Augmented Dev), `IconCode` (Frontend Dev), `IconBulb` (UX/UI), `IconBolt` (Rapid Prototyping), `IconUsers` (User Research)
+  - `stories/blocks/SkillsSection.stories.tsx` — 2 stories (Default, DarkBackground)
+  - `app/page.tsx` — Added after ProjectShowcase: Navigation → HeroSection → ProjectShowcase → SkillsSection
+- [x] **Phase 17: Contact Section + Footer** — DONE (2 new blocks, 2 stories)
+  - `components/blocks/ContactSection.tsx` — CTA contact form with editorial heading, service chips, underline inputs
+    - Section header matches ProjectShowcase/SkillsSection pattern: "Say Hi!" in gold gradient + suffix in theme text, right-aligned subtitle
+    - Form fields: Name + Email (2-col), Company (full), service chips (multi-select Badge toggles), Message (TextArea), Submit button
+    - Underline-style inputs: `variant="unstyled"` with bottom border using `var(--theme-accent-line)`, no border-radius
+    - Service chips: Badge atoms wrapped in `<button>` elements (Badge doesn't expose `onClick`), outline→filled gold on selection
+    - Gold pill "Send Me →" button (matches hero's "View My Work" style) left-aligned with response time text, wrapped in MagneticElement
+    - Static form (`e.preventDefault()`) — ready for Formspree/EmailJS/API route
+    - `stories/blocks/ContactSection.stories.tsx` — 1 story (Default)
+  - `components/blocks/Footer.tsx` — Minimal footer with gold logo, divider, social links, copyright
+    - Gold circle "Z" logo (40px), `Divider goldGradient`, 5 social links (Dribbble/LinkedIn/Instagram/Behance/Upwork)
+    - Social links use raw `<a>` tags (Link atom doesn't expose `target` prop), dimmed→gold hover via state, dot separators between links
+    - Email link in gold next to copyright
+    - Italic tagline right-aligned with logo ("Designing with purpose, building with precision.")
+    - Dynamic copyright year via `new Date().getFullYear()`
+    - ScrollReveal on logo+tagline row, divider, and links row
+    - `stories/blocks/Footer.stories.tsx` — 1 story (Default)
+  - **Atom limitations discovered:**
+    - Badge atom doesn't expose `onClick` — wrap in `<button style="all:unset">` for clickable chips
+    - Button atom doesn't expose `type` — omit `type="submit"` (form uses `onSubmit` on `<form>`)
+    - Link atom doesn't expose `target` — use raw `<a>` with inline hover handlers for external links
+  - `app/page.tsx` — Navigation → HeroSection → ProjectShowcase → SkillsSection → ContactSection → Footer
+- [x] **Phase 18: UX Polish & Bug Fixes** — DONE
+  - **ContactSection refinements:**
+    - Service chips default state: `variant="default"` with `var(--theme-tag-bg/border)` for darker/more visible unselected chips
+    - Submit button: replaced dark Button atom with gold `MantineButton` matching hero's "View My Work" style (pill, `9px 22px` padding, MagneticElement wrapper)
+    - Submit row: changed from right-aligned to left-aligned (`justify="flex-start"`)
+    - Form labels (Name, Email, Company name, Message): added `labelStyle` with `color: var(--theme-text)` so labels are bright white in dark mode
+  - **Mobile navigation overhaul:**
+    - Full-screen overlay (`100vh`, `position: fixed`, `inset: 0`) instead of small dropdown
+    - Large editorial link text (`clamp(2rem, 8vw, 3.5rem)`) with Space Grotesk heading font, centered vertically
+    - Staggered entrance: CSS `@keyframes menuLinkIn` with per-link delays (100ms, 180ms, 260ms, 340ms)
+    - Bottom bar: "Available for projects" label + email link pinned to bottom
+    - Body + html scroll lock when menu is open
+    - Conditionally rendered (`{menuOpen && ...}`) to prevent phantom scrollbar from always-in-DOM fixed overlay
+    - **Theme-aware:** uses `useTheme()` hook — dark mode: `#121212` bg, sand text, bright gold hover; light mode: `#FAF8F3` cream bg, `#2C2C2C` dark text, `#8B6914` darker gold hover
+  - **Footer improvements:**
+    - Added logo + italic tagline row (logo left, tagline right)
+    - Dot separators between social links for visual rhythm
+    - Added email link (`hello@zeamanuel.com`) in gold next to copyright
+    - Social links hover managed via `useState` (not inline handlers) for cleaner state
+  - **Bug fixes:**
+    - `suppressHydrationWarning` on `<html>` tag to prevent SSR hydration mismatch from anti-FOUC `data-theme` script
+    - Moved `overflowX: 'hidden'` from `<main>` to `<body>` in `app/layout.tsx` to fix double scrollbar issue
+    - Mobile menu overlay changed from `opacity: 0` always-in-DOM to conditional render to eliminate phantom scrollbar
+
+- [x] **Phase 19: Project Data Layer** — DONE
+  - **New directory:** `data/` with barrel export via `data/index.ts`
+  - `data/projects.ts` — Typed project data with `Project` interface (id, title, subtitle, description, thumbnail, category, tags, status, duration, role, year, featured, team, caseStudy)
+  - 6 projects: DH (iOS task management), OMOC (social commerce), Ablenee (accessibility), Outcast (creative community), Hisab (finance), Ideas Lab (innovation)
+  - 5 helper functions: `getProjectById()`, `getAllProjectIds()`, `getProjectsByCategory()`, `getFeaturedProjects()`, `getAdjacentProjects()` (wraps around for prev/next navigation)
+  - 4 featured projects: DH, OMOC, Ablenee, Outcast (in that order)
+  - Real thumbnail images in `public/images/`: `dh-thumb.jpg`, `omoc-thumb.jpg`, `ablenee-thumb.jpg`, `outcast-thumb.jpg`
+  - `ProjectShowcase` updated to import from `data/` via `getFeaturedProjects()` instead of hardcoded placeholder data
+- [x] **Phase 20: Work Page (/work)** — DONE (1 new block, 2 stories)
+  - `components/blocks/WorkPage.tsx` — All-projects grid with filter bar
+    - Header: "Selected Work" (gold gradient accent) + project count in mono font, gold bottom border (15% opacity)
+    - Filter bar: 5 category chips (All / Mobile App / E-Commerce / Web App / Framer), `role="tablist"` + `aria-selected`, active = gold filled, inactive = tag style
+    - Responsive grid: 1 col mobile → 2 col tablet (640px) → 3 col desktop (1024px) via CSS `@media` in `<style>` tag
+    - Cards: 16:10 thumbnail, gold gradient category label, title, tags, description, "View Case Study →" link to `/work/[project.id]`
+    - ScrollReveal animations with staggered delays (0.05s increments)
+    - All colors via `var(--theme-*)` — fully theme-aware
+  - `app/work/page.tsx` — Route with Navigation + WorkPage + Footer, SEO metadata
+  - `stories/blocks/WorkPage.stories.tsx` — 2 stories (Default, DarkBackground) with full autodocs
+  - Navigation "Work" link updated from `#work` to `/work`
+- [x] **Phase 21: Case Study Page (/work/[slug]) — Storytelling Redesign** — DONE (1 block rewritten, 1 new molecule, 5 stories)
+  - **Data types rewritten** (`data/projects.ts`): Replaced old `CaseStudy`/`CaseStudySection`/`ProjectImage` with storytelling structure — `CaseStudy` (hook, role, duration, platforms, team, metrics, tags, workflow, moments, resolution), `CaseStudyMoment` (before/after, details, insight, images), `CaseStudyWorkflowStep`, `CaseStudyResolution` (growth, discovery, founderQuote, advice), `CaseStudyImage`
+  - **OMOC case study data**: Full storytelling content — hook quote, 4 metrics, 5 tags, 8-step AI workflow, 4 moments (Onboarding, Order Management, Shop Design, Comments) each with before/after/details/insight/4 images, resolution with growth arc + founder quote + advice
+  - **`components/molecules/ImageSlider.tsx`** — New image carousel molecule:
+    - Displays 1 image at a time with crossfade animation (`@keyframes sliderFadeIn`)
+    - Left/right arrow buttons + dot indicators (`role="tablist"` + `aria-selected`) + counter badge "2 / 4"
+    - Keyboard navigation (ArrowLeft/ArrowRight), touch swipe support (50px threshold)
+    - Gold accent on active dot and arrow hover, graceful image error fallback
+    - Uses `Image` atom for rendering, `Text` atom for caption
+    - Single image mode: hides arrows, dots, and counter
+    - Props: `images`, `height` (default 400), `borderRadius` (default xl)
+    - `stories/molecules/ImageSlider.stories.tsx` — 3 stories (Default, SingleImage, WithCaptions) with full autodocs
+  - **`components/blocks/CaseStudyPage.tsx`** — Complete rewrite with storytelling structure:
+    - **ScrollProgress**: Fixed 3px gold gradient bar tracking scroll %, `zIndex: 100`
+    - **Hero**: `var(--theme-bg-page)` background (cream light / dark dark — consistent with homepage), inline "← Back to Work" link, `Badge` pills for tags (`size="lg"`, `radius="xl"`, body font, normal case), `Heading` atoms for title/subtitle (subtitle uses `goldGradient`), hook quote with gold left border, 4-col meta grid (Role/Duration/Platform/Team)
+    - **Metrics Bar**: `var(--theme-bg)` background, 4-col grid (2-col mobile), `Heading goldGradient` values, mono dimmed labels
+    - **Workflow**: `var(--theme-bg-page)` background, gold "PROCESS" mono label, `Card` atoms in responsive grid with step num/label/detail
+    - **4 Moment Sections**: Alternating `var(--theme-bg)` / `var(--theme-bg-page)` backgrounds. Each: gold mono "MOMENT 01" label + italic theme, `Heading` title, quoted headline, summary paragraph, Before/After `Card` pair (side-by-side → stacked mobile via `.cs-before-after-grid` media query, rust "BEFORE" / forest "AFTER" labels), `ImageSlider` for screenshots, expandable details with gold dot bullets + insight callout (gold left border + gold-tinted bg), expand/collapse `<button>` with rotating chevron + `aria-expanded`
+    - **Resolution**: `var(--theme-bg-page)` background, growth/discovery paragraphs, `Heading goldGradient` italic founder quote, advice `Card` with `var(--theme-card-bg)`
+    - **CTA**: `var(--theme-bg)` background, "Let's Talk" gold `MantineButton` → `/contact`, "← Back to Work" outline → `/work`
+    - **Next Project**: `var(--theme-bg-page)` background, dimmed "Next Project" label, title link with gold arrow, `Divider habesha` (200px)
+    - **Fallback**: Projects without case study get clean hero + description + tags + "coming soon" — all using theme vars
+    - **No hardcoded dark sections**: All backgrounds use `var(--theme-*)` — cream in light mode, dark in dark mode. No more forced #1A1A1A hero/resolution in light mode.
+    - **No scroll indicator**: Removed "SCROLL" label + bouncing arrow
+    - **No redundant footer**: Route already has `<Footer />`, CaseStudyPage component ends with Next Project section
+  - `app/work/[slug]/page.tsx` — Dynamic route with `generateStaticParams()` for all 6 slugs, `generateMetadata()` for SEO, 404 via `notFound()`. Removed `overflowX: 'hidden'` from `<main>` (body handles it).
+  - `stories/blocks/CaseStudyPage.stories.tsx` — 2 stories (OMOCCaseStudy, NoCaseStudy) with full autodocs
+  - `public/images/placeholder-screen.svg` — Dashed-border SVG placeholder with "Figma Screenshot" text, all OMOC images point here until real exports added
+  - `public/images/case-studies/omoc/` — Directory created for real Figma exports
+- [x] **Phase 22: About Page (/about)** — DONE (1 new block, 2 stories)
+  - `components/blocks/AboutPage.tsx` — Personal editorial page with 4 zones:
+    - Intro section: Two-column (stacks <768px), profile photo left (280px, gold border + glow, hover lift), bio right with name (gold gradient on "Alemu"), subtitle, bio paragraph (line-height: 1.75), social links (LinkedIn/Dribbble/Behance with dot separators), "Available for projects" forest badge
+    - Skills section: Cream bg, "What I Do" heading, 4-col grid (2-col mobile) of 8 skill cards (gold icon + name + description), hover lift
+    - Experience section: White bg, timeline layout — gold mono year left, role/company/description right, Divider between entries. 4 entries: OMOC, Ablenee, DH, Outcast
+    - Values section: Dark #1A1A1A bg, 3 glassmorphic cards (`backdrop-filter: blur(12px)`), gold icons, white titles, sand descriptions. Human-First Design / Ship Then Iterate / Bridge the Gap
+  - `app/about/page.tsx` — Route with Navigation + AboutPage + Footer, SEO metadata
+  - `stories/blocks/AboutPage.stories.tsx` — 2 stories (Default, CustomBio) with full autodocs
+  - Navigation "About" link updated from `#about` to `/about`
+- [x] **Phase 23: Contact Page (/contact)** — DONE (1 new block, 1 story)
+  - `components/blocks/ContactPage.tsx` — Two-column conversion-focused contact page
+    - Header: "Let's Work Together" (gold gradient accent), dimmed subtitle, "Available for Projects" forest badge
+    - Left column (form): Name, Email, Select (project type: UX Design/Design System/Prototyping/AI Integration/Other), TextArea, gold pill submit button (MagneticElement), response time info text
+    - Right column (direct channels): 4 channel cards (Email/LinkedIn/GitHub/Upwork) with gold icons + labels + links, habesha divider, working hours text
+    - Underline-style inputs matching ContactSection pattern
+    - Responsive: stacks single-column on mobile (form first, channels second) at <768px
+    - All colors via `var(--theme-*)`, fully theme-aware
+  - `app/contact/page.tsx` — Route with Navigation + ContactPage + Footer, SEO metadata
+  - `stories/blocks/ContactPage.stories.tsx` — 1 story (Default) with full autodocs
+  - Navigation "Contact" link updated from `#contact` to `/contact`
+
+### Component Inventory (24 atoms + 6 molecules + 9 blocks + 5 animations + 1 context)
 
 All atoms in `components/atoms/` with barrel export via `components/atoms/index.ts`:
 
@@ -372,11 +529,21 @@ All atoms in `components/atoms/` with barrel export via `components/atoms/index.
 | **Feedback (2)** | Alert, Loader |
 | **Animation (1)** | RotatingText |
 
+Context providers in `components/`:
+
+| Category | Components |
+|----------|-----------|
+| **Theme (1)** | ThemeContext (ThemeProvider + useTheme hook) |
+
 Molecules in `components/molecules/` with barrel export via `components/molecules/index.ts`:
 
 | Category | Components |
 |----------|-----------|
 | **Navigation (1)** | Navigation |
+| **Theme (1)** | ThemeToggle |
+| **Media (2)** | ImageSlider, AlbumArtPanel (disabled — Ethiopiques side panels, Notion-powered, needs album art data) |
+| **Interaction (1)** | CustomCursor (custom cursor overlay for project card hover) |
+| **Cards (1)** | ProjectCardWide (wide project card with mockup frame, used by ProjectShowcase) |
 
 Blocks in `components/blocks/` with barrel export via `components/blocks/index.ts`:
 
@@ -384,6 +551,33 @@ Blocks in `components/blocks/` with barrel export via `components/blocks/index.t
 |----------|-----------|
 | **Hero (1)** | HeroSection |
 | **Showcase (1)** | ProjectShowcase |
+| **Skills (1)** | SkillsSection |
+| **Contact (2)** | ContactSection, ContactPage |
+| **Footer (1)** | Footer |
+| **Pages (3)** | WorkPage, CaseStudyPage, AboutPage |
+
+Data layer in `data/` with barrel export via `data/index.ts`:
+
+| Category | Files |
+|----------|-------|
+| **Projects (1)** | projects.ts (6 projects, 5 helpers, Project + CaseStudy + CaseStudyMoment types) |
+| **Album Art (1)** | albumArt.ts (AlbumTile type, static placeholder data — used as fallback when Notion unavailable) |
+
+Notion CMS layer in `lib/`:
+
+| Category | Files |
+|----------|-------|
+| **Client (1)** | notion.ts (Notion SDK v5 client, uses `NOTION_API_KEY` from env) |
+| **Data Fetchers (1)** | notion-data.ts (fetchProjects, fetchFeaturedProjects, fetchProjectBySlug, fetchAllProjectSlugs, fetchCaseStudyMoments, fetchSiteContent, fetchAlbumArt + NotionProject/NotionCaseStudyMoment/SiteSection/NotionAlbumTile types) |
+
+Animations in `components/animations/` with barrel export via `components/animations/index.ts`:
+
+| Category | Components |
+|----------|-----------|
+| **Scroll (2)** | ScrollReveal, ParallaxLayer |
+| **Sequence (1)** | StaggerGroup |
+| **Data (1)** | AnimatedCounter |
+| **Interaction (1)** | MagneticElement |
 
 ### Storybook Documentation Pattern
 All atom stories follow a consistent autodocs pattern:
@@ -408,7 +602,7 @@ All atom stories follow a consistent autodocs pattern:
 - Navigation uses `window.innerWidth` + resize listener for mobile detection (no Mantine `useMediaQuery` — keeps it dependency-light)
 - HeroSection uses `'use client'` directive for animations and RotatingText state
 - For polymorphic Mantine components (e.g., Button as `<a>`), use `MantineButton` directly instead of the custom atom wrapper
-- **Portfolio page background strategy:** `<main>` has `backgroundColor: '#FAF8F3'` (cream), sections are transparent on top
+- **Portfolio page background strategy:** `<main>` and hero section both use `var(--theme-bg-page)` (cream in light, #1A1A1A in dark), ProjectShowcase is transparent on top
 - **HeroSection illustration:** Coffee ceremony image is an inline flexbox column (not absolute positioned), responsive via CSS media queries in `<style>` tag
 - **ProjectShowcase** uses CSS class `.showcase-grid` for responsive 1→2 column layout (media query at 640px) since inline styles can't do `@media`
 - **ScrollReveal** helper in ProjectShowcase uses IntersectionObserver (`threshold: 0.1`) for scroll-triggered fade-in animations
@@ -416,6 +610,48 @@ All atom stories follow a consistent autodocs pattern:
 - **V1 tagged as `v1`** — dark theme checkpoint
 - **V2 tagged as `v2`** — light/cream theme with inline illustration
 - **V3 tagged as `v3`** — hero with clear type hierarchy: name (largest) > role (medium heading) > static creative copy (body) > badge+location. Rotating text removed, all phrases woven into flowing description. RotatingText import removed from HeroSection.
+- **Animation components** are content-agnostic wrappers — they accept `children` and add animation behavior. Never import atoms inside animation components; only import atoms in their Storybook stories for demo content.
+- **GSAP cleanup pattern:** Use `gsap.context()` and call `ctx.revert()` in useEffect cleanup — this kills all ScrollTrigger instances created within the context.
+- **ParallaxLayer** calculates offset as `(1 - speed) * 200` with `scrub: true` for frame-perfect scroll sync.
+- **MagneticElement** uses `useSpring` wrapping `useMotionValue` for natural spring physics on cursor-following.
+- **Card atom updated:** Removed `goldGlow` prop entirely. All cards now have 1px gold border + 4px hover lift with neutral shadow (useState-based, `'use client'`).
+- **Dark/Light theme toggle architecture:** CSS custom properties on `:root` + React context (`ThemeProvider` + `useTheme()`). Components use `var(--theme-*)` in inline styles and `<style>` tags. Mantine stays in light mode — our custom theming is a separate layer on top.
+- **ThemeToggle** is a pill-shaped switch (60x30px) with `role="switch"`, not a simple icon button. Sun left, moon right, gold sliding pill indicator.
+- **Anti-FOUC script** in `app/layout.tsx` `<head>` reads `localStorage('semenawerk-theme')` synchronously before React hydrates, sets `data-theme` attribute to prevent flash of wrong theme.
+- **Theme persistence:** `localStorage` key is `semenawerk-theme`, values `'light'` | `'dark'`, defaults to `'light'` if absent.
+- **Gold color adaptation:** Light mode uses a11y-safe darker gold (`#8B6914`) for text contrast on cream/white. Dark mode uses original bright gold (`#D4AF37`) which pops on dark backgrounds. Gold gradients similarly adapt via `--theme-gold-from`/`--theme-gold-to`.
+- **All themed inline styles** include `transition: [property] 400ms ease` for smooth toggle animation. Body and section backgrounds transition via CSS.
+- **SkillsSection** follows ProjectShowcase's section header pattern exactly — heading with prefix + gold accent word, right-aligned tagline. No numbered label bars. Same `clamp` spacing and `64rem` max-width container.
+- **SkillsSection cards** use h3 tags directly (not Heading atom) to keep the same inline style pattern as ProjectShowcase's typography. Card titles use `typography.fontFamily.heading`, descriptions use `typography.fontFamily.body`.
+- **Page composition** (`app/page.tsx`): Navigation → HeroSection → ProjectShowcase → SkillsSection → ContactSection → Footer
+- **ContactSection** uses same `64rem` max-width + `clamp` padding pattern as all other sections. Form is centered within at `max-width: 640px`.
+- **Footer** uses raw `<a>` tags for social links (Link atom doesn't support `target`), hover managed via `useState` for hovered link label. Dot separators between links. Email link + copyright on the right.
+- **Mobile menu** uses `useTheme()` to adapt colors — conditionally rendered (`{menuOpen && ...}`), body+html scroll locked. CSS `@keyframes menuLinkIn` for staggered entrance. Always dark nav bar pill on top (z-index 51), overlay behind it (z-index 50).
+- **`overflowX: 'hidden'`** lives on `<body>` in `app/layout.tsx` (NOT on `<main>`) to prevent double scrollbar. NEVER add `overflowX: 'hidden'` to `<main>` in any page route — it creates a second scrollable container.
+- **`suppressHydrationWarning`** on `<html>` tag in `app/layout.tsx` to silence SSR mismatch from anti-FOUC `data-theme` script.
+- **ContactSection form labels** use explicit `labelStyle` (`color: var(--theme-text)`) passed via Mantine `styles={{ label: labelStyle }}` to ensure visibility in dark mode.
+- **Data layer** lives in `data/` directory with `data/projects.ts` and `data/index.ts` barrel. Import via `import { projects, getFeaturedProjects } from '@/data'`.
+- **ProjectShowcase** now imports featured projects from `data/` via `getFeaturedProjects()` — no more hardcoded placeholder data. Maps `Project` type to its internal card format.
+- **Real thumbnail images** in `public/images/`: `dh-thumb.jpg`, `omoc-thumb.jpg`, `ablenee-thumb.jpg`, `outcast-thumb.jpg`. Renamed from original files with spaces to kebab-case.
+- **Navigation links** are now all page routes: Work → `/work`, About → `/about`, Contact → `/contact`. Only "Upwork" remains as `#upwork` anchor.
+- **WorkPage** filter bar uses `useState` for active category, filters projects client-side. Categories derived from project data. Cards link to `/work/[id]`.
+- **CaseStudyPage** has two rendering paths: projects with `caseStudy` data get the full storytelling layout (hero → metrics → workflow → 4 moments with before/after + image sliders + expandable details → resolution → CTA → next project); projects without get a graceful fallback (hero + description + tags + "coming soon").
+- **CaseStudyPage storytelling data model**: `CaseStudy` has `hook`, `role`, `duration`, `platforms`, `team`, `metrics[]`, `tags[]`, `workflow` (title + description + steps[]), `moments[]` (each with id, number, title, headline, theme, summary, before, after, details[], insight, images[]), `resolution` (growth, discovery, founderQuote, advice). Old `CaseStudySection`/`ProjectImage` types removed.
+- **CaseStudyPage theme consistency**: ALL sections use `var(--theme-*)` — NO hardcoded dark backgrounds. Hero uses `var(--theme-bg-page)`, metrics uses `var(--theme-bg)`, moments alternate `var(--theme-bg)` / `var(--theme-bg-page)`. This matches the homepage pattern where dark mode comes from the theme toggle, not forced sections.
+- **CaseStudyPage next/prev navigation** uses `getAdjacentProjects()` which wraps around the array for infinite cycling.
+- **ImageSlider molecule** (`components/molecules/ImageSlider.tsx`): Horizontal carousel for case study screenshots. 1 image at a time with crossfade, arrow nav, dot indicators, counter badge, keyboard (arrow keys) and touch swipe support. Uses `Image` atom + `Text` atom. Gold accent on active dot/arrow hover. Single image hides all nav controls.
+- **CaseStudyPage hero tags**: Use `Badge size="lg" radius="xl"` with body font at `0.8125rem`, normal case, `6px 16px` padding — larger than card-level tags, matching homepage hero badge proportions.
+- **AboutPage** profile photo path: `public/images/profile.jpg` — user must add their own image. Falls back gracefully.
+- **AboutPage experience entries** are hardcoded in the component (4 entries). Update `experienceItems` array in `AboutPage.tsx` to add/modify.
+- **ContactPage** form is static (`e.preventDefault()`) — ready for Formspree/EmailJS/API route integration. Select uses Mantine `NativeSelect` directly (atom doesn't support `data` prop for simple string arrays).
+- **`suppressHydrationWarning`** on both `<html>` and `<body>` tags in `app/layout.tsx` to silence SSR mismatches from anti-FOUC script and browser extensions.
+- **Page routes:** `/` (homepage), `/work` (all projects), `/work/[slug]` (case study), `/about`, `/contact`, `/demo` (theme demo)
+- **Notion CMS integration** (`lib/notion.ts` + `lib/notion-data.ts`): Notion SDK v5.11.1, uses `dataSources.query` (NOT `databases.query` — v5 API). Env vars in `.env.local`: `NOTION_API_KEY`, `NOTION_PROJECTS_DB`, `NOTION_MOMENTS_DB`, `NOTION_CONTENT_DB`, `NOTION_ALBUM_ART_DB`. All fetch functions are async server-side only.
+- **AlbumArtPanel** (`components/molecules/AlbumArtPanel.tsx`): Ethiopiques album art mosaic panels flanking content. Fixed position, 35% opacity, parallax scroll, desktop-only (≥1280px via CSS `.album-art-panel` media query in ProjectShowcase styles). Currently **disabled/not rendered** on homepage — needs more album entries in Notion database before enabling. To re-enable: import in `page.tsx`, fetch via `fetchAlbumArt()` server-side, pass tiles as props. Component accepts pre-split `tiles` per side (no longer splits internally).
+- **AlbumArtPanel hooks rule**: All hooks (`useRef`, `useState`, `useEffect`) must run before any early return. The empty-tiles guard (`if (displayTiles.length === 0) return <></>`) comes AFTER all hooks.
+- **CustomCursor** (`components/molecules/CustomCursor.tsx`): Custom cursor overlay shown on project card hover in ProjectShowcase. Activated via `onHoverStart`/`onHoverEnd` callbacks on `ProjectCardWide`.
+- **ProjectCardWide** (`components/molecules/ProjectCardWide.tsx`): Wide-format project card with browser/mobile mockup frame, used by ProjectShowcase. Props: title, subtitle, description, tags, image, href, mockupType, alternate (flips layout), onHoverStart/onHoverEnd.
+- **ProjectShowcase** uses `ProjectCardWide` molecule + `CustomCursor` for interactive project cards with varied scroll transition variants (fade-up, slide-left, scale-up, slide-right).
 
 ## Future Features (from global CLAUDE.md)
 
@@ -426,5 +662,5 @@ Planned features for Ethiopian SaaS context:
 
 ---
 
-**Last Updated:** 2026-02-23
-**Template Version:** 3.0.0 (V3 — Hero Text Restructured into 4 Lines)
+**Last Updated:** 2026-03-07
+**Template Version:** 5.2.0 (Notion CMS integration + CustomCursor + ProjectCardWide + AlbumArtPanel molecules)

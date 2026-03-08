@@ -1,48 +1,31 @@
+'use client';
+
+import { useState } from 'react';
 import {
   Card as MantineCard,
   type CardProps as MantineCardProps,
 } from '@mantine/core';
-import type { ReactNode } from 'react';
+import { designTokens } from '@/themes/tokens';
 
-export interface CardProps extends MantineCardProps {
-  /** Card content */
-  children: ReactNode;
-  /** Enable gold glow shadow on hover */
-  goldGlow?: boolean;
-}
+export type CardProps = MantineCardProps;
 
-export function Card({ children, goldGlow, style, ...props }: CardProps) {
-  const glowStyles = goldGlow
-    ? {
-        transition: 'box-shadow 300ms ease, transform 200ms ease',
-        cursor: 'pointer',
-        ...style,
-      }
-    : style;
+export function Card({ style, ...props }: CardProps) {
+  const [hovered, setHovered] = useState(false);
 
   return (
     <MantineCard
-      style={glowStyles}
-      onMouseEnter={
-        goldGlow
-          ? (e) => {
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(212,175,55,0.5)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }
-          : undefined
-      }
-      onMouseLeave={
-        goldGlow
-          ? (e) => {
-              e.currentTarget.style.boxShadow = '';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }
-          : undefined
-      }
+      radius="lg"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        border: `1px solid ${designTokens.colors.brand.gold}`,
+        transition: 'transform 200ms ease, box-shadow 200ms ease',
+        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+        boxShadow: hovered ? '0 8px 24px rgba(0, 0, 0, 0.08)' : 'none',
+        ...style,
+      }}
       {...props}
-    >
-      {children}
-    </MantineCard>
+    />
   );
 }
 

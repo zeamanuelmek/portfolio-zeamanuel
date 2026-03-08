@@ -1,321 +1,333 @@
 'use client';
 
 import { type CSSProperties } from 'react';
+import {
+  Button as MantineButton,
+} from '@mantine/core';
 import { designTokens } from '@/themes/tokens';
-import { Button as MantineButton } from '@mantine/core';
+import { MagneticElement } from '@/components/animations';
 
 export interface HeroSectionProps {
-  /** Path to profile image */
   profileImageSrc?: string;
 }
 
-const { colors, typography } = designTokens;
+const { typography } = designTokens;
 
-const heroKeyframes = `
-@keyframes heroFadeSlideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heroPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-@keyframes heroLineGrow {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
-
-.hero-profile-img {
-  transition: box-shadow 400ms ease, transform 400ms ease;
-}
-.hero-profile-img:hover {
-  box-shadow: 0 6px 32px rgba(212,175,55,0.3) !important;
-  transform: scale(1.04);
-}
-`;
-
-const goldGradientText: CSSProperties = {
-  backgroundImage: `linear-gradient(135deg, ${colors.brand.gold}, ${colors.brand.goldLight})`,
+const goldGradient: CSSProperties = {
+  backgroundImage: 'linear-gradient(135deg, var(--theme-gold-from), var(--theme-gold-to))',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
   backgroundClip: 'text',
 };
 
-function AnimatedSection({
+/* ═══ Keyframes & Styles ═══ */
+
+const heroStyles = `
+@keyframes heroClipIn {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroLineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes heroPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes heroPhotoReveal {
+  from { clip-path: inset(100% 0 0 0); opacity: 0; }
+  to   { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+.hero-section {
+  transition: background-color 400ms ease;
+}
+
+.hero-name-line {
+  overflow: hidden;
+}
+
+/* Profile photo */
+.hero-photo {
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 500ms ease;
+}
+.hero-photo:hover {
+  transform: scale(1.03) rotate(-1deg);
+  box-shadow: 0 12px 40px rgba(212,175,55,0.25);
+}
+
+/* Hero bottom grid */
+.hero-bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+}
+@media (max-width: 640px) {
+  .hero-bottom {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Name sizing */
+.hero-firstname, .hero-lastname {
+  font-family: ${typography.fontFamily.heading};
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  margin: 0;
+  transition: color 400ms ease;
+}
+.hero-firstname {
+  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-weight: 800;
+  color: var(--theme-text);
+}
+.hero-lastname {
+  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-weight: 800;
+}
+
+/* Middle row with photo + role */
+.hero-mid-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 28px);
+}
+@media (max-width: 480px) {
+  .hero-mid-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+`;
+
+/* ═══ Animated wrapper ═══ */
+
+function Reveal({
   children,
   delay,
+  type = 'fade',
   style,
 }: {
   children: React.ReactNode;
   delay: number;
+  type?: 'fade' | 'clip' | 'line';
   style?: CSSProperties;
 }) {
+  const anims = {
+    fade: `heroFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms both`,
+    clip: `heroClipIn 800ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms both`,
+    line: `heroLineGrow 800ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms both`,
+  };
+
   return (
-    <div
-      style={{
-        opacity: 0,
-        animation: `heroFadeSlideUp 700ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms forwards`,
-        ...style,
-      }}
-    >
+    <div style={{ animation: anims[type], ...style }}>
       {children}
     </div>
   );
 }
+
+/* ═══ Component ═══ */
 
 export function HeroSection({
   profileImageSrc = '/images/profile.jpg',
 }: HeroSectionProps): React.ReactElement {
   return (
     <>
-      <style>{heroKeyframes}</style>
+      <style>{heroStyles}</style>
       <section
+        className="hero-section"
         style={{
-          minHeight: 'clamp(600px, 85vh, 100vh)',
           width: '100%',
-          background: `
-            radial-gradient(ellipse 80% 60% at 15% 55%, rgba(212,175,55,0.06) 0%, transparent 100%),
-            radial-gradient(ellipse 50% 40% at 85% 20%, rgba(212,175,55,0.03) 0%, transparent 100%)
-          `,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '0 clamp(1.5rem, 6vw, 6rem)',
+          backgroundColor: 'var(--theme-bg-page)',
+          paddingTop: 'clamp(100px, 10vw, 160px)',
+          paddingBottom: 'clamp(48px, 6vh, 80px)',
+          paddingLeft: 'clamp(20px, 4vw, 64px)',
+          paddingRight: 'clamp(20px, 4vw, 64px)',
         }}
       >
-        <div
-          style={{
-            maxWidth: '64rem',
-            width: '100%',
-            margin: '0 auto',
-          }}
-        >
-          {/* ── Top: Section number ── */}
-          <AnimatedSection delay={0}>
-            <span
-              style={{
-                fontFamily: typography.fontFamily.mono,
-                fontSize: '0.6875rem',
-                color: 'rgba(255,255,255,0.15)',
-                letterSpacing: '0.08em',
-              }}
-            >
-              01
-            </span>
-          </AnimatedSection>
+        <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
 
-          {/* ── Gold accent line ── */}
-          <div
-            style={{
-              height: 1,
-              background: `linear-gradient(90deg, ${colors.brand.gold}, transparent 60%)`,
-              opacity: 0.15,
-              margin: '20px 0 clamp(32px, 5vh, 52px)',
-              transformOrigin: 'left',
-              animation: 'heroLineGrow 1s cubic-bezier(0.16, 1, 0.3, 1) 200ms both',
-            }}
-          />
+          {/* ── Top label ── */}
+          <Reveal delay={0} style={{ marginBottom: 'clamp(24px, 3vh, 40px)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span
+                style={{
+                  fontFamily: typography.fontFamily.mono,
+                  fontSize: '0.6875rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: 'var(--theme-text-dimmed)',
+                  transition: 'color 400ms ease',
+                }}
+              >
+                Portfolio 2025
+              </span>
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  backgroundColor: designTokens.colors.brand.forest,
+                  animation: 'heroPulse 2.5s ease-in-out infinite',
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: typography.fontFamily.mono,
+                  fontSize: '0.6875rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: 'var(--theme-gold)',
+                  transition: 'color 400ms ease',
+                }}
+              >
+                Open to work
+              </span>
+            </div>
+          </Reveal>
 
-          {/* ── Line 1: Hello, I'm [image] Zeamanuel! ── */}
-          <AnimatedSection delay={200}>
-            <h1
-              style={{
-                fontFamily: typography.fontFamily.heading,
-                fontSize: 'clamp(2.25rem, 4.5vw + 0.5rem, 4.25rem)',
-                lineHeight: 1.15,
-                margin: 0,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
-                Hello, I&apos;m
-              </span>{' '}
+          {/* ── First name ── */}
+          <div className="hero-name-line">
+            <Reveal delay={100} type="clip">
+              <h1 className="hero-firstname">Zeamanuel</h1>
+            </Reveal>
+          </div>
+
+          {/* ── Middle row: photo + role + location ── */}
+          <Reveal delay={250} style={{ margin: 'clamp(8px, 1.2vw, 16px) 0' }}>
+            <div className="hero-mid-row">
+              {/* Profile photo */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={profileImageSrc}
-                alt="Zeamanuel's profile"
-                className="hero-profile-img"
-                width={72}
-                height={72}
+                alt="Zeamanuel Ayalew"
+                className="hero-photo"
+                width={64}
+                height={64}
                 style={{
-                  width: 'clamp(48px, 4.5vw + 12px, 72px)',
-                  height: 'clamp(48px, 4.5vw + 12px, 72px)',
-                  borderRadius: 'clamp(10px, 1.2vw, 16px)',
-                  border: '2px solid rgba(212,175,55,0.45)',
+                  width: 'clamp(48px, 5vw, 68px)',
+                  height: 'clamp(48px, 5vw, 68px)',
+                  borderRadius: 'clamp(10px, 1vw, 16px)',
                   objectFit: 'cover',
                   objectPosition: 'center top',
-                  display: 'inline-block',
-                  verticalAlign: 'middle',
-                  margin: '0 clamp(6px, 0.8vw, 14px)',
-                  boxShadow: '0 4px 24px rgba(212,175,55,0.15)',
+                  border: '2px solid var(--theme-gold)',
+                  flexShrink: 0,
+                  animation: `heroPhotoReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both`,
                 }}
               />
-              <span style={{ ...goldGradientText, fontWeight: 700 }}>
-                Zeamanuel!
-              </span>
-            </h1>
-          </AnimatedSection>
 
-          {/* ── Line 2: Role ── */}
-          <AnimatedSection delay={350} style={{ marginTop: 'clamp(10px, 1.5vh, 18px)' }}>
-            <p
-              style={{
-                fontFamily: typography.fontFamily.heading,
-                fontSize: 'clamp(1.5rem, 2.8vw + 0.4rem, 2.5rem)',
-                lineHeight: 1.2,
-                margin: 0,
-                letterSpacing: '-0.015em',
-              }}
-            >
-              <span style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 400 }}>
-                I&apos;m a{' '}
-              </span>
-              <span style={{ ...goldGradientText, fontWeight: 700 }}>
-                UX Systems Designer
-              </span>
-            </p>
-          </AnimatedSection>
-
-          {/* ── Line 3: What I do ── */}
-          <AnimatedSection delay={500} style={{ marginTop: 'clamp(14px, 2vh, 24px)' }}>
-            <p
-              style={{
-                fontFamily: typography.fontFamily.body,
-                fontSize: 'clamp(0.875rem, 0.5vw + 0.7rem, 1.0625rem)',
-                lineHeight: 1.65,
-                margin: 0,
-                maxWidth: '38rem',
-                color: 'rgba(255,255,255,0.4)',
-              }}
-            >
-              I turn ideas into{' '}
-              <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
-                working prototypes
-              </span>
-              {' '}and{' '}
-              <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
-                functional products
-              </span>
-              {' '}&mdash; crafting{' '}
-              <span style={{ ...goldGradientText, fontWeight: 600, fontStyle: 'italic' }}>
-                AI-augmented solutions
-              </span>
-              {' '}that deliver{' '}
-              <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
-                complete experiences
-              </span>
-              , not just pixels.
-            </p>
-          </AnimatedSection>
-
-          {/* ── Line 4: Badge + Location ── */}
-          <AnimatedSection
-            delay={650}
-            style={{
-              marginTop: 'clamp(20px, 3vh, 36px)',
-              display: 'flex',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '14px',
-            }}
-          >
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                border: '1px solid rgba(212,175,55,0.25)',
-                backgroundColor: 'rgba(212,175,55,0.06)',
-                borderRadius: '9999px',
-                padding: '5px 14px',
-                fontSize: '0.75rem',
-                fontWeight: 500,
-                fontFamily: typography.fontFamily.body,
-                color: colors.brand.gold,
-              }}
-            >
+              {/* Role */}
               <span
                 style={{
-                  width: 7,
-                  height: 7,
-                  borderRadius: '50%',
-                  backgroundColor: colors.brand.forest,
-                  display: 'inline-block',
-                  animation: 'heroPulse 2.5s ease-in-out infinite',
-                }}
-              />
-              Available for Projects
-            </div>
-            <p
-              style={{
-                fontFamily: typography.fontFamily.body,
-                fontSize: '0.8125rem',
-                color: 'rgba(255,255,255,0.25)',
-                margin: 0,
-                letterSpacing: '0.03em',
-              }}
-            >
-              Based in Addis Ababa, Ethiopia
-            </p>
-          </AnimatedSection>
-
-          {/* ── Bottom group ── */}
-          <div style={{ marginTop: 'clamp(32px, 5vh, 52px)' }}>
-            {/* CTA row */}
-            <AnimatedSection
-              delay={750}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '20px',
-              }}
-            >
-              <MantineButton
-                component="a"
-                href="#work"
-                color="gold"
-                size="sm"
-                radius={9999}
-                rightSection={
-                  <span style={{ fontSize: 13, marginLeft: 2 }}>&#8595;</span>
-                }
-                styles={{
-                  root: {
-                    padding: '9px 22px',
-                    fontWeight: 500,
-                    fontSize: '0.8125rem',
-                    flexShrink: 0,
-                    height: 'auto',
-                    letterSpacing: '0.01em',
-                  },
+                  fontFamily: typography.fontFamily.body,
+                  fontSize: 'clamp(0.8125rem, 1vw + 0.3rem, 1.0625rem)',
+                  fontWeight: 400,
+                  color: 'var(--theme-text-secondary)',
+                  letterSpacing: '0.02em',
+                  lineHeight: 1.5,
+                  transition: 'color 400ms ease',
                 }}
               >
-                View My Work
-              </MantineButton>
+                Design Engineer — crafting{' '}
+                <span style={{ ...goldGradient, fontWeight: 600 }}>AI&#8209;augmented</span>
+                {' '}products<br />
+                from Addis Ababa, Ethiopia
+              </span>
+            </div>
+          </Reveal>
+
+          {/* ── Gold divider line ── */}
+          <Reveal
+            delay={500}
+            type="line"
+            style={{
+              height: 1,
+              background: 'linear-gradient(90deg, var(--theme-gold-from), var(--theme-gold-to), transparent)',
+              transformOrigin: 'left',
+              marginTop: 'clamp(24px, 3vh, 40px)',
+              marginBottom: 'clamp(24px, 3vh, 40px)',
+            }}
+          >
+            <div />
+          </Reveal>
+
+          {/* ── Bottom row: tagline left, CTA right ── */}
+          <Reveal delay={600}>
+            <div className="hero-bottom">
+              {/* Tagline */}
               <p
                 style={{
                   fontFamily: typography.fontFamily.body,
-                  fontSize: 'clamp(0.75rem, 0.3vw + 0.65rem, 0.8125rem)',
-                  color: 'rgba(255,255,255,0.35)',
+                  fontSize: 'clamp(0.875rem, 0.4vw + 0.7rem, 1rem)',
+                  lineHeight: 1.7,
+                  color: 'var(--theme-text-secondary)',
                   margin: 0,
-                  maxWidth: 'clamp(200px, 30vw, 280px)',
-                  lineHeight: 1.6,
+                  maxWidth: '32rem',
+                  transition: 'color 400ms ease',
                 }}
               >
-                Feel free to explore my portfolio and
-                reach out—I&apos;d love to connect.
+                I turn ideas into{' '}
+                <strong style={{ fontWeight: 600, color: 'var(--theme-text)', transition: 'color 400ms ease' }}>
+                  working prototypes
+                </strong>
+                {' '}and{' '}
+                <strong style={{ fontWeight: 600, color: 'var(--theme-text)', transition: 'color 400ms ease' }}>
+                  scalable design systems
+                </strong>
+                {' '}&mdash; shipping complete experiences, not just pixels.
               </p>
-            </AnimatedSection>
-          </div>
+
+              {/* CTA */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10 }}>
+                <MagneticElement strength={0.25}>
+                  <MantineButton
+                    component="a"
+                    href="#work"
+                    color="gold"
+                    size="sm"
+                    radius={9999}
+                    rightSection={
+                      <span style={{ fontSize: 13, marginLeft: 2 }} aria-hidden="true">&#8595;</span>
+                    }
+                    styles={{
+                      root: {
+                        padding: '9px 24px',
+                        fontWeight: 500,
+                        fontSize: '0.8125rem',
+                        height: 'auto',
+                        letterSpacing: '0.01em',
+                      },
+                    }}
+                  >
+                    View My Work
+                  </MantineButton>
+                </MagneticElement>
+                <span
+                  style={{
+                    fontFamily: typography.fontFamily.mono,
+                    fontSize: '0.625rem',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: 'var(--theme-text-dimmed)',
+                    transition: 'color 400ms ease',
+                  }}
+                >
+                  Scroll to explore
+                </span>
+              </div>
+            </div>
+          </Reveal>
+
         </div>
       </section>
     </>

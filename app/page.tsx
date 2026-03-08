@@ -1,12 +1,15 @@
 import { Navigation } from '@/components/molecules';
-import { HeroSection, ProjectShowcase } from '@/components/blocks';
+import { HeroSection, ProjectShowcase, SkillsSection, ContactSection, Footer } from '@/components/blocks';
 
 export default function HomePage() {
   return (
-    <main style={{ backgroundColor: '#1A1A1A' }}>
+    <main style={{ backgroundColor: 'var(--theme-bg-page, #FAF8F3)', transition: 'background-color 400ms ease' }}>
       <Navigation />
       <HeroSection profileImageSrc="/images/profile.jpg" />
       <ProjectShowcase />
+      <SkillsSection />
+      <ContactSection />
+      <Footer />
     </main>
   );
 }

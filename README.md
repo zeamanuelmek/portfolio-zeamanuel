@@ -138,9 +138,9 @@ The theme factory generates:
 <Text goldGradient fw={600}>Gradient body text</Text>
 ```
 
-### Card with Gold Glow
+### Card with Hover Lift
 ```tsx
-<Card goldGlow>Hover for gold glow effect</Card>
+<Card>All cards have gold border + hover lift by default</Card>
 ```
 
 ### Ethiopian Dividers
@@ -168,7 +168,7 @@ import { designTokens } from '@/themes/tokens';
 designTokens.colors.brand.gold       // '#D4AF37'
 designTokens.colors.background.cream  // '#FAF8F3'
 designTokens.typography.fontFamily.heading  // "'Space Grotesk', 'Inter', sans-serif"
-designTokens.shadows.goldGlow         // '0 4px 20px rgba(212,175,55,0.3)'
+designTokens.shadows.goldGlow         // '0 4px 20px rgba(212,175,55,0.3)' (available in tokens)
 ```
 
 ## Stack

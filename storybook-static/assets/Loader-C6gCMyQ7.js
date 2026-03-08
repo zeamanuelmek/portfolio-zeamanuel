@@ -1,0 +1,1 @@
+import{j as r}from"./iframe-B9BJqu6d.js";import{L as e}from"./Loader-DZfoLsgY.js";function s({...o}){return r.jsx(e,{color:"gold",...o})}s.__docgenInfo={description:"",methods:[],displayName:"Loader"};export{s as L};

@@ -14,27 +14,25 @@ const meta: Meta<typeof Card> = {
 **When to use:**
 Card is the primary container for grouping related content — project summaries, client profiles, invoice items, and dashboard widgets. Use it whenever content needs visual separation from the page background.
 
+**Default behavior:** All cards have a 1px gold (#D4AF37) border. On hover, cards lift 4px with a soft neutral shadow — clean, no gold glow.
+
 **Ethiopian Design Context:**
-Cards default to \`xl\` border-radius for the modern, rounded aesthetic. The custom \`goldGlow\` prop adds a signature hover effect — gold box-shadow with subtle lift — for featured or premium content. Use \`Card.Section\` for header areas with brand gradients.
+Cards default to \`lg\` border-radius for the modern, rounded aesthetic. The gold border ties every card to the brand identity. Use \`Card.Section\` for header areas with brand gradients.
 
 **Common Patterns:**
 - Project cards with status badges, due dates, and ETB budgets
 - Client profile cards with avatars and contact info
 - Invoice/expense summary cards
-- Dashboard stat widgets with gold glow for emphasis
+- Dashboard stat widgets
 
 **Accessibility:**
-When cards are clickable, use \`component="a"\` or wrap in a link. The goldGlow hover effect provides visual feedback. Ensure sufficient color contrast on dark card variants.
+When cards are clickable, use \`component="a"\` or wrap in a link. The hover lift effect provides visual feedback. Ensure sufficient color contrast on dark card variants.
         `,
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
-    goldGlow: {
-      description: 'Enables gold box-shadow glow and lift effect on hover',
-      control: 'boolean',
-    },
     shadow: {
       description: 'Card shadow elevation (xs | sm | md | lg | xl)',
       control: 'select',
@@ -50,7 +48,7 @@ When cards are clickable, use \`component="a"\` or wrap in a link. The goldGlow 
       control: 'boolean',
     },
     radius: {
-      description: 'Border radius (defaults to xl from theme)',
+      description: 'Border radius (defaults to lg from theme)',
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
     },
@@ -70,7 +68,7 @@ export const Variants: Story = {
           <Card style={{ width: 300 }}>
             <Title order={4} mb="xs">Default Card</Title>
             <Text size="sm" c="dimmed">
-              Default card with border, subtle shadow, and xl border radius from theme defaults.
+              Default card with gold border, subtle hover lift, and lg border radius from theme defaults.
             </Text>
           </Card>
 
@@ -94,53 +92,29 @@ export const Variants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Three elevation levels. Default for standard content, md for secondary emphasis, lg for modals and featured items.',
+        story: 'Three elevation levels. All cards share the gold border and hover lift effect.',
       },
     },
   },
 };
 
-export const GoldGlow: Story = {
-  render: () => (
-    <Box p="xl" style={{ backgroundColor: '#FAF8F3' }}>
-      <Stack gap="xl">
-        <Text size="xs" tt="uppercase" fw={600} c="#D4AF37">Gold Glow on Hover</Text>
-        <Text size="sm" c="dimmed">Hover over the cards to see the gold glow effect.</Text>
-
-        <Group gap="lg" wrap="wrap" align="flex-start">
-          <Card goldGlow style={{ width: 300 }}>
-            <Title order={4} mb="xs">Featured Project</Title>
-            <Text size="sm" c="dimmed">
-              Gold glow effect on hover for premium and featured content cards.
-            </Text>
-          </Card>
-
-          <Card goldGlow style={{ width: 300 }}>
-            <MantineBadge color="gold" variant="light" mb="sm">Premium</MantineBadge>
-            <Title order={4} mb="xs">Premium Service</Title>
-            <Text size="sm" c="dimmed">
-              Highlight premium offerings with the signature gold glow.
-            </Text>
-          </Card>
-
-          <Card goldGlow style={{ width: 300 }}>
-            <Group gap="xs" mb="sm">
-              <MantineBadge color="forest" variant="light">Active</MantineBadge>
-              <MantineBadge color="gold" variant="outline">Priority</MantineBadge>
-            </Group>
-            <Title order={4} mb="xs">Active Project</Title>
-            <Text size="sm" c="dimmed">
-              Combine gold glow with status badges for rich project cards.
-            </Text>
-          </Card>
-        </Group>
-      </Stack>
-    </Box>
-  ),
+export const HoverEffect: Story = {
+  args: {
+    children: (
+      <>
+        <Text fw={600}>Hover over me</Text>
+        <Text size="sm" c="dimmed" mt="xs">
+          Cards lift with a subtle shadow on hover — no gold glow.
+        </Text>
+      </>
+    ),
+    p: 'lg',
+    w: 320,
+  },
   parameters: {
     docs: {
       description: {
-        story: 'The signature `goldGlow` prop adds a gold box-shadow and -2px lift on hover. Use for featured projects, premium services, and priority items.',
+        story: 'Default hover: 4px lift + soft neutral shadow. Gold border stays constant.',
       },
     },
   },
@@ -202,7 +176,7 @@ export const UseCases: Story = {
         <Text size="xs" tt="uppercase" fw={600} c="#D4AF37">Ethiopian SaaS Use Cases</Text>
 
         <Group gap="lg" wrap="wrap" align="flex-start">
-          <Card goldGlow style={{ width: 320 }} padding="lg">
+          <Card style={{ width: 320 }} padding="lg">
             <Group justify="space-between" mb="sm">
               <MantineBadge color="gold" variant="light">In Progress</MantineBadge>
               <IconBriefcase size={20} color="#D4AF37" />
@@ -292,7 +266,6 @@ export const OnDarkBackground: Story = {
           </Card>
 
           <Card
-            goldGlow
             style={{
               width: 300,
               backgroundColor: '#3D3D3D',
@@ -300,9 +273,9 @@ export const OnDarkBackground: Story = {
             }}
             withBorder={false}
           >
-            <Title order={4} mb="xs" c="white">Gold Glow Dark</Title>
+            <Title order={4} mb="xs" c="white">Dark Hover Card</Title>
             <Text size="sm" c="#E8D5B7">
-              Gold glow effect is even more striking on dark backgrounds.
+              Hover lift effect works on dark backgrounds too.
             </Text>
           </Card>
         </Group>
@@ -312,7 +285,7 @@ export const OnDarkBackground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dark background cards with charcoal fills and gold-tinted borders. The goldGlow hover effect is especially dramatic on dark surfaces.',
+        story: 'Dark background cards with charcoal fills and gold-tinted borders. The hover lift effect works on any background.',
       },
     },
   },

@@ -1,0 +1,1 @@
+import{j as r}from"./iframe-B9BJqu6d.js";import{B as t}from"./Badge--6N5_VeE.js";function s({children:e,...o}){return r.jsx(t,{color:"gold",...o,children:e})}s.__docgenInfo={description:"",methods:[],displayName:"Badge",props:{children:{required:!0,tsType:{name:"ReactNode"},description:"Badge content"}},composes:["MantineBadgeProps"]};export{s as B};
