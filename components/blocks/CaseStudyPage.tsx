@@ -323,7 +323,7 @@ function MomentSection({
         {moment.images && moment.images.length > 0 && (
           <ScrollReveal direction="up" delay={0.15}>
             <div style={{ marginBottom: 32 }}>
-              <ImageSlider images={moment.images} aspectRatio="9/16" />
+              <ImageSlider images={moment.images} height={360} />
             </div>
           </ScrollReveal>
         )}
