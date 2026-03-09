@@ -15,7 +15,12 @@ export interface ImageSliderImage {
 
 export interface ImageSliderProps {
   images: ImageSliderImage[];
+  /** Fixed pixel height. Prefer aspectRatio for responsive behaviour. */
   height?: number | string;
+  /** CSS aspect-ratio value (e.g. "9/16", "16/10", "4/3").
+   *  When set, the container scales proportionally with its width so the
+   *  image crops identically on every screen size. Overrides height. */
+  aspectRatio?: string;
   borderRadius?: string;
 }
 
@@ -62,6 +67,7 @@ const sliderStyles = `
 export function ImageSlider({
   images,
   height = 400,
+  aspectRatio,
   borderRadius = radius.xl,
 }: ImageSliderProps): React.ReactElement {
   const [current, setCurrent] = useState(0);
@@ -143,7 +149,9 @@ export function ImageSlider({
         <div
           style={{
             position: 'relative',
-            height: typeof height === 'number' ? `${height}px` : height,
+            ...(aspectRatio
+              ? { aspectRatio, width: '100%' }
+              : { height: typeof height === 'number' ? `${height}px` : height }),
             backgroundColor: 'var(--theme-card-bg, #FAF8F3)',
             overflow: 'hidden',
           }}
