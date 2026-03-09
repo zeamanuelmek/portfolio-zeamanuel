@@ -667,6 +667,9 @@ All atom stories follow a consistent autodocs pattern:
   - Section header taglines (ProjectShowcase, SkillsSection, ContactSection): switch to `text-align: left` at ≤600px via CSS classes (`.showcase-tagline`, `.skills-tagline`, `.contact-tagline`)
   - Project cards: `cursor: auto` on touch devices via `@media (hover: none)`
   - Navigation name: `overflow: hidden` + `text-overflow: ellipsis` to prevent overflow into hamburger area; smaller font at ≤400px
+- **Navigation fixes (v5.5):**
+  - ThemeToggle hidden on mobile nav bar (≤640px) via `.nav-theme-desktop { display: none }` — it's accessible in the mobile menu overlay instead. Mobile nav right now shows only the hamburger button, giving full width to the name.
+  - `scrolled` state added to Navigation: `window.scrollY > 8` triggers `.nav-scrolled` class which adds `box-shadow: 0 1px 16px rgba(0,0,0,0.08)` and stronger `border-bottom-color`. Prevents nav from visually blending into the hero (same `var(--theme-bg-page)` background) at page top.
 - **Notion CMS integration** (`lib/notion.ts` + `lib/notion-data.ts`): Notion SDK v5.11.1, uses `dataSources.query` (NOT `databases.query` — v5 API). Env vars in `.env.local`: `NOTION_API_KEY`, `NOTION_PROJECTS_DB`, `NOTION_MOMENTS_DB`, `NOTION_CONTENT_DB`, `NOTION_ALBUM_ART_DB`. All fetch functions are async server-side only.
 - **AlbumArtPanel** (`components/molecules/AlbumArtPanel.tsx`): Ethiopiques album art mosaic panels flanking content. Fixed position, 35% opacity, parallax scroll, desktop-only (≥1280px via CSS `.album-art-panel` media query in ProjectShowcase styles). Currently **disabled/not rendered** on homepage — needs more album entries in Notion database before enabling. To re-enable: import in `page.tsx`, fetch via `fetchAlbumArt()` server-side, pass tiles as props. Component accepts pre-split `tiles` per side (no longer splits internally).
 - **AlbumArtPanel hooks rule**: All hooks (`useRef`, `useState`, `useEffect`) must run before any early return. The empty-tiles guard (`if (displayTiles.length === 0) return <></>`) comes AFTER all hooks.
@@ -684,4 +687,4 @@ Planned features for Ethiopian SaaS context:
 ---
 
 **Last Updated:** 2026-03-09
-**Template Version:** 5.4.0 (Mobile responsiveness fixes, Cloudinary image support, ISR revalidation for case study pages)
+**Template Version:** 5.5.0 (Navigation mobile fixes: ThemeToggle hidden on mobile nav bar, scroll shadow state)

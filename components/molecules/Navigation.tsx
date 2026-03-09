@@ -122,6 +122,12 @@ const navStyles = `
 }
 .nav-social:hover { color: var(--theme-text); }
 
+/* ---- Scrolled state ---- */
+.nav-bar.nav-scrolled {
+  box-shadow: 0 1px 16px rgba(0,0,0,0.08);
+  border-bottom-color: var(--theme-card-border);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 860px) {
   .nav-title { display: none; }
@@ -137,6 +143,7 @@ const navStyles = `
   .nav-center { display: none !important; }
   .nav-social { display: none !important; }
   .nav-hamburger { display: flex !important; }
+  .nav-theme-desktop { display: none !important; }
 }
 @media (min-width: 641px) {
   .nav-hamburger { display: none !important; }
@@ -212,6 +219,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuClosing, setMenuClosing] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth <= 640);
@@ -222,6 +230,12 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!isMobile) {
@@ -265,7 +279,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
     <>
       <style>{navStyles}</style>
 
-      <nav className="nav-bar" role="navigation">
+      <nav className={`nav-bar${scrolled ? ' nav-scrolled' : ''}`} role="navigation">
         {/* Left */}
         <div className="nav-left">
           <Link href="/" className="nav-name">Zeamanuel Ayalew</Link>
@@ -298,7 +312,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
             </svg>
             <span className="nav-social-label">LinkedIn</span>
           </a>
-          <ThemeToggle />
+          <span className="nav-theme-desktop"><ThemeToggle /></span>
           <Hamburger
             isOpen={menuOpen && !menuClosing}
             onClick={() => {
