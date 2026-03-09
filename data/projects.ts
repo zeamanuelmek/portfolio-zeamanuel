@@ -206,33 +206,6 @@ export const projects: Project[] = [
             { url: '/images/placeholder-screen.svg', caption: 'Store policies section', alt: 'Expandable store policies with shipping, returns, terms' },
           ],
         },
-        {
-          id: 'comments',
-          number: '04',
-          title: 'Comments & Report',
-          headline: 'Not every task is a system. Sometimes it\'s focused craft.',
-          theme: 'Range \u2014 micro-interaction design, pattern reference, practical decisions',
-          summary:
-            'Instagram-style comments with slide-up sheets, long-press context menus for edit/delete/report, and confirmation flows. Contained, polished interaction design.',
-          before:
-            'Basic comment display with no interaction capabilities.',
-          after:
-            'Full comment system: slide-up sheet, long-press edit/delete (own comment) or report (others), reply threads, realistic timestamps, report confirmation flow.',
-          details: [
-            'Took screenshots of existing OMOC design + Instagram comments as input for Claude artifacts \u2014 combined reference with original design',
-            'Long-press for context menu (edit/delete/report) \u2014 taken from Instagram and Telegram patterns, plus swipe would be more complex to develop',
-            'Created realistic time formats (just now, 2h, 2w) matching social platform conventions',
-            "Report confirmation with green checkmark \u2014 users need to know their report was submitted, it's a trust signal that prevents duplicate reports",
-          ],
-          insight:
-            "After three heavy systems stories, this proves range \u2014 I'm not just a systems thinker who can't execute on focused interaction details.",
-          images: [
-            { url: '/images/placeholder-screen.svg', caption: 'Slide-up comment sheet', alt: 'Instagram-style slide-up comment panel' },
-            { url: '/images/placeholder-screen.svg', caption: 'Long-press context menu', alt: 'Long-press showing edit, delete, and report options' },
-            { url: '/images/placeholder-screen.svg', caption: 'Report flow', alt: 'Report submission flow with reason selection' },
-            { url: '/images/placeholder-screen.svg', caption: 'Report confirmation', alt: 'Successful report confirmation with green checkmark' },
-          ],
-        },
       ],
       resolution: {
         growth:

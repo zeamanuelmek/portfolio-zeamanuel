@@ -439,7 +439,7 @@ export function CaseStudyPage({
       <section
         style={{
           backgroundColor: 'var(--theme-bg-page, #FAF8F3)',
-          paddingTop: 'clamp(120px, 14vw, 180px)',
+          paddingTop: 'clamp(80px, 10vw, 120px)',
           paddingBottom: 'clamp(64px, 8vh, 96px)',
           paddingLeft: 24,
           paddingRight: 24,
