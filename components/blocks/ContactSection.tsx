@@ -94,6 +94,15 @@ export function ContactSection({
   };
 
   return (
+    <>
+    <style>{`
+      @media (max-width: 600px) {
+        .contact-tagline {
+          text-align: left !important;
+          max-width: 100% !important;
+        }
+      }
+    `}</style>
     <section
       id="contact"
       aria-labelledby="contact-heading"
@@ -148,6 +157,7 @@ export function ContactSection({
             </h2>
 
             <p
+              className="contact-tagline"
               style={{
                 fontFamily: typography.fontFamily.body,
                 fontSize: 'clamp(0.8125rem, 0.5vw + 0.65rem, 0.875rem)',
@@ -301,5 +311,6 @@ export function ContactSection({
         </ScrollReveal>
       </div>
     </section>
+    </>
   );
 }

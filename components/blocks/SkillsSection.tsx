@@ -100,6 +100,13 @@ const goldGradientText: CSSProperties = {
 /* === Animation styles === */
 
 const skillCardStyles = `
+@media (max-width: 600px) {
+  .skills-tagline {
+    text-align: left !important;
+    max-width: 100% !important;
+  }
+}
+
 @keyframes skillShimmer {
   0% { transform: translateX(-100%) rotate(15deg); }
   100% { transform: translateX(200%) rotate(15deg); }
@@ -221,6 +228,7 @@ export function SkillsSection({
 
               {/* Tagline */}
               <p
+                className="skills-tagline"
                 style={{
                   fontFamily: typography.fontFamily.body,
                   fontSize: 'clamp(0.8125rem, 0.5vw + 0.65rem, 0.875rem)',

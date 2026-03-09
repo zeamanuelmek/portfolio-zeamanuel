@@ -1,4 +1,7 @@
 import { notFound } from 'next/navigation';
+
+// Re-fetch from Notion every 30 minutes so signed image URLs don't expire
+export const revalidate = 1800;
 import { Navigation } from '@/components/molecules';
 import { CaseStudyPage } from '@/components/blocks/CaseStudyPage';
 import { Footer } from '@/components/blocks';

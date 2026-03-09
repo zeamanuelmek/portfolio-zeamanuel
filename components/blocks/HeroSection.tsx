@@ -84,12 +84,12 @@ const heroStyles = `
   transition: color 400ms ease;
 }
 .hero-firstname {
-  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-size: clamp(2rem, 12vw, 9rem);
   font-weight: 800;
   color: var(--theme-text);
 }
 .hero-lastname {
-  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-size: clamp(2rem, 12vw, 9rem);
   font-weight: 800;
 }
 
@@ -97,12 +97,15 @@ const heroStyles = `
 .hero-mid-row {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 3vw, 28px);
+  gap: clamp(12px, 3vw, 28px);
+  flex-wrap: wrap;
 }
+
+/* Hero section padding on small phones */
 @media (max-width: 480px) {
-  .hero-mid-row {
-    flex-wrap: wrap;
-    gap: 12px;
+  .hero-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 }
 `;

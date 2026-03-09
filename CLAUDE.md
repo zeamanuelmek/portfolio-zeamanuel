@@ -658,6 +658,15 @@ All atom stories follow a consistent autodocs pattern:
 - **ContactPage** form is static (`e.preventDefault()`) — ready for Formspree/EmailJS/API route integration. Select uses Mantine `NativeSelect` directly (atom doesn't support `data` prop for simple string arrays).
 - **`suppressHydrationWarning`** on both `<html>` and `<body>` tags in `app/layout.tsx` to silence SSR mismatches from anti-FOUC script and browser extensions.
 - **Page routes:** `/` (homepage), `/work` (all projects), `/work/[slug]` (case study), `/about`, `/contact`, `/demo` (theme demo)
+- **Notion image expiry fix:** Case study page (`app/work/[slug]/page.tsx`) uses `export const revalidate = 1800` (ISR, 30 min) so Notion signed S3 URLs never expire before re-fetch. Direct Notion file uploads expire in ~1hr — always prefer external URLs (Cloudinary) in Notion file properties instead.
+- **Cloudinary workflow:** Upload image to Cloudinary → copy URL → paste into Notion `Images` field as "Embed link" (external). `getFiles()` in `notion-data.ts` handles both `f.type === 'file'` (Notion-hosted, expires) and `f.type === 'external'` (Cloudinary, permanent). `res.cloudinary.com` is whitelisted in `next.config.ts` `remotePatterns`.
+- **Mobile responsiveness fixes (v5.4):**
+  - Hero name: `clamp(2rem, 12vw, 9rem)` (was `3.5rem` min — caused overflow on screens < 467px)
+  - Hero mid-row: `flex-wrap: wrap` always-on (not breakpoint-conditional)
+  - Hero padding: 16px horizontal on ≤480px screens via media query
+  - Section header taglines (ProjectShowcase, SkillsSection, ContactSection): switch to `text-align: left` at ≤600px via CSS classes (`.showcase-tagline`, `.skills-tagline`, `.contact-tagline`)
+  - Project cards: `cursor: auto` on touch devices via `@media (hover: none)`
+  - Navigation name: `overflow: hidden` + `text-overflow: ellipsis` to prevent overflow into hamburger area; smaller font at ≤400px
 - **Notion CMS integration** (`lib/notion.ts` + `lib/notion-data.ts`): Notion SDK v5.11.1, uses `dataSources.query` (NOT `databases.query` — v5 API). Env vars in `.env.local`: `NOTION_API_KEY`, `NOTION_PROJECTS_DB`, `NOTION_MOMENTS_DB`, `NOTION_CONTENT_DB`, `NOTION_ALBUM_ART_DB`. All fetch functions are async server-side only.
 - **AlbumArtPanel** (`components/molecules/AlbumArtPanel.tsx`): Ethiopiques album art mosaic panels flanking content. Fixed position, 35% opacity, parallax scroll, desktop-only (≥1280px via CSS `.album-art-panel` media query in ProjectShowcase styles). Currently **disabled/not rendered** on homepage — needs more album entries in Notion database before enabling. To re-enable: import in `page.tsx`, fetch via `fetchAlbumArt()` server-side, pass tiles as props. Component accepts pre-split `tiles` per side (no longer splits internally).
 - **AlbumArtPanel hooks rule**: All hooks (`useRef`, `useState`, `useEffect`) must run before any early return. The empty-tiles guard (`if (displayTiles.length === 0) return <></>`) comes AFTER all hooks.
@@ -675,4 +684,4 @@ Planned features for Ethiopian SaaS context:
 ---
 
 **Last Updated:** 2026-03-09
-**Template Version:** 5.3.0 (Real project data, CaseStudyInProgress organism, correct social links, About page experience/education/recognition, launch-ready content)
+**Template Version:** 5.4.0 (Mobile responsiveness fixes, Cloudinary image support, ISR revalidation for case study pages)

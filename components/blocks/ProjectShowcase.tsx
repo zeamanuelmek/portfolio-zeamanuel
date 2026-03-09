@@ -169,6 +169,21 @@ const showcaseStyles = `
     display: flex !important;
   }
 }
+
+/* Section header tagline: left-align when it wraps on mobile */
+@media (max-width: 600px) {
+  .showcase-tagline {
+    text-align: left !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Touch devices: restore cursor on cards */
+@media (hover: none) {
+  .wide-card {
+    cursor: auto !important;
+  }
+}
 `;
 
 /* === Main Component === */
@@ -236,6 +251,7 @@ export function ProjectShowcase({
 
               {/* Tagline */}
               <p
+                className="showcase-tagline"
                 style={{
                   fontFamily: typography.fontFamily.body,
                   fontSize: 'clamp(0.8125rem, 0.5vw + 0.65rem, 0.875rem)',

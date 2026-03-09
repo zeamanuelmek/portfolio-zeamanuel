@@ -58,7 +58,16 @@ const navStyles = `
   color: var(--theme-text);
   text-decoration: none;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
   transition: color 400ms ease;
+}
+@media (max-width: 400px) {
+  .nav-name {
+    font-size: 0.6875rem;
+    letter-spacing: 0.03em;
+  }
 }
 
 .nav-title {
