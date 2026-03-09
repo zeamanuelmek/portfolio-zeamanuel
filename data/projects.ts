@@ -144,10 +144,10 @@ export const projects: Project[] = [
           insight:
             "I can take ambiguous, expanding requirements and create structured, logical flows. I fix what's broken even when it's not in the brief.",
           images: [
-            { url: '/images/placeholder-screen.svg', caption: 'Original 4-step signup', alt: 'OMOC original onboarding flow with basic signup fields' },
-            { url: '/images/placeholder-screen.svg', caption: 'Entity type classification', alt: 'Seller classification step showing individual, sole proprietor, company options' },
-            { url: '/images/placeholder-screen.svg', caption: 'VIES validation states', alt: 'Three validation states: validating, success, and error with recovery' },
-            { url: '/images/placeholder-screen.svg', caption: 'Final 7-step flow', alt: 'Complete onboarding flow overview showing all 7 steps' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063308/Frame_1_ife315.png', caption: 'Original 4-step signup', alt: 'OMOC original onboarding flow with basic signup fields' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063309/Frame_3_ikypb6.png', caption: 'Entity type classification', alt: 'Seller classification step showing individual, sole proprietor, company options' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063489/Frame_5_xfyi0s.png', caption: 'VIES validation states', alt: 'Three validation states: validating, success, and error with recovery' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063307/Frame_6_u66laf.png', caption: 'Final 7-step flow', alt: 'Complete onboarding flow overview showing all 7 steps' },
           ],
         },
         {
@@ -172,10 +172,10 @@ export const projects: Project[] = [
           insight:
             "I can design complex systems that work across platforms and user types. I think about how one user's action affects another user's experience.",
           images: [
-            { url: '/images/placeholder-screen.svg', caption: 'Seller order dashboard with 11+ statuses', alt: 'OMOC seller dashboard showing all order statuses' },
-            { url: '/images/placeholder-screen.svg', caption: 'Buyer item selection for cancellation', alt: 'Buyer-side item-by-item selection for order cancellation' },
-            { url: '/images/placeholder-screen.svg', caption: 'Chat-based complaint resolution', alt: 'Complaint flow with chat-based resolution between buyer and support' },
-            { url: '/images/placeholder-screen.svg', caption: 'Full order flow mapping', alt: 'Overview of all order management flows across buyer and seller' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063699/Frame_7_fyy43n.png', caption: 'Seller order dashboard with 11+ statuses', alt: 'OMOC seller dashboard showing all order statuses' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063774/Frame_8_rbpzyp.png', caption: 'Buyer item selection for cancellation', alt: 'Buyer-side item-by-item selection for order cancellation' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063811/Frame_9_u2qfnj.png', caption: 'Chat-based complaint resolution', alt: 'Complaint flow with chat-based resolution between buyer and support' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063849/Frame_10_qlfuse.png', caption: 'Full order flow mapping', alt: 'Overview of all order management flows across buyer and seller' },
           ],
         },
         {
@@ -200,10 +200,10 @@ export const projects: Project[] = [
           insight:
             "I handle dev constraints without ego \u2014 I adapt the design while preserving user value. Whenever developers say something can't be done, I understand and find another way.",
           images: [
-            { url: '/images/placeholder-screen.svg', caption: 'Buyer-facing store template', alt: 'How buyers see a seller\'s shop on mobile' },
-            { url: '/images/placeholder-screen.svg', caption: 'Seller shop builder form', alt: 'Desktop shop builder with form-based editing' },
-            { url: '/images/placeholder-screen.svg', caption: 'Category and product grid', alt: 'Store categories dropdown and product grid layout' },
-            { url: '/images/placeholder-screen.svg', caption: 'Store policies section', alt: 'Expandable store policies with shipping, returns, terms' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063913/Frame_11_fa6wys.png', caption: 'Buyer-facing store template', alt: 'How buyers see a seller\'s shop on mobile' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063952/Frame_12_t5ggts.png', caption: 'Seller shop builder form', alt: 'Desktop shop builder with form-based editing' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063983/Frame_13_a7zj0v.png', caption: 'Category and product grid', alt: 'Store categories dropdown and product grid layout' },
+            { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773064051/Frame_14_y2t0yh.png', caption: 'Store policies section', alt: 'Expandable store policies with shipping, returns, terms' },
           ],
         },
       ],
