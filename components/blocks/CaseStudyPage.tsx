@@ -2,7 +2,7 @@
 
 import { useState, useEffect, type CSSProperties } from 'react';
 import { Button as MantineButton } from '@mantine/core';
-import { IconChevronRight } from '@tabler/icons-react';
+import { IconChevronRight, IconBrandFigma, IconExternalLink } from '@tabler/icons-react';
 import { designTokens } from '@/themes/tokens';
 import { ScrollReveal } from '@/components/animations';
 import { Heading } from '@/components/atoms/Heading';
@@ -15,6 +15,7 @@ import { Group } from '@/components/atoms/Group';
 import { ImageSlider } from '@/components/molecules/ImageSlider';
 
 import type { Project } from '@/data';
+import type { CaseStudyLink } from '@/components/organisms/CaseStudyInProgress';
 
 const { typography, radius, colors } = designTokens;
 
@@ -424,9 +425,42 @@ export function CaseStudyPage({
 }: CaseStudyPageProps): React.ReactElement {
   const cs = project.caseStudy;
 
+  const projectNotes: Record<string, string> = {
+    'dh': '40+ screens redesigned and created for an iOS B2B task management app. The full case study is being documented — in the meantime, explore the selected screens in Figma.',
+    'ablenee': 'Designed and shipped end-to-end — from Figma to a live PWA. The case study documenting the 0-to-1 process is coming soon. You can explore the designs or use the live app right now.',
+    'outcast': 'The website is in final staging and launching soon. The case study will be published alongside the launch.',
+    'ideas-lab': 'Complete Figma designs for an iOS/Android reading app. The case study is being written — Figma designs are available to browse now.',
+    'hisab': 'Foundation design system and UX research done for this Ethiopian fintech concept. The full case study is being written — explore the UI design system and research strategy in Figma now.',
+  };
+
+  const caseStudyLinks: Record<string, CaseStudyLink[]> = {
+    'dh': [
+      { label: 'View Selected Screens (Figma)', url: 'https://www.figma.com/design/z4ggPMLSHKiskECpFwik4O/Portfolio?node-id=0-1&t=s3OaGlK8XqGZtuKM-1', type: 'figma' }, // ← Zeamanuel: replace with real link
+    ],
+    'ablenee': [
+      { label: 'View Figma Designs', url: 'https://www.figma.com/make/4DDfvC2mcl6Iu8QrDnMNje/Ablenee-Smart-Waste-Collection-App?t=KrkzbIzcFIEi9bb5-1', type: 'figma' }, // ← Zeamanuel: replace with real link
+      { label: 'Open Live App', url: 'https://lambagro-farmer-app.web.app/', type: 'live' },
+    ],
+    'ideas-lab': [
+      { label: 'View Figma Designs', url: 'https://www.figma.com/design/z4ggPMLSHKiskECpFwik4O/Portfolio?node-id=0-1&t=s3OaGlK8XqGZtuKM-1', type: 'figma' }, // ← Zeamanuel: replace with real link
+    ],
+    'outcast': [
+      { label: 'Visit Live Site', url: 'https://outcast-website.vercel.app/index.html', type: 'live' },
+    ],
+    'hisab': [
+      { label: 'View UI Design System', url: 'https://www.figma.com/design/sZz3laeryF9VRtocEJJH5z/Hisab-UI-Design?node-id=1-1872&t=eIGqIzQL4FKgublx-1', type: 'figma' },
+      { label: 'View UX Research & Strategy', url: 'https://www.figma.com/design/LDtnU0DCh633OfDAm2bs1v/Hisab-UX-Research-and-Strategy?node-id=0-1&t=ddcZsRTwPNgtzlr8-1', type: 'figma' },
+    ],
+  };
+
   if (!cs) {
     return (
-      <FallbackCaseStudy project={project} nextProject={nextProject} />
+      <FallbackCaseStudy
+        project={project}
+        nextProject={nextProject}
+        links={caseStudyLinks[project.id] ?? []}
+        note={projectNotes[project.id]}
+      />
     );
   }
 
@@ -1265,9 +1299,13 @@ function FloatingParticles() {
 function FallbackCaseStudy({
   project,
   nextProject,
+  links = [],
+  note,
 }: {
   project: Project;
   nextProject: Project;
+  links?: CaseStudyLink[];
+  note?: string;
 }) {
   return (
     <>
@@ -1398,7 +1436,7 @@ function FallbackCaseStudy({
                 transition: 'color 400ms ease',
               }}
             >
-              {project.description}
+              {note ?? project.description}
             </Text>
           </div>
 
@@ -1475,46 +1513,67 @@ function FallbackCaseStudy({
           </div>
 
           {/* CTAs */}
-          <div style={{ animation: 'csFadeUp 0.7s ease 1.5s both', display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a
-              href="/work/omoc"
-              className="cs-coming-cta"
-              style={{
-                fontFamily: typography.fontFamily.heading,
-                fontSize: typography.fontSize.sm,
-                fontWeight: typography.fontWeight.semibold,
-                color: '#FFFFFF',
-                textDecoration: 'none',
-                padding: '12px 28px',
-                borderRadius: radius.full,
-                background: 'linear-gradient(135deg, var(--theme-gold-from, #D4AF37), var(--theme-gold-to, #E8C84A))',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-              }}
-            >
-              View OMOC Case Study <span aria-hidden="true">&rarr;</span>
-            </a>
-            <a
-              href="/work"
-              className="cs-coming-cta"
-              style={{
-                fontFamily: typography.fontFamily.heading,
-                fontSize: typography.fontSize.sm,
-                fontWeight: typography.fontWeight.semibold,
-                color: 'var(--theme-gold, #D4AF37)',
-                textDecoration: 'none',
-                padding: '12px 28px',
-                borderRadius: radius.full,
-                border: '1px solid var(--theme-accent-line, rgba(212,175,55,0.35))',
-                background: 'transparent',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-              }}
-            >
-              All Projects
-            </a>
+          <div style={{ animation: 'csFadeUp 0.7s ease 1.5s both' }}>
+            {links.length > 0 && (
+              <div style={{ marginBottom: 24 }}>
+                <Text
+                  size="xs"
+                  fw={600}
+                  c="dimmed"
+                  tt="uppercase"
+                  style={{ letterSpacing: '0.08em', marginBottom: 12, display: 'block' }}
+                >
+                  See the work now
+                </Text>
+                <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+                  {links.map((link) => (
+                    <MantineButton
+                      key={link.url}
+                      component="a"
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variant={link.type === 'live' ? 'filled' : 'outline'}
+                      color="gold"
+                      size="md"
+                      radius="xl"
+                      leftSection={link.type === 'figma' ? <IconBrandFigma size={16} /> : <IconExternalLink size={16} />}
+                    >
+                      {link.label}
+                    </MantineButton>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
+              <a
+                href="/work"
+                className="cs-coming-cta"
+                style={{
+                  fontFamily: typography.fontFamily.heading,
+                  fontSize: typography.fontSize.sm,
+                  fontWeight: typography.fontWeight.semibold,
+                  color: 'var(--theme-gold, #D4AF37)',
+                  textDecoration: 'none',
+                  padding: '12px 28px',
+                  borderRadius: radius.full,
+                  border: '1px solid var(--theme-accent-line, rgba(212,175,55,0.35))',
+                  background: 'transparent',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                }}
+              >
+                All Projects
+              </a>
+            </div>
+            <Text size="sm" c="dimmed">
+              Want to discuss this project?{' '}
+              <a href="/contact" style={{ color: 'var(--theme-gold, #D4AF37)', textDecoration: 'none' }}>
+                Get in touch
+              </a>{' '}
+              and I&apos;ll walk you through it directly.
+            </Text>
           </div>
         </div>
       </section>

@@ -16,7 +16,8 @@ import {
 import {
   IconMail,
   IconBrandLinkedin,
-  IconBrandDribbble,
+  IconBrandInstagram,
+  IconBrandGithub,
   IconBrandUpwork,
   IconInfoCircle,
 } from '@tabler/icons-react';
@@ -82,26 +83,32 @@ const channels = [
   {
     icon: IconMail,
     label: 'Email',
-    value: 'hello@zeamanuel.com',
-    href: 'mailto:hello@zeamanuel.com',
+    value: 'zeamekonnen@gmail.com',
+    href: 'mailto:zeamekonnen@gmail.com',
   },
   {
     icon: IconBrandLinkedin,
     label: 'LinkedIn',
-    value: 'linkedin.com/in/zeamanuel',
-    href: 'https://linkedin.com/in/zeamanuel',
+    value: 'linkedin.com/in/zeamanuel-ayalew',
+    href: 'https://www.linkedin.com/in/zeamanuel-ayalew-0280561b5',
   },
   {
-    icon: IconBrandDribbble,
-    label: 'Dribbble',
-    value: 'dribbble.com/zeamanuel',
-    href: 'https://dribbble.com/zeamanuel',
+    icon: IconBrandInstagram,
+    label: 'Instagram',
+    value: '@semenawerk_',
+    href: 'https://www.instagram.com/semenawerk_?igsh=MnQ5OTNpbWppbnJl',
+  },
+  {
+    icon: IconBrandGithub,
+    label: 'GitHub',
+    value: 'github.com/zeamanuelmek',
+    href: 'https://github.com/zeamanuelmek',
   },
   {
     icon: IconBrandUpwork,
     label: 'Upwork',
     value: 'Hire me on Upwork',
-    href: 'https://upwork.com/freelancers/zeamanuel',
+    href: 'https://www.upwork.com/freelancers/~01776b30fd514e79b5?mp_source=share',
   },
 ];
 
@@ -206,7 +213,7 @@ export function ContactPage({
       <section
         style={{
           width: '100%',
-          padding: '0 clamp(1.5rem, 6vw, 6rem) clamp(4rem, 8vh, 6rem)',
+          padding: 'clamp(3rem, 6vh, 5rem) clamp(1.5rem, 6vw, 6rem) clamp(4rem, 8vh, 6rem)',
           transition: 'background-color 400ms ease',
         }}
       >

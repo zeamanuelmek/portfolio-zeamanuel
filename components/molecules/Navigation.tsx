@@ -279,7 +279,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
         {/* Right */}
         <div className="nav-right">
           <a
-            href="https://linkedin.com/in/zeamanuel"
+            href="https://www.linkedin.com/in/zeamanuel-ayalew-0280561b5"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-social"

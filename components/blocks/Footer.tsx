@@ -26,11 +26,10 @@ export interface FooterProps {
 /* === Default data === */
 
 const defaultSocialLinks = [
-  { label: 'Dribbble', href: 'https://dribbble.com/zeamanuel' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/zeamanuel' },
-  { label: 'Instagram', href: 'https://instagram.com/zeamanuel' },
-  { label: 'Behance', href: 'https://behance.net/zeamanuel' },
-  { label: 'Upwork', href: 'https://upwork.com/freelancers/zeamanuel' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/zeamanuel-ayalew-0280561b5' },
+  { label: 'Instagram', href: 'https://www.instagram.com/semenawerk_?igsh=MnQ5OTNpbWppbnJl' },
+  { label: 'GitHub', href: 'https://github.com/zeamanuelmek' },
+  { label: 'Upwork', href: 'https://www.upwork.com/freelancers/~01776b30fd514e79b5?mp_source=share' },
 ];
 
 const { typography, colors } = designTokens;
@@ -40,9 +39,9 @@ const { typography, colors } = designTokens;
 export function Footer({
   logoText = 'Z',
   socialLinks = defaultSocialLinks,
-  copyrightName = 'Zeamanuel',
+  copyrightName = 'Zeamanuel Ayalew',
   tagline = 'Designing with purpose, building with precision.',
-  email = 'hello@zeamanuel.com',
+  email = 'zeamekonnen@gmail.com',
 }: FooterProps): React.ReactElement {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 

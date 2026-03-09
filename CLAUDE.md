@@ -643,8 +643,18 @@ All atom stories follow a consistent autodocs pattern:
 - **CaseStudyPage hero tags**: Use `Badge size="lg" radius="xl"` with body font at `0.8125rem`, normal case, `6px 16px` padding — larger than card-level tags, matching homepage hero badge proportions.
 - **CaseStudyPage hero padding**: `clamp(80px, 10vw, 120px)` top padding — tighter gap between nav and "Back to Work" link.
 - **CaseStudyPage Notion image integration**: `app/work/[slug]/page.tsx` fetches moment images from Notion via `fetchCaseStudyMoments(project.title)` and replaces placeholder images in order (1-to-1 substitution, keeping static captions/alts and total image count). Falls back to static data on Notion error. Matches moments by `momentNumber` or `title` (case-insensitive).
+- **CaseStudyInProgress organism** (`components/organisms/CaseStudyInProgress.tsx`): Shown for non-OMOC projects (no full case study yet). Props: `projectTitle`, `links?` (array of `{label, url, type: 'figma'|'live'|'github'}`), `note?`. Per-project links and notes are defined in the `caseStudyLinks` and `projectNotes` lookups inside `CaseStudyPage.tsx`. Hisab has two Figma links (UI design system + UX research).
+- **Project array order** in `data/projects.ts`: omoc → dh → ablenee → outcast → hisab → ideas-lab. Homepage shows featured projects (omoc, dh, ablenee, outcast) in that order.
+- **Hero CTA buttons**: Two buttons in a row — primary filled "View selected works" + secondary outline "All projects", both linking to `/work`. Sentence case, `radius={9999}`, `color="gold"`.
+- **Social links (real URLs)**: LinkedIn `linkedin.com/in/zeamanuel-ayalew-0280561b5`, Instagram `@semenawerk_`, GitHub `github.com/zeamanuelmek`, Upwork profile. Dribbble and Behance removed everywhere.
+- **Contact/footer email**: `zeamekonnen@gmail.com`
+- **Footer copyright**: "Zeamanuel Ayalew"
+- **Hero label**: "Portfolio 2026"
 - **AboutPage** profile photo path: `public/images/profile.jpg` — user must add their own image. Falls back gracefully.
-- **AboutPage experience entries** are hardcoded in the component (4 entries). Update `experienceItems` array in `AboutPage.tsx` to add/modify.
+- **AboutPage experience entries** are hardcoded in the component (`experience` array in `AboutPage.tsx`). 6 entries: Rahela Fashion Brand, Hisab, OMOC, DH, IdeasLab, Effoi Pizza. Each has `period`, `title`, `company`, `type`, `description`. `type` values: `'Contract'` (gold badge), `'Own Product'` (green badge), `'Full-time'` (gray badge).
+- **AboutPage education entries** are in the `education` array in `AboutPage.tsx`. 3 entries: TUM Digital Product School, AAU BA Economics, Accenture UX Certificate.
+- **AboutPage recognition** is in the `recognition` string array — rendered as gold-dot cards.
+- **AboutPage name**: Zeamanuel Ayalew (last name "Ayalew" in gold gradient in h1).
 - **ContactPage** form is static (`e.preventDefault()`) — ready for Formspree/EmailJS/API route integration. Select uses Mantine `NativeSelect` directly (atom doesn't support `data` prop for simple string arrays).
 - **`suppressHydrationWarning`** on both `<html>` and `<body>` tags in `app/layout.tsx` to silence SSR mismatches from anti-FOUC script and browser extensions.
 - **Page routes:** `/` (homepage), `/work` (all projects), `/work/[slug]` (case study), `/about`, `/contact`, `/demo` (theme demo)
@@ -664,5 +674,5 @@ Planned features for Ethiopian SaaS context:
 
 ---
 
-**Last Updated:** 2026-03-07
-**Template Version:** 5.2.0 (Notion CMS integration + CustomCursor + ProjectCardWide + AlbumArtPanel molecules)
+**Last Updated:** 2026-03-09
+**Template Version:** 5.3.0 (Real project data, CaseStudyInProgress organism, correct social links, About page experience/education/recognition, launch-ready content)

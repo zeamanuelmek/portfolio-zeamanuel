@@ -3,7 +3,7 @@
 import { type CSSProperties } from 'react';
 import { designTokens } from '@/themes/tokens';
 import { ScrollReveal } from '@/components/animations';
-import { Divider } from '@/components/atoms';
+import { Divider, Badge } from '@/components/atoms';
 import {
   IconPalette,
   IconCode,
@@ -121,29 +121,86 @@ const skills = [
 
 const experience = [
   {
-    year: '2024 — Present',
-    role: 'Lead Product Designer',
+    period: 'Jan 2026 – Present',
+    title: 'UX/UI Designer & Full-Stack Developer',
+    company: 'Rahela Fashion Brand',
+    type: 'Contract',
+    description:
+      'Leading design and development for an e-commerce platform serving the Ethiopian fashion market. Designing the complete shopping experience — shop, cart, checkout — while also building the front-end and back-end.',
+  },
+  {
+    period: '2024 – Present',
+    title: 'Founder & Designer',
+    company: 'Hisab',
+    type: 'Own Product',
+    description:
+      'Founded during Digital Product School at TUM. Building a freelancer protection platform addressing payment protection and agreement management for Ethiopian freelancers. Completed user research across a 5-stage customer journey, built MVP with React, Firebase, and Tailwind CSS.',
+  },
+  {
+    period: 'Oct 2024 – Jan 2026',
+    title: 'Product Designer',
     company: 'OMOC',
-    desc: 'Redesigning a two-sided social commerce marketplace — seller dashboard, buyer mobile app, and end-to-end design system across web, iOS, and Android.',
+    type: 'Contract',
+    description:
+      'Led product design for a social commerce platform through a full development cycle. Built the design system and component library from scratch, designed the seller dashboard, buyer mobile app, and created developer handoff and design QA standards.',
   },
   {
-    year: '2025',
-    role: 'UX/UI Designer',
-    company: 'Ablenee',
-    desc: 'Designed a WCAG AA-compliant accessibility platform connecting people with disabilities to services and opportunities in Ethiopia.',
-  },
-  {
-    year: '2025',
-    role: 'UX/UI Designer',
+    period: '2024',
+    title: 'UX/UI Designer',
     company: 'DH',
-    desc: 'Enhancing an iOS task management app with intuitive task flows, team collaboration features, and design system consistency.',
+    type: 'Contract',
+    description:
+      'Redesigned a communication and collaboration platform. Reworked core features including messaging, group management, calls, and task system. Created a design system for cross-platform consistency and built interactive prototypes.',
   },
   {
-    year: '2025',
-    role: 'Product Designer',
-    company: 'Outcast',
-    desc: 'Building a mobile community app for Ethiopian creatives — musicians, artists, and designers — to collaborate and showcase work.',
+    period: '2024',
+    title: 'UX/UI Designer',
+    company: 'IdeasLab',
+    type: 'Contract',
+    description:
+      'Designed a gamified iOS learning app from the ground up following Apple HIG. Delivered end-to-end user flows, high-fidelity mockups, and interactive prototypes with gamification elements.',
   },
+  {
+    period: '2022 – 2023',
+    title: 'Graphic Designer',
+    company: 'Effoi Pizza & Restaurant',
+    type: 'Full-time',
+    description:
+      'Developed brand identity and visual guidelines. Designed marketing materials for print and digital, and managed social media presence.',
+  },
+];
+
+const typeBadgeColor: Record<string, string> = {
+  'Contract': 'gold',
+  'Own Product': 'green',
+  'Full-time': 'gray',
+};
+
+const education = [
+  {
+    period: '2024',
+    title: 'Digital Product School',
+    institution: 'Technical University of Munich (TUM) & UnternehmerTUM',
+    detail: 'Intensive 12-week product development program. Built Hisab concept and initial MVP. Completed with distinction.',
+  },
+  {
+    period: '2019 – 2022',
+    title: 'Bachelor of Arts in Economics',
+    institution: 'Addis Ababa University',
+    detail: 'GPA 3.53/4.0 — Great Distinction. Thesis on digital banking transformation in Ethiopia.',
+  },
+  {
+    period: '2023',
+    title: 'UX Design Professional Certificate',
+    institution: 'Accenture',
+    detail: 'User-centered design, design thinking, interaction design, and usability testing.',
+  },
+];
+
+const recognition = [
+  'Upwork Top Rated — 100% Job Success Score',
+  'Selected for Africa Meets Bavaria Innovation Exchange Program (2025 & 2026)',
+  'Economics Department Academic Excellence Award — Addis Ababa University',
 ];
 
 const values = [
@@ -165,9 +222,10 @@ const values = [
 ];
 
 const socialLinks = [
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/zeamanuel' },
-  { label: 'Dribbble', href: 'https://dribbble.com/zeamanuel' },
-  { label: 'Behance', href: 'https://behance.net/zeamanuel' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/zeamanuel-ayalew-0280561b5' },
+  { label: 'Instagram', href: 'https://www.instagram.com/semenawerk_?igsh=MnQ5OTNpbWppbnJl' },
+  { label: 'GitHub', href: 'https://github.com/zeamanuelmek' },
+  { label: 'Upwork', href: 'https://www.upwork.com/freelancers/~01776b30fd514e79b5?mp_source=share' },
 ];
 
 /* === Props === */
@@ -182,7 +240,7 @@ export interface AboutPageProps {
 /* === Component === */
 
 export function AboutPage({
-  bio = "I\u2019m Zeamanuel Alemu, a UX Systems Designer based in Addis Ababa, Ethiopia. I bridge the gap between design vision and engineering reality \u2014 building design systems, interactive prototypes, and AI-augmented products that actually ship.",
+  bio = "I\u2019m Zeamanuel Ayalew, a UX Systems Designer based in Addis Ababa, Ethiopia. I bridge the gap between design vision and engineering reality \u2014 building design systems, interactive prototypes, and AI-augmented products that actually ship.",
   profileImage = '/images/profile.jpg',
 }: AboutPageProps): React.ReactElement {
   return (
@@ -217,7 +275,7 @@ export function AboutPage({
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={profileImage}
-                    alt="Zeamanuel Alemu"
+                    alt="Zeamanuel Ayalew"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -249,7 +307,7 @@ export function AboutPage({
                   }}
                 >
                   Zeamanuel{' '}
-                  <span style={goldGradientText}>Alemu</span>
+                  <span style={goldGradientText}>Ayalew</span>
                 </h1>
 
                 <p
@@ -470,10 +528,10 @@ export function AboutPage({
 
           <div style={{ maxWidth: '48rem' }}>
             {experience.map((exp, i) => (
-              <ScrollReveal key={`${exp.company}-${exp.year}`} direction="up" delay={0.08 * i}>
+              <ScrollReveal key={`${exp.company}-${exp.period}`} direction="up" delay={0.08 * i}>
                 <div>
                   <div className="about-exp-layout">
-                    {/* Year */}
+                    {/* Period */}
                     <p
                       style={{
                         fontFamily: typography.fontFamily.mono,
@@ -482,12 +540,12 @@ export function AboutPage({
                         color: 'var(--theme-gold)',
                         margin: 0,
                         whiteSpace: 'nowrap',
-                        minWidth: 130,
+                        minWidth: 160,
                         flexShrink: 0,
                         transition: 'color 400ms ease',
                       }}
                     >
-                      {exp.year}
+                      {exp.period}
                     </p>
 
                     {/* Details */}
@@ -498,23 +556,32 @@ export function AboutPage({
                           fontSize: 'clamp(0.9375rem, 0.5vw + 0.75rem, 1.0625rem)',
                           fontWeight: typography.fontWeight.semibold,
                           color: 'var(--theme-text)',
-                          margin: '0 0 2px',
+                          margin: '0 0 4px',
                           transition: 'color 400ms ease',
                         }}
                       >
-                        {exp.role}
+                        {exp.title}
                       </p>
-                      <p
-                        style={{
-                          fontFamily: typography.fontFamily.body,
-                          fontSize: typography.fontSize.sm,
-                          color: 'var(--theme-text-dimmed)',
-                          margin: '0 0 8px',
-                          transition: 'color 400ms ease',
-                        }}
-                      >
-                        {exp.company}
-                      </p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
+                        <p
+                          style={{
+                            fontFamily: typography.fontFamily.body,
+                            fontSize: typography.fontSize.sm,
+                            color: 'var(--theme-text-dimmed)',
+                            margin: 0,
+                            transition: 'color 400ms ease',
+                          }}
+                        >
+                          {exp.company}
+                        </p>
+                        <Badge
+                          variant="light"
+                          color={typeBadgeColor[exp.type] ?? 'gray'}
+                          size="sm"
+                        >
+                          {exp.type}
+                        </Badge>
+                      </div>
                       <p
                         style={{
                           fontFamily: typography.fontFamily.body,
@@ -525,7 +592,7 @@ export function AboutPage({
                           transition: 'color 400ms ease',
                         }}
                       >
-                        {exp.desc}
+                        {exp.description}
                       </p>
                     </div>
                   </div>
@@ -539,6 +606,166 @@ export function AboutPage({
                 </div>
               </ScrollReveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ EDUCATION & RECOGNITION SECTION ═══ */}
+      <section
+        style={{
+          width: '100%',
+          backgroundColor: 'var(--theme-bg-page)',
+          padding: 'clamp(3rem, 6vh, 5rem) clamp(1.5rem, 6vw, 6rem)',
+          transition: 'background-color 400ms ease',
+        }}
+      >
+        <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'clamp(3rem, 6vh, 5rem)' }}>
+
+            {/* Education */}
+            <div>
+              <ScrollReveal direction="up" delay={0}>
+                <h2
+                  style={{
+                    fontFamily: typography.fontFamily.heading,
+                    fontSize: 'clamp(1.5rem, 2vw + 0.5rem, 2rem)',
+                    fontWeight: typography.fontWeight.bold,
+                    margin: '0 0 clamp(2rem, 4vh, 3rem)',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  <span style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>Education</span>
+                </h2>
+              </ScrollReveal>
+
+              <div style={{ maxWidth: '48rem' }}>
+                {education.map((edu, i) => (
+                  <ScrollReveal key={`${edu.institution}-${edu.period}`} direction="up" delay={0.08 * i}>
+                    <div>
+                      <div className="about-exp-layout">
+                        <p
+                          style={{
+                            fontFamily: typography.fontFamily.mono,
+                            fontSize: typography.fontSize.sm,
+                            fontWeight: typography.fontWeight.medium,
+                            color: 'var(--theme-gold)',
+                            margin: 0,
+                            whiteSpace: 'nowrap',
+                            minWidth: 160,
+                            flexShrink: 0,
+                            transition: 'color 400ms ease',
+                          }}
+                        >
+                          {edu.period}
+                        </p>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <p
+                            style={{
+                              fontFamily: typography.fontFamily.heading,
+                              fontSize: 'clamp(0.9375rem, 0.5vw + 0.75rem, 1.0625rem)',
+                              fontWeight: typography.fontWeight.semibold,
+                              color: 'var(--theme-text)',
+                              margin: '0 0 2px',
+                              transition: 'color 400ms ease',
+                            }}
+                          >
+                            {edu.title}
+                          </p>
+                          <p
+                            style={{
+                              fontFamily: typography.fontFamily.body,
+                              fontSize: typography.fontSize.sm,
+                              color: 'var(--theme-text-dimmed)',
+                              margin: '0 0 6px',
+                              transition: 'color 400ms ease',
+                            }}
+                          >
+                            {edu.institution}
+                          </p>
+                          <p
+                            style={{
+                              fontFamily: typography.fontFamily.body,
+                              fontSize: typography.fontSize.sm,
+                              lineHeight: 1.65,
+                              color: 'var(--theme-text-secondary)',
+                              margin: 0,
+                              transition: 'color 400ms ease',
+                            }}
+                          >
+                            {edu.detail}
+                          </p>
+                        </div>
+                      </div>
+                      {i < education.length - 1 && (
+                        <div style={{ margin: 'clamp(1.5rem, 3vh, 2rem) 0' }}>
+                          <Divider />
+                        </div>
+                      )}
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+
+            {/* Recognition */}
+            <div>
+              <ScrollReveal direction="up" delay={0}>
+                <h2
+                  style={{
+                    fontFamily: typography.fontFamily.heading,
+                    fontSize: 'clamp(1.5rem, 2vw + 0.5rem, 2rem)',
+                    fontWeight: typography.fontWeight.bold,
+                    margin: '0 0 clamp(1.5rem, 3vh, 2.5rem)',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  <span style={{ color: 'var(--theme-text)', transition: 'color 400ms ease' }}>Recognition</span>
+                </h2>
+              </ScrollReveal>
+
+              <div style={{ maxWidth: '48rem', display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {recognition.map((item, i) => (
+                  <ScrollReveal key={i} direction="up" delay={0.08 * i}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: 14,
+                        padding: '14px 18px',
+                        backgroundColor: 'var(--theme-card-bg)',
+                        border: '1px solid var(--theme-card-border)',
+                        borderRadius: radius.lg,
+                        transition: 'background-color 400ms ease, border-color 400ms ease',
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: '50%',
+                          backgroundColor: 'var(--theme-gold)',
+                          flexShrink: 0,
+                          marginTop: 7,
+                        }}
+                      />
+                      <p
+                        style={{
+                          fontFamily: typography.fontFamily.body,
+                          fontSize: typography.fontSize.sm,
+                          lineHeight: 1.6,
+                          color: 'var(--theme-text-secondary)',
+                          margin: 0,
+                          transition: 'color 400ms ease',
+                        }}
+                      >
+                        {item}
+                      </p>
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

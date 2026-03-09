@@ -168,7 +168,7 @@ export function HeroSection({
                   transition: 'color 400ms ease',
                 }}
               >
-                Portfolio 2025
+                Portfolio 2026
               </span>
               <span
                 style={{
@@ -287,18 +287,16 @@ export function HeroSection({
                 {' '}&mdash; shipping complete experiences, not just pixels.
               </p>
 
-              {/* CTA */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10 }}>
+              {/* CTAs */}
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                 <MagneticElement strength={0.25}>
                   <MantineButton
                     component="a"
-                    href="#work"
+                    href="/work"
                     color="gold"
+                    variant="filled"
                     size="sm"
                     radius={9999}
-                    rightSection={
-                      <span style={{ fontSize: 13, marginLeft: 2 }} aria-hidden="true">&#8595;</span>
-                    }
                     styles={{
                       root: {
                         padding: '9px 24px',
@@ -309,21 +307,30 @@ export function HeroSection({
                       },
                     }}
                   >
-                    View My Work
+                    View selected works
                   </MantineButton>
                 </MagneticElement>
-                <span
-                  style={{
-                    fontFamily: typography.fontFamily.mono,
-                    fontSize: '0.625rem',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: 'var(--theme-text-dimmed)',
-                    transition: 'color 400ms ease',
-                  }}
-                >
-                  Scroll to explore
-                </span>
+                <MagneticElement strength={0.25}>
+                  <MantineButton
+                    component="a"
+                    href="/work"
+                    color="gold"
+                    variant="outline"
+                    size="sm"
+                    radius={9999}
+                    styles={{
+                      root: {
+                        padding: '9px 24px',
+                        fontWeight: 500,
+                        fontSize: '0.8125rem',
+                        height: 'auto',
+                        letterSpacing: '0.01em',
+                      },
+                    }}
+                  >
+                    All projects
+                  </MantineButton>
+                </MagneticElement>
               </div>
             </div>
           </Reveal>
