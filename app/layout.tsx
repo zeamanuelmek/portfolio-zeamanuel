@@ -1,6 +1,7 @@
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
+import type { Metadata } from 'next';
 import { createClientTheme } from '@/themes/createClientTheme';
 import { ThemeProvider } from '@/components/ThemeContext';
 
@@ -21,9 +22,25 @@ const jetbrainsMono = JetBrains_Mono({
 
 const theme = createClientTheme();
 
-export const metadata = {
-  title: 'SemEnaWerk Design System',
-  description: 'Ethiopian-inspired design system by Zeamanuel',
+export const metadata: Metadata = {
+  title: 'Zeamanuel Ayalew — UX/UI Designer',
+  description:
+    'Portfolio of Zeamanuel Ayalew, a UX/UI Designer based in Addis Ababa. Product design, design systems, and AI-augmented workflows.',
+  openGraph: {
+    title: 'Zeamanuel Ayalew — UX/UI Designer',
+    description:
+      'Product design, design systems, and AI-augmented workflows. Based in Addis Ababa.',
+    url: 'https://portfolio-zeamanuel.vercel.app',
+    siteName: 'Zeamanuel Ayalew',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Zeamanuel Ayalew — UX/UI Designer',
+    description:
+      'Product design, design systems, and AI-augmented workflows. Based in Addis Ababa.',
+  },
 };
 
 export default function RootLayout({

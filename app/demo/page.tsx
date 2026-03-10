@@ -79,7 +79,7 @@ export default function DemoPage() {
                       backgroundColor: 'transparent',
                     }}
                   >
-                    SemEnaWerk Design System
+                    Zeamanuel Ayalew — Design System
                   </Title>
                   <Text c="#E8D5B7" size="sm" mt="xs">
                     Theme: {config.label} ({config.brandColor})
@@ -386,7 +386,7 @@ export default function DemoPage() {
 
             {/* Footer */}
             <Text ta="center" size="xs" c="dimmed">
-              SemEnaWerk Design System v0.2.0, 23 Atoms | Theme: {config.label}
+              Design System v0.2.0, 23 Atoms | Theme: {config.label}
             </Text>
 
           </Stack>

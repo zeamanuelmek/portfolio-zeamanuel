@@ -1088,7 +1088,7 @@ function Footer() {
         }}
       >
         <span style={{ fontFamily: fontBody, fontSize: 13, color: t.textDimmed }}>
-          © 2025 Zeamanuel. Built with SemEnaWerk.
+          © 2026 Zeamanuel Ayalew
         </span>
         <span style={{ fontFamily: fontMono, fontSize: 11, color: t.textDimmed }}>
           Addis Ababa, Ethiopia
