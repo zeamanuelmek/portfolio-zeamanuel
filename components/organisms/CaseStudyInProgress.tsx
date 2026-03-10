@@ -47,7 +47,7 @@ export function CaseStudyInProgress({ projectTitle, links = [], note }: CaseStud
         </Heading>
         <Text c="dimmed" size="lg" lh={1.6}>
           {note ||
-            "The design work is complete. I'm currently documenting the process, decisions, and outcomes into a structured case study. Check back soon — or explore the designs directly using the links below."}
+            "The design work is complete. I'm currently documenting the process, decisions, and outcomes into a structured case study. Check back soon, or explore the designs directly using the links below."}
         </Text>
       </Stack>
 

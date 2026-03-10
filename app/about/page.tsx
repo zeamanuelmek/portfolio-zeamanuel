@@ -3,7 +3,7 @@ import { AboutPage } from '@/components/blocks/AboutPage';
 import { Footer } from '@/components/blocks';
 
 export const metadata = {
-  title: 'About — Zeamanuel Alemu',
+  title: 'About | Zeamanuel Alemu',
   description: 'UX Systems Designer based in Addis Ababa, Ethiopia. Building design systems, interactive prototypes, and AI-augmented products.',
 };
 

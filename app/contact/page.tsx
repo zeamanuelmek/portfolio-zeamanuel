@@ -3,7 +3,7 @@ import { ContactPage } from '@/components/blocks/ContactPage';
 import { Footer } from '@/components/blocks';
 
 export const metadata = {
-  title: 'Contact — Zeamanuel Alemu',
+  title: 'Contact | Zeamanuel Alemu',
   description: 'Get in touch for UX design, design systems, prototyping, or AI integration projects. Based in Addis Ababa, Ethiopia.',
 };
 

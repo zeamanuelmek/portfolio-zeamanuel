@@ -83,7 +83,7 @@ export const projects: Project[] = [
     title: 'OMOC',
     subtitle: 'Social Commerce Platform',
     description:
-      'Redesigning buyer and seller experiences for a complex two-sided marketplace over 16 months of continuous design work.',
+      'Redesigning buyer and seller experiences for a two-sided social commerce marketplace across web and mobile.',
     thumbnail: '/images/omoc-thumb.jpg',
     category: 'e-commerce',
     tags: ['UX Research', 'Mobile Design', 'Design Systems', 'E-commerce'],
@@ -223,7 +223,7 @@ export const projects: Project[] = [
     title: 'DH',
     subtitle: 'iOS B2B Task Management & Communication',
     description:
-      'Redesigned and extended a B2B iOS app for small teams who need project management without the complexity of Jira or Asana. Joined mid-project with 40+ screens, combining redesign work with entirely new features including team messaging, workflow management, and a Suite Admin permission system.',
+      'Redesigned and extended a B2B iOS app for small teams who need project management without the complexity of Jira or Asana.',
     thumbnail: '/images/dh-thumb.jpg',
     category: 'mobile-app',
     tags: ['iOS Design', 'B2B SaaS', 'Task Management', 'Design Systems'],
@@ -238,7 +238,7 @@ export const projects: Project[] = [
     title: 'Ablenee',
     subtitle: 'Smart Waste Collection for Ethiopian Farmers',
     description:
-      'Designed and shipped a 0-to-1 progressive web app for Ethiopian farmers after taking the brief directly from the founder. Started in Figma, then used Figma Make and Claude Code to build and publish it as a live PWA. The app connects farmers with waste collection services in rural Ethiopia.',
+      'Designed and shipped a 0-to-1 PWA for Ethiopian farmers. From Figma brief to live published app using Claude Code.',
     thumbnail: '/images/ablenee-thumb.jpg',
     category: 'web-app',
     tags: ['0→1 Design', 'PWA', 'React', 'Ethiopian Market'],
@@ -254,7 +254,7 @@ export const projects: Project[] = [
     title: 'Outcast',
     subtitle: 'Music Collective Website',
     description:
-      'Built a complete website from the ground up for Outcast, an Ethiopian artists group. Integrated Supabase as the backend and YouTube as the video layer. Built end-to-end with Claude Code. Currently in final stages, launching soon.',
+      'Built a music collective website from the ground up using Claude Code, with Supabase backend and YouTube video integration.',
     thumbnail: '/images/outcast-thumb.jpg',
     category: 'web-app',
     tags: ['Web Development', 'Supabase', 'Music', 'Claude Code'],
@@ -269,7 +269,7 @@ export const projects: Project[] = [
     title: 'Hisab',
     subtitle: 'Personal Finance App for the Ethiopian Market',
     description:
-      'Personal finance management concept app designed for the Ethiopian market, supporting local currency (ETB), TeleBirr and Chapa payment methods, and Ethiopian spending categories.',
+      'Personal finance concept app designed for the Ethiopian market, supporting ETB, TeleBirr and Chapa payments.',
     thumbnail: '/images/hisab-thumb.jpg',
     category: 'mobile-app',
     tags: ['Fintech', 'Ethiopian Market', 'Mobile App', 'Concept'],
@@ -284,7 +284,7 @@ export const projects: Project[] = [
     title: 'Ideas Lab',
     subtitle: 'Article Reading & Learning App',
     description:
-      'Designed a 0-to-1 iOS and Android reading and learning app after taking the brief directly from the founder. Complete Figma designs done — covering onboarding, content discovery, reading experience, and progress tracking. Not yet published.',
+      'Designed a gamified iOS and Android reading app end-to-end, from onboarding to core reading loop.',
     thumbnail: '/images/ideas-lab-thumb.jpg',
     category: 'mobile-app',
     tags: ['iOS', 'Android', '0→1 Design', 'EdTech'],

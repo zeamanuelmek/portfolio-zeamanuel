@@ -411,22 +411,6 @@ export function ContactPage({
                   })}
                 </div>
 
-                {/* Habesha divider */}
-                <div style={{ margin: 'clamp(1.5rem, 3vh, 2rem) 0' }}>
-                  <Divider habesha />
-                </div>
-
-                <p
-                  style={{
-                    fontFamily: typography.fontFamily.body,
-                    fontSize: typography.fontSize.sm,
-                    color: 'var(--theme-text-dimmed)',
-                    margin: 0,
-                    transition: 'color 400ms ease',
-                  }}
-                >
-                  Working hours: Mon–Fri, 9am–6pm EAT
-                </p>
               </ScrollReveal>
             </div>
           </div>

@@ -20,7 +20,7 @@ import {
 
 /* === Tokens === */
 
-const { typography, radius, colors, shadows } = designTokens;
+const { typography, radius, colors } = designTokens;
 
 const goldGradientText: CSSProperties = {
   backgroundImage: `linear-gradient(135deg, var(--theme-gold-from), var(--theme-gold-to))`,
@@ -32,24 +32,10 @@ const goldGradientText: CSSProperties = {
 /* === Styles === */
 
 const aboutStyles = `
-.about-photo {
-  transition: box-shadow 400ms ease, transform 400ms ease;
-}
-.about-photo:hover {
-  box-shadow: ${shadows.goldGlowHover};
-  transform: translateY(-4px);
-}
 .about-intro-layout {
   display: flex;
   flex-direction: column;
   gap: clamp(2.5rem, 5vw, 4rem);
-  align-items: center;
-}
-@media (min-width: 768px) {
-  .about-intro-layout {
-    flex-direction: row;
-    align-items: flex-start;
-  }
 }
 .about-skill-grid {
   display: grid;
@@ -126,7 +112,7 @@ const experience = [
     company: 'Rahela Fashion Brand',
     type: 'Contract',
     description:
-      'Leading design and development for an e-commerce platform serving the Ethiopian fashion market. Designing the complete shopping experience — shop, cart, checkout — while also building the front-end and back-end.',
+      'Leading design and development for an e-commerce platform serving the Ethiopian fashion market. Designing the complete shopping experience: shop, cart, and checkout, while also building the front-end and back-end.',
   },
   {
     period: '2024 – Present',
@@ -187,7 +173,7 @@ const education = [
     period: '2019 – 2022',
     title: 'Bachelor of Arts in Economics',
     institution: 'Addis Ababa University',
-    detail: 'GPA 3.53/4.0 — Great Distinction. Thesis on digital banking transformation in Ethiopia.',
+    detail: 'GPA 3.53/4.0. Great Distinction. Thesis on digital banking transformation in Ethiopia.',
   },
   {
     period: '2023',
@@ -198,9 +184,9 @@ const education = [
 ];
 
 const recognition = [
-  'Upwork Top Rated — 100% Job Success Score',
+  'Upwork Top Rated. 100% Job Success Score',
   'Selected for Africa Meets Bavaria Innovation Exchange Program (2025 & 2026)',
-  'Economics Department Academic Excellence Award — Addis Ababa University',
+  'Economics Department Academic Excellence Award, Addis Ababa University',
 ];
 
 const values = [
@@ -217,7 +203,7 @@ const values = [
   {
     icon: IconMessages,
     name: 'Bridge the Gap',
-    desc: 'I speak both design and code. The best products come from tight loops between designers and engineers — no walls, no handoff friction.',
+    desc: 'I speak both design and code. The best products come from tight loops between designers and engineers, with no walls and no handoff friction.',
   },
 ];
 
@@ -233,15 +219,12 @@ const socialLinks = [
 export interface AboutPageProps {
   /** Override the bio text */
   bio?: string;
-  /** Profile image path */
-  profileImage?: string;
 }
 
 /* === Component === */
 
 export function AboutPage({
   bio = "I\u2019m Zeamanuel Ayalew, a UX Systems Designer based in Addis Ababa, Ethiopia. I bridge the gap between design vision and engineering reality \u2014 building design systems, interactive prototypes, and AI-augmented products that actually ship.",
-  profileImage = '/images/profile.jpg',
 }: AboutPageProps): React.ReactElement {
   return (
     <>
@@ -259,42 +242,8 @@ export function AboutPage({
         <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
           <ScrollReveal direction="up" delay={0}>
             <div className="about-intro-layout">
-              {/* Photo */}
-              <div style={{ flexShrink: 0 }}>
-                <div
-                  className="about-photo"
-                  style={{
-                    width: 'clamp(200px, 20vw + 80px, 280px)',
-                    aspectRatio: '1',
-                    borderRadius: radius.xl,
-                    overflow: 'hidden',
-                    border: `2px solid ${colors.brand.gold}`,
-                    boxShadow: shadows.goldGlow,
-                  }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={profileImage}
-                    alt="Zeamanuel Ayalew"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      target.style.display = 'none';
-                      if (target.parentElement) {
-                        target.parentElement.style.background = `linear-gradient(135deg, ${colors.brand.gold}22, ${colors.brand.earth}22)`;
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-
               {/* Bio content */}
-              <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ maxWidth: '40rem' }}>
                 <h1
                   style={{
                     fontFamily: typography.fontFamily.heading,

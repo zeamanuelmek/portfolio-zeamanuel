@@ -26,10 +26,6 @@ const meta: Meta<typeof AboutPage> = {
       description: 'Bio paragraph text',
       control: 'text',
     },
-    profileImage: {
-      description: 'Path to profile photo',
-      control: 'text',
-    },
   },
 };
 

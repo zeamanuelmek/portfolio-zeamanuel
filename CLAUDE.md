@@ -497,7 +497,7 @@ npm run build-storybook  # Build Storybook
   - `public/images/case-studies/omoc/` — Directory created for real Figma exports
 - [x] **Phase 22: About Page (/about)** — DONE (1 new block, 2 stories)
   - `components/blocks/AboutPage.tsx` — Personal editorial page with 4 zones:
-    - Intro section: Two-column (stacks <768px), profile photo left (280px, gold border + glow, hover lift), bio right with name (gold gradient on "Alemu"), subtitle, bio paragraph (line-height: 1.75), social links (LinkedIn/Dribbble/Behance with dot separators), "Available for projects" forest badge
+    - Intro section: Single-column, bio content with name (gold gradient on "Alemu"), subtitle, bio paragraph (line-height: 1.75), social links (LinkedIn/Instagram/GitHub/Upwork with dot separators), "Available for projects" forest badge. Profile photo removed — `.about-intro-layout` is a simple flex column with `maxWidth: 40rem`.
     - Skills section: Cream bg, "What I Do" heading, 4-col grid (2-col mobile) of 8 skill cards (gold icon + name + description), hover lift
     - Experience section: White bg, timeline layout — gold mono year left, role/company/description right, Divider between entries. 4 entries: OMOC, Ablenee, DH, Outcast
     - Values section: Dark #1A1A1A bg, 3 glassmorphic cards (`backdrop-filter: blur(12px)`), gold icons, white titles, sand descriptions. Human-First Design / Ship Then Iterate / Bridge the Gap
@@ -650,7 +650,7 @@ All atom stories follow a consistent autodocs pattern:
 - **Contact/footer email**: `zeamekonnen@gmail.com`
 - **Footer copyright**: "Zeamanuel Ayalew"
 - **Hero label**: "Portfolio 2026"
-- **AboutPage** profile photo path: `public/images/profile.jpg` — user must add their own image. Falls back gracefully.
+- **AboutPage** has no profile photo — removed intentionally pending a proper photo. `profileImage` prop and `.about-photo` CSS class are gone. When re-adding: add `profileImage?: string` back to `AboutPageProps`, restore the photo column in the intro flex layout, and re-add `.about-photo` hover styles to `aboutStyles`.
 - **AboutPage experience entries** are hardcoded in the component (`experience` array in `AboutPage.tsx`). 6 entries: Rahela Fashion Brand, Hisab, OMOC, DH, IdeasLab, Effoi Pizza. Each has `period`, `title`, `company`, `type`, `description`. `type` values: `'Contract'` (gold badge), `'Own Product'` (green badge), `'Full-time'` (gray badge).
 - **AboutPage education entries** are in the `education` array in `AboutPage.tsx`. 3 entries: TUM Digital Product School, AAU BA Economics, Accenture UX Certificate.
 - **AboutPage recognition** is in the `recognition` string array — rendered as gold-dot cards.
@@ -686,5 +686,5 @@ Planned features for Ethiopian SaaS context:
 
 ---
 
-**Last Updated:** 2026-03-09
-**Template Version:** 5.5.0 (Navigation mobile fixes: ThemeToggle hidden on mobile nav bar, scroll shadow state)
+**Last Updated:** 2026-03-10
+**Template Version:** 5.5.1 (Remove profile photo from AboutPage; fix stale HeroSectionProps barrel export)

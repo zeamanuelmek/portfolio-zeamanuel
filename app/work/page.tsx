@@ -3,7 +3,7 @@ import { WorkPage } from '@/components/blocks/WorkPage';
 import { Footer } from '@/components/blocks';
 
 export const metadata = {
-  title: 'Work — Zeamanuel',
+  title: 'Work | Zeamanuel',
   description: 'Selected projects spanning mobile apps, e-commerce platforms, web apps, and Framer sites.',
 };
 

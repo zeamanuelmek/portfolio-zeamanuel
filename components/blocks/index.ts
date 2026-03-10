@@ -1,4 +1,4 @@
-export { HeroSection, type HeroSectionProps } from './HeroSection';
+export { HeroSection } from './HeroSection';
 export { ProjectShowcase, type ProjectShowcaseProps, type Project } from './ProjectShowcase';
 export { SkillsSection, type SkillsSectionProps } from './SkillsSection';
 export { ContactSection, type ContactSectionProps } from './ContactSection';

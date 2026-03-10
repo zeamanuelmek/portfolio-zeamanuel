@@ -226,7 +226,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             transition: 'color 300ms ease',
           }}
         >
-          {project.title} — {project.subtitle}
+          {project.title}: {project.subtitle}
         </h3>
 
         {/* Tags */}

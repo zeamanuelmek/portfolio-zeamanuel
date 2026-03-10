@@ -426,11 +426,11 @@ export function CaseStudyPage({
   const cs = project.caseStudy;
 
   const projectNotes: Record<string, string> = {
-    'dh': '40+ screens redesigned and created for an iOS B2B task management app. The full case study is being documented — in the meantime, explore the selected screens in Figma.',
-    'ablenee': 'Designed and shipped end-to-end — from Figma to a live PWA. The case study documenting the 0-to-1 process is coming soon. You can explore the designs or use the live app right now.',
+    'dh': '40+ screens redesigned and created for an iOS B2B task management app. The full case study is being documented. In the meantime, explore the selected screens in Figma.',
+    'ablenee': 'Designed and shipped end-to-end, from Figma to a live PWA. The case study documenting the 0-to-1 process is coming soon. You can explore the designs or use the live app right now.',
     'outcast': 'The website is in final staging and launching soon. The case study will be published alongside the launch.',
-    'ideas-lab': 'Complete Figma designs for an iOS/Android reading app. The case study is being written — Figma designs are available to browse now.',
-    'hisab': 'Foundation design system and UX research done for this Ethiopian fintech concept. The full case study is being written — explore the UI design system and research strategy in Figma now.',
+    'ideas-lab': 'Complete Figma designs for an iOS/Android reading app. The case study is being written. Figma designs are available to browse now.',
+    'hisab': 'Foundation design system and UX research done for this Ethiopian fintech concept. The full case study is being written. Explore the UI design system and research strategy in Figma now.',
   };
 
   const caseStudyLinks: Record<string, CaseStudyLink[]> = {

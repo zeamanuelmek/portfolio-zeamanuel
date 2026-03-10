@@ -7,10 +7,6 @@ import {
 import { designTokens } from '@/themes/tokens';
 import { MagneticElement } from '@/components/animations';
 
-export interface HeroSectionProps {
-  profileImageSrc?: string;
-}
-
 const { typography } = designTokens;
 
 const goldGradient: CSSProperties = {
@@ -39,26 +35,12 @@ const heroStyles = `
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
-@keyframes heroPhotoReveal {
-  from { clip-path: inset(100% 0 0 0); opacity: 0; }
-  to   { clip-path: inset(0 0 0 0); opacity: 1; }
-}
-
 .hero-section {
   transition: background-color 400ms ease;
 }
 
 .hero-name-line {
   overflow: hidden;
-}
-
-/* Profile photo */
-.hero-photo {
-  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 500ms ease;
-}
-.hero-photo:hover {
-  transform: scale(1.03) rotate(-1deg);
-  box-shadow: 0 12px 40px rgba(212,175,55,0.25);
 }
 
 /* Hero bottom grid */
@@ -138,9 +120,7 @@ function Reveal({
 
 /* ═══ Component ═══ */
 
-export function HeroSection({
-  profileImageSrc = '/images/profile.jpg',
-}: HeroSectionProps): React.ReactElement {
+export function HeroSection(): React.ReactElement {
   return (
     <>
       <style>{heroStyles}</style>
@@ -206,29 +186,9 @@ export function HeroSection({
             </Reveal>
           </div>
 
-          {/* ── Middle row: photo + role + location ── */}
+          {/* ── Middle row: role + location ── */}
           <Reveal delay={250} style={{ margin: 'clamp(8px, 1.2vw, 16px) 0' }}>
             <div className="hero-mid-row">
-              {/* Profile photo */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={profileImageSrc}
-                alt="Zeamanuel Ayalew"
-                className="hero-photo"
-                width={64}
-                height={64}
-                style={{
-                  width: 'clamp(48px, 5vw, 68px)',
-                  height: 'clamp(48px, 5vw, 68px)',
-                  borderRadius: 'clamp(10px, 1vw, 16px)',
-                  objectFit: 'cover',
-                  objectPosition: 'center top',
-                  border: '2px solid var(--theme-gold)',
-                  flexShrink: 0,
-                  animation: `heroPhotoReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both`,
-                }}
-              />
-
               {/* Role */}
               <span
                 style={{
@@ -241,7 +201,7 @@ export function HeroSection({
                   transition: 'color 400ms ease',
                 }}
               >
-                Design Engineer — crafting{' '}
+                Design Engineer, crafting{' '}
                 <span style={{ ...goldGradient, fontWeight: 600 }}>AI&#8209;augmented</span>
                 {' '}products<br />
                 from Addis Ababa, Ethiopia
