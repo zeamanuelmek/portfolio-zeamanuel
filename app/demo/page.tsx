@@ -308,7 +308,7 @@ export default function DemoPage() {
             <Paper p="xl" radius="xl" withBorder>
               <Title order={4} mb="md">Typography</Title>
               <Stack gap="sm">
-                <Title order={1}>Heading 1 — Space Grotesk</Title>
+                <Title order={1}>Heading 1, Space Grotesk</Title>
                 <Title order={2}>Heading 2</Title>
                 <Title order={3}>Heading 3</Title>
                 <Title
@@ -323,7 +323,7 @@ export default function DemoPage() {
                 >
                   Gold Gradient Heading
                 </Title>
-                <Text size="lg">Large body text — Inter font for readability.</Text>
+                <Text size="lg">Large body text. Inter font for readability.</Text>
                 <Text>Default body text for descriptions and content.</Text>
                 <Text size="sm" c="dimmed">Small muted text for captions and metadata.</Text>
                 <Anchor c={config.brandColor} href="#">Themed link with hover underline</Anchor>
@@ -386,7 +386,7 @@ export default function DemoPage() {
 
             {/* Footer */}
             <Text ta="center" size="xs" c="dimmed">
-              SemEnaWerk Design System v0.2.0 — 23 Atoms | Theme: {config.label}
+              SemEnaWerk Design System v0.2.0, 23 Atoms | Theme: {config.label}
             </Text>
 
           </Stack>

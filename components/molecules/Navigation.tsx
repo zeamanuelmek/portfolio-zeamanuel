@@ -342,7 +342,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
           {/* Top spacer for nav bar */}
           <div style={{ height: 52 }} />
 
-          {/* Links — left-aligned, editorial */}
+          {/* Links: left-aligned, editorial */}
           <div
             style={{
               flex: 1,
@@ -410,7 +410,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
                     {link.label}
                   </span>
 
-                  {/* Active indicator — gold dot */}
+                  {/* Active indicator: gold dot */}
                   {isActive(link.href) && (
                     <span
                       style={{
@@ -439,7 +439,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
             />
           </div>
 
-          {/* Bottom bar — info + social */}
+          {/* Bottom bar: info + social */}
           <div
             style={{
               padding: '20px 32px',
@@ -452,7 +452,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
                 : `linkReveal 500ms ${500}ms both cubic-bezier(0.16, 1, 0.3, 1)`,
             }}
           >
-            {/* Left — availability */}
+            {/* Left: availability */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               <span
                 style={{
@@ -480,7 +480,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps): React.Rea
               </a>
             </div>
 
-            {/* Right — theme toggle */}
+            {/* Right: theme toggle */}
             <ThemeToggle />
           </div>
         </div>

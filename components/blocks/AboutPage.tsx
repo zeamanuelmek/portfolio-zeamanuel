@@ -224,7 +224,7 @@ export interface AboutPageProps {
 /* === Component === */
 
 export function AboutPage({
-  bio = "I\u2019m Zeamanuel Ayalew, a UX Systems Designer based in Addis Ababa, Ethiopia. I bridge the gap between design vision and engineering reality \u2014 building design systems, interactive prototypes, and AI-augmented products that actually ship.",
+  bio = "I\u2019m Zeamanuel Ayalew, a UX Systems Designer based in Addis Ababa, Ethiopia. I bridge the gap between design vision and engineering reality, building design systems, interactive prototypes, and AI-augmented products that actually ship.",
 }: AboutPageProps): React.ReactElement {
   return (
     <>
@@ -244,33 +244,6 @@ export function AboutPage({
             <div className="about-intro-layout">
               {/* Bio content */}
               <div style={{ maxWidth: '40rem' }}>
-                <h1
-                  style={{
-                    fontFamily: typography.fontFamily.heading,
-                    fontSize: 'clamp(2rem, 3vw + 0.5rem, 3rem)',
-                    fontWeight: typography.fontWeight.bold,
-                    margin: '0 0 6px',
-                    lineHeight: 1.1,
-                    color: 'var(--theme-text)',
-                    transition: 'color 400ms ease',
-                  }}
-                >
-                  Zeamanuel{' '}
-                  <span style={goldGradientText}>Ayalew</span>
-                </h1>
-
-                <p
-                  style={{
-                    fontFamily: typography.fontFamily.body,
-                    fontSize: 'clamp(1rem, 0.5vw + 0.75rem, 1.25rem)',
-                    color: 'var(--theme-text-dimmed)',
-                    margin: '0 0 clamp(1.25rem, 2vh, 2rem)',
-                    transition: 'color 400ms ease',
-                  }}
-                >
-                  UX Systems Designer
-                </p>
-
                 <p
                   style={{
                     fontFamily: typography.fontFamily.body,

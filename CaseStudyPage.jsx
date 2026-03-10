@@ -49,11 +49,11 @@ const caseStudy = {
       theme: "Navigating ambiguity when requirements fundamentally change",
       summary:
         "What started as a 4-step signup became a 7-step EU compliance system spanning three entity types. The founder sent a PDF that transformed everything.",
-      before: "4 generic steps — email, OTP, store name, profile picture. Wrong input components. No compliance.",
+      before: "4 generic steps: email, OTP, store name, profile picture. Wrong input components. No compliance.",
       after: "7 contextual steps with entity-type classification, progressive disclosure, VIES validation with 3 states, and design-system-consistent components.",
       details: [
         "Used the founder's PDF spec as a starting point, then built complete flows in Claude artifacts before touching Figma",
-        "Applied progressive disclosure — classify the seller first, then surface only relevant fields per entity type (individual vs. sole proprietor vs. company)",
+        "Applied progressive disclosure: classify the seller first, then surface only relevant fields per entity type (individual vs. sole proprietor vs. company)",
         "Designed a country selector component from scratch and added it to the design system",
         "Created three VIES validation states: validating, success, error with recovery path",
         "Fixed accessibility issues with input fields the previous design had wrong",
@@ -65,17 +65,17 @@ const caseStudy = {
       number: "02",
       title: "Order Management",
       headline: "Designing how orders flow between two sides of a marketplace",
-      theme: "Systems thinking — every screen on one side has consequences on the other",
+      theme: "Systems thinking: every screen on one side has consequences on the other",
       summary:
-        "The biggest piece of work in the project. Nothing existed — I designed the seller dashboard with 11+ statuses AND the buyer-side cancel/return/complain flows, simultaneously.",
+        "The biggest piece of work in the project. Nothing existed. I designed the seller dashboard with 11+ statuses AND the buyer-side cancel/return/complain flows, simultaneously.",
       before: "No order management system at all. No dashboard, no status tracking, no buyer-side order actions.",
       after: "Full seller dashboard with 11+ order statuses, buyer item-level selection for cancel/return/complain, and chat-based complaint resolution.",
       details: [
         "Deeply researched how Etsy and Shopify handle every order status from both seller and buyer perspectives",
-        "Designed the seller dashboard first — all statuses and flows — then mapped how each buyer action creates a seller-side status change",
-        "For buyer cancellation: created item-by-item selection (not abstract 'full vs partial'), made it clear you're requesting — not cancelling — since sellers may have started preparing",
-        "Introduced chat-based complaint resolution instead of forms — based on patterns from Etsy, Binance, AliExpress",
-        "Clear communication with founder played a huge role — this was the biggest feature of the platform",
+        "Designed the seller dashboard first, covering all statuses and flows, then mapped how each buyer action creates a seller-side status change",
+        "For buyer cancellation: created item-by-item selection (not abstract 'full vs partial'), made it clear you're requesting, not cancelling, since sellers may have started preparing",
+        "Introduced chat-based complaint resolution instead of forms, based on patterns from Etsy, Binance, AliExpress",
+        "Clear communication with founder played a huge role. This was the biggest feature of the platform",
       ],
       insight: "I can design complex systems that work across platforms and user types. I think about how one user's action affects another user's experience.",
     },
@@ -88,46 +88,46 @@ const caseStudy = {
       summary:
         "Two connected features: how sellers build their shop (desktop) and how buyers experience it (mobile). Designed buyer-side first, then worked backwards to the builder.",
       before: "No shop building tools for sellers. Buyer store view existed but needed redesign.",
-      after: "Full shop builder with form-based editing, redesigned buyer store with categories, grid, policies. Live preview editing was cut after dev feedback — adapted without losing value.",
+      after: "Full shop builder with form-based editing, redesigned buyer store with categories, grid, policies. Live preview editing was cut after dev feedback, adapted without losing value.",
       details: [
-        "Designed the buyer-facing store first — what the end result looks like — then worked backwards to what the builder needs to produce",
+        "Designed the buyer-facing store first (what the end result looks like), then worked backwards to what the builder needs to produce",
         "Store template structure (categories, product grid, policies, color/size selectors) came from my research with Claude, inspired by e-commerce UI kits",
-        "Original vision included live preview editing — devs said too complex to implement",
+        "Original vision included live preview editing. Devs said too complex to implement",
         "Adapted: kept live preview for viewing, removed editing. Full-width form + separate preview page. Core user value preserved.",
         "Used expanded/condensed design approach for description, reviews, and store policies sections",
       ],
-      insight: "I handle dev constraints without ego — I adapt the design while preserving user value. Whenever developers say something can't be done, I understand and find another way.",
+      insight: "I handle dev constraints without ego. I adapt the design while preserving user value. Whenever developers say something can't be done, I understand and find another way.",
     },
     {
       id: "comments",
       number: "04",
       title: "Comments & Report",
       headline: "Not every task is a system. Sometimes it's focused craft.",
-      theme: "Range — micro-interaction design, pattern reference, practical decisions",
+      theme: "Range: micro-interaction design, pattern reference, practical decisions",
       summary:
         "Instagram-style comments with slide-up sheets, long-press context menus for edit/delete/report, and confirmation flows. Contained, polished interaction design.",
       before: "Basic comment display with no interaction capabilities.",
       after: "Full comment system: slide-up sheet, long-press edit/delete (own) or report (others), reply threads, realistic timestamps, report confirmation flow.",
       details: [
         "Took screenshots of existing OMOC design + Instagram comments as input for Claude artifacts",
-        "Long-press for context menu (edit/delete/report) — taken from Instagram and Telegram patterns, plus swipe would be more complex to develop",
+        "Long-press for context menu (edit/delete/report), taken from Instagram and Telegram patterns, plus swipe would be more complex to develop",
         "Created realistic time formats (just now, 2h, 2w) matching social platform conventions",
-        "Report confirmation with green checkmark — users need to know their report was submitted, it's a trust signal",
+        "Report confirmation with green checkmark: users need to know their report was submitted, it's a trust signal",
       ],
-      insight: "After three heavy systems stories, this proves range — I'm not just a systems thinker who can't execute on focused interaction details.",
+      insight: "After three heavy systems stories, this proves range. I'm not just a systems thinker who can't execute on focused interaction details.",
     },
   ],
   resolution: {
     growth:
       "Before OMOC, my UX/UI education was YouTube courses and copying Dribbble designs. I could use Figma, but I had no idea how to create components or think at a platform level.",
     discovery:
-      "My biggest skill isn't designing fancy marketing pages. It's systems thinking — attention to detail, thinking about the whole workflow, understanding how pieces connect.",
+      "My biggest skill isn't designing fancy marketing pages. It's systems thinking: attention to detail, thinking about the whole workflow, understanding how pieces connect.",
     founderQuote: "I appreciate your attention to detail",
     advice:
       "Keep learning. Research how others have done it. Use AI not to skip thinking but to think faster. With practice and continuous learning, you can handle any scope.",
   },
   workflow: {
-    title: "My UX Workflow — AI as a Design Thinking Tool",
+    title: "My UX Workflow: AI as a Design Thinking Tool",
     steps: [
       { num: "01", label: "Receive task", detail: "From founder via WhatsApp" },
       { num: "02", label: "Clarify", detail: "Discuss with Claude if unclear" },
@@ -473,7 +473,7 @@ function WorkflowSection({ workflow }) {
             margin: "0 0 48px 0",
           }}
         >
-          Claude didn't replace my design thinking — it let me validate UX decisions faster. The research, the "why," the system mapping — that's me. The rapid prototyping — that's where AI accelerated the process.
+          Claude didn't replace my design thinking. It let me validate UX decisions faster. The research, the "why," the system mapping: that's me. The rapid prototyping: that's where AI accelerated the process.
         </p>
 
         {/* Steps */}
@@ -733,7 +733,7 @@ function MomentSection({ moment, isEven }) {
               <polyline points="21,15 16,10 5,21" />
             </svg>
             <div style={{ fontFamily: fontMono, fontSize: 11, color: t.textDimmed }}>
-              {moment.title} — Figma Screens
+              {moment.title}: Figma Screens
             </div>
           </div>
         </div>
@@ -770,7 +770,7 @@ function MomentSection({ moment, isEven }) {
           >
             <path d="M9 18l6-6-6-6" />
           </svg>
-          {expanded ? "Less detail" : "Deep dive — what I actually did"}
+          {expanded ? "Less detail" : "Deep dive: what I actually did"}
         </button>
 
         {/* Expandable details */}
@@ -950,7 +950,7 @@ function ResolutionSection({ resolution }) {
             "{resolution.founderQuote}"
           </div>
           <div style={{ fontFamily: fontBody, fontSize: 13, color: t.textDimmed }}>
-            — OMOC Founder, said repeatedly throughout the project
+            OMOC Founder, said repeatedly throughout the project
           </div>
         </div>
 

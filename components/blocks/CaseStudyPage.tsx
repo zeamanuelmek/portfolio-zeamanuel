@@ -348,7 +348,7 @@ function MomentSection({
           >
             <path d="M9 18l6-6-6-6" />
           </svg>
-          {expanded ? 'Less detail' : 'Deep dive \u2014 what I actually did'}
+          {expanded ? 'Less detail' : 'Deep dive: what I actually did'}
         </button>
 
         {/* Expandable details */}
@@ -482,7 +482,7 @@ export function CaseStudyPage({
         }}
       >
         <div style={{ maxWidth: 960, margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
-          {/* Back link — inline, not fixed */}
+          {/* Back link: inline, not fixed */}
           <ScrollReveal direction="up">
             <a
               href="/work"
@@ -996,7 +996,7 @@ export function CaseStudyPage({
   );
 }
 
-/* ═══ Coming Soon — creative fallback for projects without case study ═══ */
+/* ═══ Coming Soon: creative fallback for projects without case study ═══ */
 
 const comingSoonStyles = `
 /* ── floating particles ── */
@@ -1136,7 +1136,7 @@ function BlueprintIllustration() {
           style={{ animation: 'csPulse 4s ease-in-out infinite' , transformOrigin: '160px 160px'}}
         />
 
-        {/* Ethiopian cross — drawn with stroke animation */}
+        {/* Ethiopian cross: drawn with stroke animation */}
         <g style={{ transformOrigin: '160px 160px' }}>
           {/* Vertical bar */}
           <rect
@@ -1222,7 +1222,7 @@ function BlueprintIllustration() {
         <line x1="60" y1="30" x2="260" y2="30" stroke="var(--theme-gold, #D4AF37)" strokeWidth="0.5" opacity="0.15" strokeDasharray="2 4" />
         <line x1="30" y1="60" x2="30" y2="260" stroke="var(--theme-gold, #D4AF37)" strokeWidth="0.5" opacity="0.15" strokeDasharray="2 4" />
 
-        {/* Small diamonds — habesha textile motif */}
+        {/* Small diamonds: habesha textile motif */}
         {[
           { cx: 90, cy: 90 },
           { cx: 230, cy: 90 },

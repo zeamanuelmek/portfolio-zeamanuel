@@ -9,7 +9,7 @@ import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoint
  * Notion-hosted S3 URLs expire in ~1 hour; this proxy always gets a
  * current URL on each request so images never break.
  *
- * Cache-Control: private, max-age=3300 (~55 min) — safe to cache on
+ * Cache-Control: private, max-age=3300 (~55 min). Safe to cache on
  * the client just under the 1-hour Notion expiry window.
  */
 export async function GET(req: NextRequest) {
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
       status: 200,
       headers: {
         'Content-Type': contentType,
-        // Cache on client for 55 minutes — safely under Notion's ~1hr expiry
+        // Cache on client for 55 minutes, safely under Notion's ~1hr expiry
         'Cache-Control': 'private, max-age=3300',
       },
     });

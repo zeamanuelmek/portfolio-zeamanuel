@@ -191,7 +191,7 @@ const showcaseStyles = `
 export function ProjectShowcase({
   headingPrefix = 'Project',
   heading = 'Showcase',
-  tagline = "In today\u2019s crowded digital world, it\u2019s not about being louder\u2014it\u2019s about being",
+  tagline = "In today\u2019s crowded digital world, it\u2019s not about being louder, it\u2019s about being",
   taglineAccent = 'sharper.',
   projects = defaultProjects,
 }: ProjectShowcaseProps): React.ReactElement {

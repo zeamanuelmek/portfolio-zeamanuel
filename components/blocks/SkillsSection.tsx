@@ -197,7 +197,7 @@ export function SkillsSection({
             margin: '0 auto',
           }}
         >
-          {/* Section header — matches ProjectShowcase pattern */}
+          {/* Section header: matches ProjectShowcase pattern */}
           <ScrollReveal>
             <div
               style={{

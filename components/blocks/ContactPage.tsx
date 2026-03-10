@@ -133,7 +133,7 @@ export interface ContactPageProps {
 
 export function ContactPage({
   heading = "Let\u2019s Work Together",
-  description = "Whether you need a design system, a prototype, or a full product \u2014 I\u2019m here for it.",
+  description = "Whether you need a design system, a prototype, or a full product, I\u2019m here for it.",
 }: ContactPageProps): React.ReactElement {
   return (
     <>
@@ -219,7 +219,7 @@ export function ContactPage({
       >
         <div style={{ maxWidth: '56rem', margin: '0 auto' }}>
           <div className="contact-layout">
-            {/* LEFT — Contact form */}
+            {/* LEFT: Contact form */}
             <div style={{ flex: '1.2', minWidth: 0 }}>
               <ScrollReveal direction="up" delay={0.05}>
                 <form onSubmit={(e) => e.preventDefault()}>
@@ -320,7 +320,7 @@ export function ContactPage({
               </ScrollReveal>
             </div>
 
-            {/* RIGHT — Direct channels */}
+            {/* RIGHT: Direct channels */}
             <div style={{ flex: '0.8', minWidth: 0 }}>
               <ScrollReveal direction="up" delay={0.15}>
                 <h2

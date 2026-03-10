@@ -17,7 +17,7 @@ import { Button as MantineButton } from '@mantine/core';
 /* === Types === */
 
 export interface ContactSectionProps {
-  /** Main heading — plain prefix before the gold accent */
+  /** Main heading: plain prefix before the gold accent */
   headingPrefix?: string;
   /** Gold-accented word(s) in the heading */
   headingAccent?: string;
@@ -119,7 +119,7 @@ export function ContactSection({
           margin: '0 auto',
         }}
       >
-        {/* Section header — matches ProjectShowcase/SkillsSection pattern */}
+        {/* Section header: matches ProjectShowcase/SkillsSection pattern */}
         <ScrollReveal>
           <div
             style={{
@@ -174,7 +174,7 @@ export function ContactSection({
           </div>
         </ScrollReveal>
 
-        {/* TODO: Wire up form submission — Formspree, EmailJS, or Next.js API route */}
+        {/* TODO: Wire up form submission. Formspree, EmailJS, or Next.js API route */}
         <ScrollReveal direction="up" delay={0.2}>
           <form
             onSubmit={(e) => e.preventDefault()}

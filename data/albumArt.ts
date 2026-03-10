@@ -1,4 +1,4 @@
-// data/albumArt.ts — Ethiopiques album art tiles for cultural side panels
+// data/albumArt.ts: Ethiopiques album art tiles for cultural side panels
 
 export interface AlbumTile {
   id: string;

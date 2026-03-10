@@ -107,9 +107,9 @@ export const projects: Project[] = [
       ],
       tags: ['UX Design', 'Systems Design', 'Mobile', 'Desktop', 'E-Commerce'],
       workflow: {
-        title: 'My UX Workflow \u2014 AI as a Design Thinking Tool',
+        title: 'My UX Workflow: AI as a Design Thinking Tool',
         description:
-          "Claude didn't replace my design thinking \u2014 it let me validate UX decisions faster. The research, the 'why,' the system mapping \u2014 that's me. The rapid prototyping \u2014 that's where AI accelerated the process.",
+          "Claude didn't replace my design thinking; it let me validate UX decisions faster. The research, the 'why,' the system mapping: that's me. The rapid prototyping: that's where AI accelerated the process.",
         steps: [
           { num: '01', label: 'Receive task', detail: 'From founder via WhatsApp' },
           { num: '02', label: 'Clarify', detail: 'Discuss with Claude if unclear' },
@@ -131,15 +131,15 @@ export const projects: Project[] = [
           summary:
             'What started as a 4-step signup became a 7-step EU compliance system spanning three entity types. The founder sent a PDF that transformed everything.',
           before:
-            "4 generic steps \u2014 email, OTP, store name, profile picture. Wrong input components that didn't match the design system. No compliance handling.",
+            "4 generic steps: email, OTP, store name, profile picture. Wrong input components that didn't match the design system. No compliance handling.",
           after:
             '7 contextual steps with entity-type classification (individual / sole proprietor / company), progressive disclosure per type, real-time VIES validation with 3 states, and design-system-consistent components.',
           details: [
             "Used the founder's PDF spec as a starting point, then built complete flows in Claude artifacts before touching Figma",
-            'Applied progressive disclosure \u2014 classify the seller first, then surface only relevant fields per entity type (individual vs. sole proprietor vs. company)',
-            'Designed a country selector component from scratch and added it to the design system \u2014 reused the dropdown pattern',
+            'Applied progressive disclosure: classify the seller first, then surface only relevant fields per entity type (individual vs. sole proprietor vs. company)',
+            'Designed a country selector component from scratch and added it to the design system, reusing the dropdown pattern',
             'Created three VIES validation states: validating (spinner), success (checkmark), error with recovery path',
-            "Fixed accessibility issues with input fields the previous design had wrong \u2014 went beyond the brief",
+            "Fixed accessibility issues with input fields the previous design had wrong, going beyond the brief",
           ],
           insight:
             "I can take ambiguous, expanding requirements and create structured, logical flows. I fix what's broken even when it's not in the brief.",
@@ -155,19 +155,19 @@ export const projects: Project[] = [
           number: '02',
           title: 'Order Management',
           headline: 'Designing how orders flow between two sides of a marketplace',
-          theme: 'Systems thinking \u2014 every screen on one side has consequences on the other',
+          theme: 'Systems thinking: every screen on one side has consequences on the other',
           summary:
-            'The biggest piece of work in the project. Nothing existed \u2014 I designed the seller dashboard with 11+ statuses AND the buyer-side cancel/return/complain flows, simultaneously.',
+            'The biggest piece of work in the project. Nothing existed. I designed the seller dashboard with 11+ statuses AND the buyer-side cancel/return/complain flows, simultaneously.',
           before:
             'No order management system at all. No dashboard, no status tracking, no buyer-side order actions.',
           after:
             'Full seller dashboard with 11+ order statuses, buyer item-level selection for cancel/return/complain, and chat-based complaint resolution.',
           details: [
             'Deeply researched how Etsy and Shopify handle every order status from both seller and buyer perspectives',
-            "Designed the seller dashboard first \u2014 all statuses and flows \u2014 then mapped how each buyer action creates a seller-side status change",
-            "For buyer cancellation: created item-by-item selection (not abstract 'full vs partial'), made it clear you're requesting \u2014 not cancelling \u2014 since sellers may have started preparing",
-            'Introduced chat-based complaint resolution instead of forms \u2014 based on patterns from Etsy, Binance, AliExpress. Founder loved it, devs confirmed feasibility',
-            'Clear communication with founder played a huge role \u2014 we learned what flows were needed as we designed them',
+            "Designed the seller dashboard first, mapping all statuses and flows, then traced how each buyer action creates a seller-side status change",
+            "For buyer cancellation: created item-by-item selection (not abstract 'full vs partial'), made it clear you're requesting, not cancelling, since sellers may have started preparing",
+            'Introduced chat-based complaint resolution instead of forms, based on patterns from Etsy, Binance, AliExpress. Founder loved it, devs confirmed feasibility',
+            'Clear communication with founder played a huge role; we learned what flows were needed as we designed them',
           ],
           insight:
             "I can design complex systems that work across platforms and user types. I think about how one user's action affects another user's experience.",
@@ -189,16 +189,16 @@ export const projects: Project[] = [
           before:
             'No shop building tools for sellers. Buyer store view existed but needed redesign.',
           after:
-            'Full shop builder with form-based editing, redesigned buyer store with categories, product grid, policies. Live preview editing was cut after dev feedback \u2014 adapted without losing user value.',
+            'Full shop builder with form-based editing, redesigned buyer store with categories, product grid, policies. Live preview editing was cut after dev feedback, adapted without losing user value.',
           details: [
-            'Designed the buyer-facing store first \u2014 what the end result looks like \u2014 then worked backwards to what the builder needs to produce',
+            'Designed the buyer-facing store first, looking at what the end result looks like, then worked backwards to what the builder needs to produce',
             'Store template structure (categories, product grid, policies, color/size selectors) came from my research with Claude, inspired by e-commerce UI kits',
-            'Original vision included live preview editing \u2014 devs said too complex to implement',
+            'Original vision included live preview editing; devs said too complex to implement',
             'Adapted: kept live preview for viewing, removed editing in preview. Full-width form + separate preview page. Core user value preserved.',
             'Used expanded/condensed design approach for description, reviews, and store policies sections',
           ],
           insight:
-            "I handle dev constraints without ego \u2014 I adapt the design while preserving user value. Whenever developers say something can't be done, I understand and find another way.",
+            "I handle dev constraints without ego. I adapt the design while preserving user value. Whenever developers say something can't be done, I understand and find another way.",
           images: [
             { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063913/Frame_11_fa6wys.png', caption: 'Buyer-facing store template', alt: 'How buyers see a seller\'s shop on mobile' },
             { url: 'https://res.cloudinary.com/domn0kmbs/image/upload/v1773063952/Frame_12_t5ggts.png', caption: 'Seller shop builder form', alt: 'Desktop shop builder with form-based editing' },
@@ -211,10 +211,10 @@ export const projects: Project[] = [
         growth:
           "Before OMOC, my UX/UI education was YouTube courses and copying Dribbble designs. I could use Figma, but I had no idea how to create components, work within a design system, or think at a platform level.",
         discovery:
-          "My biggest skill isn't designing fancy marketing pages. It's systems thinking \u2014 attention to detail, thinking about the whole workflow, understanding how pieces connect. The founder confirmed this repeatedly.",
+          "My biggest skill isn't designing fancy marketing pages. It's systems thinking: attention to detail, thinking about the whole workflow, understanding how pieces connect. The founder confirmed this repeatedly.",
         founderQuote: 'I appreciate your attention to detail',
         advice:
-          'Keep learning. Research how others have done it. Use AI not to skip thinking but to think faster \u2014 worry about user flows, how users feel, how to solve the real problem instead of wasting time on pixel-level iterations. With practice and continuous learning, you can handle any scope.',
+          'Keep learning. Research how others have done it. Use AI not to skip thinking but to think faster; worry about user flows, how users feel, how to solve the real problem instead of wasting time on pixel-level iterations. With practice and continuous learning, you can handle any scope.',
       },
     },
   },

@@ -247,7 +247,7 @@ export function HeroSection(): React.ReactElement {
                 <strong style={{ fontWeight: 600, color: 'var(--theme-text)', transition: 'color 400ms ease' }}>
                   scalable design systems
                 </strong>
-                {' '}&mdash; shipping complete experiences, not just pixels.
+                {' '}shipping complete experiences, not just pixels.
               </p>
 
               {/* CTAs */}

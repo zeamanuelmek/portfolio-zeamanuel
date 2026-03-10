@@ -305,7 +305,7 @@ export function HeroSection({
                   }}
                 >
                   Feel free to explore my portfolio and
-                  reach out—I&apos;d love to connect.
+                  reach out. I&apos;d love to connect.
                 </Text>
               </Group>
             </AnimatedSection>
