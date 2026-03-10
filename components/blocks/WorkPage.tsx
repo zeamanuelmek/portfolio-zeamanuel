@@ -233,17 +233,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.title}: {project.subtitle}
         </h3>
 
-        {/* Tags — single line, no wrap, overflow hidden */}
+        {/* Tags — max 3, single row */}
         <div
           style={{
             display: 'flex',
-            flexWrap: 'nowrap',
+            flexWrap: 'wrap',
             gap: '6px',
             marginTop: '10px',
-            overflow: 'hidden',
           }}
         >
-          {project.tags.map((tag) => (
+          {project.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
               style={{
