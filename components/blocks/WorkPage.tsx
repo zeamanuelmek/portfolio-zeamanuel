@@ -224,18 +224,23 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             margin: '6px 0 0',
             lineHeight: 1.3,
             transition: 'color 300ms ease',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
           }}
         >
           {project.title}: {project.subtitle}
         </h3>
 
-        {/* Tags */}
+        {/* Tags — single line, no wrap, overflow hidden */}
         <div
           style={{
             display: 'flex',
-            flexWrap: 'wrap',
+            flexWrap: 'nowrap',
             gap: '6px',
             marginTop: '10px',
+            overflow: 'hidden',
           }}
         >
           {project.tags.map((tag) => (
